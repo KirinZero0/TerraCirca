@@ -130,7 +130,7 @@
                 <div class="col-lg-4 col-md-12 col-12 col-sm-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Riwayat Barang</h4>
+                            <h4>Riwayat Barang Masuk</h4>
                             <div class="badge badge-pendings text-capitalize">{{ $pending }} Pending</div>
                         </div>
                         <div class="card-body">

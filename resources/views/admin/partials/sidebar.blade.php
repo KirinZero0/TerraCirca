@@ -21,6 +21,11 @@
                     <i class="fas fa-users"></i> <span>Users</span>
                 </a>
             </li>
+            <li {{ is_nav_active('menu') }}>
+                <a class="nav-link" href="{{ route('admin.menu.index') }}">
+                    <i class="fas fa-utensils"></i> <span>Menu</span>
+                </a>
+            </li>
         @endcan
         <li class="dropdown {{ is_drop_active('barang') }}">
             <a href="#" class="nav-link has-dropdown">
@@ -62,10 +67,22 @@
                 @endcanany
             </ul>
         </li>
-        <li {{ is_nav_active('laporan') }}>
-            <a class="nav-link" href="{{ route('admin.laporan.index') }}">
-                <i class="fas fa-folder-open"></i> Laporan Barang
+        <li class="dropdown" {{ is_nav_active('laporan') }}>
+            <a class="nav-link has-dropdown" href="#">
+                <i class="fas fa-folder-open"></i> <span>Laporan</span>
             </a>
+            <ul class="dropdown-menu">
+                <li {{ is_nav_active('laporanMasuk') }}>
+                    <a class="nav-link" href="{{ route('admin.barang.stok.index') }}">
+                        <i class="far fa-circle"></i> Barang Masuk
+                    </a>
+                </li>
+                <li {{ is_nav_active('laporanKeluar') }}>
+                    <a class="nav-link" href="{{ route('admin.barang.list.index') }}">
+                        <i class="far fa-circle"></i> Barang Keluar
+                    </a>
+                </li>
+            </ul>
         </li>
     </ul>
 </aside>

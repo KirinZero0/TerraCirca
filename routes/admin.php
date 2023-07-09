@@ -72,6 +72,16 @@ Route::group([], function () {
             Route::put('keluar/{product}', [\App\Http\Controllers\BarangKeluarController::class, 'update'])->name('keluar.update');
         });
 
+        Route::prefix('menu')->as('menu.')->group(function () {
+            Route::get('/', [\App\Http\Controllers\MenuController::class, 'index'])->name('index');
+            Route::get('create', [\App\Http\Controllers\MenuController::class, 'create'])->name('create');
+            Route::get('{menu}/edit', [\App\Http\Controllers\MenuController::class, 'edit'])->name('edit');
+            Route::get('{menu}/delete', [\App\Http\Controllers\MenuController::class, 'destroy'])->name('destroy');
+        
+            Route::post('/', [\App\Http\Controllers\MenuController::class, 'store'])->name('store');
+            Route::put('{menu}', [\App\Http\Controllers\MenuController::class, 'update'])->name('update');
+        });
+
         Route::get('laporan', [\App\Http\Controllers\LaporanBarangController::class, 'index'])->name('laporan.index');
     });
 });

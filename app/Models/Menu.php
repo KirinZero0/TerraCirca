@@ -2,19 +2,21 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HandleUpload;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Menu extends Model
 {
-    use HasFactory;
+    use HasFactory, HandleUpload;
 
     protected $fillable = [
+        'custom_id',
         'name',
         'price',
         'description',
         'type',
-        'image',
+        'photo',
     ];
 
     const MAKANAN = "MAKANAN";

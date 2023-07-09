@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Barang Keluar')
+@section('title', 'Kelola Barang Keluar')
 
 @section('css')
 

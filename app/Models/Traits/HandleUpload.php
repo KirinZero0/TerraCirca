@@ -16,20 +16,20 @@ trait HandleUpload
         static::saving(function (Model $model) {
             if ($model->isDirty($model->imageAttribute())) {
                 if (blank($model->{$model->imageAttribute()})) {
-//                    $model->deleteLatestImage();
+                    $model->deleteLatestImage();
                 }
 
                 if (($model->{$model->imageAttribute()} instanceof UploadedFile)) {
-//                    $model->deleteLatestImage();
+                    $model->deleteLatestImage();
                     $model->saveImage();
                 }
             }
         });
 
         static::deleting(function (Model $model) {
+            $model->deleteLatestImage();
             $model->{$model->imageAttribute()} = null;
             $model->saveOrFail();
-            $model->deleteLatestImage();
         });
     }
 
