@@ -12,10 +12,13 @@ class Reservation extends Model
     protected $fillable = [
         'reference_id',
         'table_number',
+        'name',
         'number_of_people',
         'date',
         'status',
     ];
+
+    protected $dates = ['date'];
 
     const PENDING = "PENDING";
     const PROGRESS = "PROGRESS";
@@ -34,7 +37,7 @@ class Reservation extends Model
     public function getStatusColor()
     {
         if($this->status == self::PENDING) return 'badge badge-warning';
-        if($this->status == self::PROGRESS) return 'badge badge-danger';
+        if($this->status == self::PROGRESS) return 'badge badge-primary';
         if($this->status == self::CANCEL) return 'badge badge-danger';
 
         return 'badge badge-success';
@@ -48,7 +51,7 @@ class Reservation extends Model
     public function getSubtotalAttribute()
     {
         return $this->orders->sum(function ($order) {
-            return $order->getSubtotalAttribute();
+            return $order->getTotalPriceAttribute();
         });
     }
 }

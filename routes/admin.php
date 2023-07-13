@@ -29,9 +29,6 @@ Route::group([], function () {
                 Route::get('{product}/edit', [\App\Http\Controllers\BarangController::class, 'edit'])->name('edit');
                 Route::get('{product}/delete', [\App\Http\Controllers\BarangController::class, 'destroy'])->name('destroy');
             
-              
-                Route::get('export', [\App\Http\Controllers\LaporanBarangController::class, 'export'])->name('export');
-
                 Route::post('/', [\App\Http\Controllers\BarangController::class, 'store'])->name('store');
                 Route::put('{product}', [\App\Http\Controllers\BarangController::class, 'update'])->name('update');
                 Route::put('{product}/status', [\App\Http\Controllers\BarangController::class, 'updateStatus'])->name('updateStatus');
@@ -44,21 +41,12 @@ Route::group([], function () {
                 Route::get('{product}/edit', [\App\Http\Controllers\BarangKeluarController::class, 'edit'])->name('keluar.edit');
                 Route::get('{product}/delete', [\App\Http\Controllers\BarangKeluarController::class, 'destroy'])->name('keluar.destroy');
 
-            
-              
-                Route::get('export', [\App\Http\Controllers\LaporanBarangController::class, 'export'])->name('export');
-
+    
                 Route::post('/', [\App\Http\Controllers\BarangKeluarController::class, 'store'])->name('keluar.store');
                 Route::put('{product}', [\App\Http\Controllers\BarangKeluarController::class, 'update'])->name('keluar.update');
             });
 
-            Route::prefix('retur')->as('return.')->group(function () {
-                Route::get('/', [\App\Http\Controllers\ReturnBarangController::class, 'index'])->name('index');
-                Route::get('/{product}/edit', [\App\Http\Controllers\ReturnBarangController::class, 'edit'])->name('edit');
-                Route::put('/{product}', [\App\Http\Controllers\ReturnBarangController::class, 'update'])->name('update');
-            });
-
-            Route::get('master', [\App\Http\Controllers\MasterBarangController::class, 'index'])->name('master.index');
+        
             Route::get('stok', [\App\Http\Controllers\StokBarangController::class, 'index'])->name('stok.index');
 
             Route::get('list', [\App\Http\Controllers\BarangListController::class, 'index'])->name('list.index');
@@ -67,9 +55,9 @@ Route::group([], function () {
             Route::get('list/{product}/delete', [\App\Http\Controllers\BarangListController::class, 'destroy'])->name('list.destroy');
 
             Route::get('masuk', [\App\Http\Controllers\BarangMasukController::class, 'index'])->name('masuk.index');
-            Route::get('keluar', [\App\Http\Controllers\BarangKeluarController::class, 'index'])->name('keluar.index');
-            Route::get('keluar/{product}/edit', [\App\Http\Controllers\BarangKeluarController::class, 'edit'])->name('keluar.edit');
-            Route::put('keluar/{product}', [\App\Http\Controllers\BarangKeluarController::class, 'update'])->name('keluar.update');
+            // Route::get('keluar', [\App\Http\Controllers\BarangKeluarController::class, 'index'])->name('keluar.index');
+            // Route::get('keluar/{product}/edit', [\App\Http\Controllers\BarangKeluarController::class, 'edit'])->name('keluar.edit');
+            // Route::put('keluar/{product}', [\App\Http\Controllers\BarangKeluarController::class, 'update'])->name('keluar.update');
         });
 
         Route::prefix('menu')->as('menu.')->group(function () {
@@ -82,6 +70,46 @@ Route::group([], function () {
             Route::put('{menu}', [\App\Http\Controllers\MenuController::class, 'update'])->name('update');
         });
 
-        Route::get('laporan', [\App\Http\Controllers\LaporanBarangController::class, 'index'])->name('laporan.index');
+        Route::prefix('reservation')->as('reservation.')->group(function () {
+            Route::get('/', [\App\Http\Controllers\ReservationController::class, 'index'])->name('index');
+            Route::get('create', [\App\Http\Controllers\ReservationController::class, 'create'])->name('create');
+            Route::get('{reservation}/serve', [\App\Http\Controllers\ReservationController::class, 'serve'])->name('serve');
+            Route::get('{reservation}/cancel', [\App\Http\Controllers\ReservationController::class, 'cancel'])->name('cancel');
+            Route::get('{reservation}/finish', [\App\Http\Controllers\ReservationController::class, 'finish'])->name('finish');
+            Route::get('{reservation}/view', [\App\Http\Controllers\ReservationController::class, 'view'])->name('view');
+
+            Route::get('laporan', [\App\Http\Controllers\LaporanTransaksiController::class, 'index'])->name('laporan');
+
+            Route::get('{reservation}/invoice', [\App\Http\Controllers\InvoiceController::class, 'generate'])->name('invoice');
+        
+            Route::post('/', [\App\Http\Controllers\ReservationController::class, 'store'])->name('store');
+            Route::put('{menu}', [\App\Http\Controllers\MenuController::class, 'update'])->name('update');
+        });
+
+        Route::prefix('order')->as('order.')->group(function () {
+            Route::get('/', [\App\Http\Controllers\ReservationController::class, 'index'])->name('index');
+            Route::get('create', [\App\Http\Controllers\ReservationController::class, 'create'])->name('create');
+            Route::get('{reservation}/serve', [\App\Http\Controllers\ReservationController::class, 'serve'])->name('serve');
+            Route::get('{menu}/edit', [\App\Http\Controllers\MenuController::class, 'edit'])->name('edit');
+            Route::get('{order}/delete', [\App\Http\Controllers\OrderController::class, 'destroy'])->name('destroy');
+        
+            Route::post('/', [\App\Http\Controllers\OrderController::class, 'store'])->name('store');
+            Route::put('{menu}', [\App\Http\Controllers\MenuController::class, 'update'])->name('update');
+
+            
+        });
+
+        Route::prefix('laporan')->as('laporan.')->group(function () {
+            Route::get('laporan/masuk', [\App\Http\Controllers\LaporanMasukController::class, 'index'])->name('masuk.index');
+            Route::get('laporan/keluar', [\App\Http\Controllers\LaporanKeluarController::class, 'index'])->name('keluar.index');
+            Route::get('laporan/transaksi', [\App\Http\Controllers\LaporanTransaksiController::class, 'index'])->name('transaksi.index');
+
+            Route::get('laporan/masuk/export', [\App\Http\Controllers\LaporanMasukController::class, 'export'])->name('masuk.export');
+            Route::get('laporan/keluar/export', [\App\Http\Controllers\LaporanKeluarController::class, 'export'])->name('keluar.export');
+            Route::get('laporan/transaksi/export', [\App\Http\Controllers\LaporanTransaksiController::class, 'export'])->name('transaksi.export');
+
+        });
+
+
     });
 });

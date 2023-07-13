@@ -19,12 +19,12 @@ class Order extends Model
 
     public function reservation(): BelongsTo
     {
-        return $this->belongsTo(Reservation::class, 'reservation_id')->onDelete('cascade');
+        return $this->belongsTo(Reservation::class, 'reservation_id');
     }
 
     public function menu(): BelongsTo
     {
-        return $this->belongsTo(Menu::class, 'menu_id')->onDelete('cascade');
+        return $this->belongsTo(Menu::class, 'menu_id');
     }
 
     public function getTotalPriceAttribute()

@@ -1,12 +1,12 @@
 <aside id="sidebar-wrapper">
     <div class="sidebar-brand mb-5">
         <a href="{{ url('/') }}">
-            <img width="120" src="{{ asset('assets/images/logo/pao.png') }}" alt="">
+            <img width="120" src="{{ asset('assets/images/logo/UMAI.png') }}" alt="">
         </a>
     </div>
     <div class="sidebar-brand sidebar-brand-sm">
         <a href="{{ url('/') }}">
-            <img width="40" src="{{ asset('assets/images/logo/pao.png') }}" alt="">
+            <img width="40" src="{{ asset('assets/images/logo/UMAI.png') }}" alt="">
         </a>
     </div>
     <ul class="sidebar-menu">
@@ -27,6 +27,11 @@
                 </a>
             </li>
         @endcan
+        <li {{ is_nav_active('reservation') }}>
+            <a class="nav-link" href="{{ route('admin.reservation.index') }}">
+                <i class="fas fa-scroll"></i> <span>Reservation</span>
+            </a>
+        </li>
         <li class="dropdown {{ is_drop_active('barang') }}">
             <a href="#" class="nav-link has-dropdown">
                 <i class="fas fa-box"></i> <span>Barang</span>
@@ -67,19 +72,24 @@
                 @endcanany
             </ul>
         </li>
-        <li class="dropdown" {{ is_nav_active('laporan') }}>
+        <li class="dropdown" {{ is_drop_active('laporan') }}>
             <a class="nav-link has-dropdown" href="#">
                 <i class="fas fa-folder-open"></i> <span>Laporan</span>
             </a>
             <ul class="dropdown-menu">
-                <li {{ is_nav_active('laporanMasuk') }}>
-                    <a class="nav-link" href="{{ route('admin.barang.stok.index') }}">
+                <li {{ is_nav_active('masuk.index') }}>
+                    <a class="nav-link" href="{{ route('admin.laporan.masuk.index') }}">
                         <i class="far fa-circle"></i> Barang Masuk
                     </a>
                 </li>
-                <li {{ is_nav_active('laporanKeluar') }}>
-                    <a class="nav-link" href="{{ route('admin.barang.list.index') }}">
+                <li {{ is_nav_active('keluar.index') }}>
+                    <a class="nav-link" href="{{ route('admin.laporan.keluar.index') }}">
                         <i class="far fa-circle"></i> Barang Keluar
+                    </a>
+                </li>
+                <li {{ is_nav_active('transaksi.index') }}>
+                    <a class="nav-link" href="{{ route('admin.laporan.transaksi.index') }}">
+                        <i class="far fa-circle"></i> Transaksi
                     </a>
                 </li>
             </ul>

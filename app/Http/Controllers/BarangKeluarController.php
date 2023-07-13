@@ -55,7 +55,6 @@ class BarangKeluarController extends Controller
         $product->fill([
             'product_list_id' => $list->id,
             'code' => $request->code,
-            'price' => $request->price,
             'quantity' => $request->quantity,
             'status' => $request->status,
             'reasons' => $request->reasons,

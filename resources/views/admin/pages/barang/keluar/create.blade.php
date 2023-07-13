@@ -77,12 +77,6 @@
                                     <div class="invalid-feedback"></div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Harga Satuan</label>
-                                    <input type="text" class="form-control" name="price"
-                                           value="{{ old('price') }}" required>
-                                    <div class="invalid-feedback"></div>
-                                </div>
-                                <div class="form-group">
                                     <label>Jumlah</label>
                                     <input type="number" class="form-control" name="quantity" min="0"
                                            value="{{ old('quantity') }}" required>

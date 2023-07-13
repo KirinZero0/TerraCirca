@@ -27,7 +27,7 @@
                         <form>
                             <div class="input-group">
                                 <input type="text" name="search" id="search" class="form-control" placeholder="Pencarian"
-                                       value="{{ Request::input('search') ?? ''}}">
+                                    value="{{ Request::input('search') ?? ''}}">
                                 <div class="input-group-btn">
                                     <button class="btn btn-primary"><i class="fas fa-search"></i></button>
                                 </div>

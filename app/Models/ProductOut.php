@@ -13,7 +13,6 @@ class ProductOut extends Model
     protected $fillable = [
         'product_list_id',
         'code',
-        'price',
         'quantity',
         'date',
         'type',
