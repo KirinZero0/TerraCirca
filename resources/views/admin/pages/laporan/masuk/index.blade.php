@@ -37,7 +37,6 @@
                                 <select type="text" class="form-control" name="status" id="product_type_select" required
                                         onchange="this.form.submit()">
                                     <option value="">Pilih Status</option>
-                                    <option @if(request()->get('status') == \App\Models\Product::PENDING) selected @endif value="{{ \App\Models\Product::PENDING }}">Barang Menunggu</option>
                                     <option @if(request()->get('status') == \App\Models\Product::REJECTED) selected @endif value="{{ \App\Models\Product::REJECTED }}">Barang Ditolak</option>
                                     <option @if(request()->get('status') == \App\Models\Product::APPROVED) selected @endif value="{{ \App\Models\Product::APPROVED }}">Barang Diterima</option>
                                 </select>

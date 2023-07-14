@@ -18,10 +18,6 @@ class LaporanTransaksi implements FromView, ShouldAutoSize
             $reservations->whereMonth('date', session()->get('month'));
         }
 
-        if($type = session()->get('type')) {
-            $reservations->where('type', $type);
-        }
-
         return view('admin.pages.laporan.transaksi.excel', [
             'reservations' =>  $reservations->orderby('id', 'DESC')->get()
         ]);

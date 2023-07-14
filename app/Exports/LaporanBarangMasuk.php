@@ -11,14 +11,14 @@ class LaporanBarangMasuk implements FromView, ShouldAutoSize
 {
     public function view(): View
     {
-        $products = Product::where('code', 'like', '%'.session()->get('search').'%')->where('status', Product::APPROVED);
+        $products = Product::where('code', 'like', '%'.session()->get('search').'%');
 
         if(session()->get('month')) {
             $products->whereMonth('date', session()->get('month'));
         }
 
-        if($type = session()->get('type')) {
-            $products->where('type', $type);
+        if($status = session()->get('status')) {
+            $products->where('status', $status);
         }
 
         return view('admin.pages.laporan.masuk.excel', [

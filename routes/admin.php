@@ -100,13 +100,13 @@ Route::group([], function () {
         });
 
         Route::prefix('laporan')->as('laporan.')->group(function () {
-            Route::get('laporan/masuk', [\App\Http\Controllers\LaporanMasukController::class, 'index'])->name('masuk.index');
-            Route::get('laporan/keluar', [\App\Http\Controllers\LaporanKeluarController::class, 'index'])->name('keluar.index');
-            Route::get('laporan/transaksi', [\App\Http\Controllers\LaporanTransaksiController::class, 'index'])->name('transaksi.index');
+            Route::get('masuk', [\App\Http\Controllers\LaporanMasukController::class, 'index'])->name('masuk.index');
+            Route::get('keluar', [\App\Http\Controllers\LaporanKeluarController::class, 'index'])->name('keluar.index');
+            Route::get('transaksi', [\App\Http\Controllers\LaporanTransaksiController::class, 'index'])->name('transaksi.index');
 
-            Route::get('laporan/masuk/export', [\App\Http\Controllers\LaporanMasukController::class, 'export'])->name('masuk.export');
-            Route::get('laporan/keluar/export', [\App\Http\Controllers\LaporanKeluarController::class, 'export'])->name('keluar.export');
-            Route::get('laporan/transaksi/export', [\App\Http\Controllers\LaporanTransaksiController::class, 'export'])->name('transaksi.export');
+            Route::get('masuk/export', [\App\Http\Controllers\LaporanMasukController::class, 'export'])->name('masuk.export');
+            Route::get('keluar/export', [\App\Http\Controllers\LaporanKeluarController::class, 'export'])->name('keluar.export');
+            Route::get('transaksi/export', [\App\Http\Controllers\LaporanTransaksiController::class, 'export'])->name('transaksi.export');
 
         });
 

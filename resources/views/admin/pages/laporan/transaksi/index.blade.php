@@ -26,18 +26,6 @@
                     <div>
                         <form>
                             <div class="input-group">
-                                <select type="text" class="form-control" name="status" id="product_type_select" required
-                                        onchange="this.form.submit()">
-                                    <option value="">Pilih Tipe</option>
-                                    <option @if(request()->get('status') == \App\Models\Reservation::FINISH) selected @endif value="{{ \App\Models\Reservation::FINISH }}">Finish</option>
-                                    <option @if(request()->get('status') == \App\Models\Reservation::CANCEL) selected @endif value="{{ \App\Models\Reservation::CANCEL }}">Cancel</option>
-                                </select>
-                            </div>
-                        </form>
-                    </div>
-                    <div>
-                        <form>
-                            <div class="input-group">
                                 <select type="text" name="month" id="month" class="form-control"
                                         onchange="this.form.submit()">
                                     <option value="">Pilih Bulan</option>
@@ -66,8 +54,8 @@
                             <th>Reference Id</th>
                             <th>Atas Nama</th>
                             <th>Tanggal</th>
-                            <th>Status</th>
                             <th>Subtotal</th>
+                            <th>Invoice</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -78,10 +66,10 @@
                                 <td>{{ $reservation->name }}</td>
                                 <td>{{ $reservation->date->format('H:i - F j, Y ') }}</td>
                                 <td>
-                                    <span class="{{ $reservation->getStatusColor() }}">{{ $reservation->getStatus() }}</span>
+                                    {{ formatRupiah($reservation->getSubtotalAttribute()) }}
                                 </td>
                                 <td>
-                                    {{ formatRupiah($reservation->getSubtotalAttribute()) }}
+                                    <a class="btn btn-sm btn-success" href="{{route('admin.reservation.invoice', $reservation->id)}}"><i class="fas fa-download"></i></a>
                                 </td>
                             </tr>
                         @empty

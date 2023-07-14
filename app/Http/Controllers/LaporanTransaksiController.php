@@ -13,14 +13,10 @@ class LaporanTransaksiController extends Controller
     public function index()
     {
         $months = [];
-        $reservations = Reservation::where('name', 'like', '%'.\request()->get('search').'%');
+        $reservations = Reservation::where('name', 'like', '%'.\request()->get('search').'%')->where('status', Reservation::FINISH);
 
         if(\request()->get('month')) {
             $reservations->whereMonth('date', \request()->get('month'));
-        }
-
-        if($status = request()->get('status')) {
-            $reservations->where('status', $status);
         }
 
         $month = 1;

@@ -72,22 +72,22 @@
                 @endcanany
             </ul>
         </li>
-        <li class="dropdown" {{ is_drop_active('laporan') }}>
+        <li class="dropdown {{ is_drop_active('laporan') }}" >
             <a class="nav-link has-dropdown" href="#">
                 <i class="fas fa-folder-open"></i> <span>Laporan</span>
             </a>
             <ul class="dropdown-menu">
-                <li {{ is_nav_active('masuk.index') }}>
+                <li {{ is_nav_active('masuk') }}>
                     <a class="nav-link" href="{{ route('admin.laporan.masuk.index') }}">
                         <i class="far fa-circle"></i> Barang Masuk
                     </a>
                 </li>
-                <li {{ is_nav_active('keluar.index') }}>
+                <li {{ is_nav_active('keluar') }}>
                     <a class="nav-link" href="{{ route('admin.laporan.keluar.index') }}">
                         <i class="far fa-circle"></i> Barang Keluar
                     </a>
                 </li>
-                <li {{ is_nav_active('transaksi.index') }}>
+                <li {{ is_nav_active('transaksi') }}>
                     <a class="nav-link" href="{{ route('admin.laporan.transaksi.index') }}">
                         <i class="far fa-circle"></i> Transaksi
                     </a>
