@@ -92,4 +92,11 @@ class ReservationController extends Controller
 
         return redirect()->back()->with('success', 'Reservation Finished');
     }
+
+    public function destroy(Reservation $reservation)
+    {
+        $reservation->delete();
+
+        return redirect(route('admin.reservation.index'));
+    }
 }

@@ -54,7 +54,7 @@ Route::group([], function () {
             Route::post('list', [\App\Http\Controllers\BarangListController::class, 'store'])->name('list.store');
             Route::get('list/{product}/delete', [\App\Http\Controllers\BarangListController::class, 'destroy'])->name('list.destroy');
 
-            Route::get('masuk', [\App\Http\Controllers\BarangMasukController::class, 'index'])->name('masuk.index');
+            // Route::get('masuk', [\App\Http\Controllers\BarangMasukController::class, 'index'])->name('masuk.index');
             // Route::get('keluar', [\App\Http\Controllers\BarangKeluarController::class, 'index'])->name('keluar.index');
             // Route::get('keluar/{product}/edit', [\App\Http\Controllers\BarangKeluarController::class, 'edit'])->name('keluar.edit');
             // Route::put('keluar/{product}', [\App\Http\Controllers\BarangKeluarController::class, 'update'])->name('keluar.update');
@@ -77,6 +77,7 @@ Route::group([], function () {
             Route::get('{reservation}/cancel', [\App\Http\Controllers\ReservationController::class, 'cancel'])->name('cancel');
             Route::get('{reservation}/finish', [\App\Http\Controllers\ReservationController::class, 'finish'])->name('finish');
             Route::get('{reservation}/view', [\App\Http\Controllers\ReservationController::class, 'view'])->name('view');
+            Route::get('{reservation}/delete', [\App\Http\Controllers\ReservationController::class, 'destroy'])->name('destroy');
 
             Route::get('laporan', [\App\Http\Controllers\LaporanTransaksiController::class, 'index'])->name('laporan');
 
