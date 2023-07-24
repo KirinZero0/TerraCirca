@@ -29,14 +29,14 @@
                                 <input type="text" name="search" id="search" class="form-control" placeholder="Pencarian"
                                        value="{{ Request::input('search') ?? ''}}">
                                 <div class="input-group-btn">
-                                    <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                                    <button style="background-color: rgb(70, 147, 177)" class="btn btn-primary"><i class="fas fa-search"></i></button>
                                 </div>
                             </div>
                         </form>
                     </div>
                     @can('owner')
                     <div class="ml-2">
-                        <a href="{{ route('admin.barang.list.create') }}" class="btn btn-sm btn-primary">
+                        <a href="{{ route('admin.barang.list.create') }}" style="background-color: rgb(70, 147, 177)" class="btn btn-sm btn-primary">
                             Tambah Barang <i class="fas fa-plus"></i>
                         </a>
                     </div>
@@ -62,6 +62,11 @@
                                 <td>{{ $product->custom_id }}</td>
                                 <td>{{ $product->name }}</td>
                                 <td>
+                                    <a href="{{ route('admin.barang.list.edit', $product->id) }}"
+                                        class="btn btn-icon btn-sm btn-primary" data-toggle="tooltip"
+                                        data-placement="top" title="" data-original-title="Edit">
+                                         <i class="far fa-edit"></i>
+                                     </a>
                                     <a href="{{ route('admin.barang.list.destroy', $product->id) }}" data-toggle="tooltip"
                                        data-placement="top" title="" data-original-title="Delete"
                                        class="btn btn-sm btn-danger delete">

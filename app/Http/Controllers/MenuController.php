@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Menu;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class MenuController extends Controller
@@ -72,6 +73,9 @@ class MenuController extends Controller
 
     public function destroy(Menu $menu)
     {
+
+        Order::where('menu_id', $menu->id)->delete();
+
         $menu->delete();
 
         return redirect()->route('admin.menu.index')->with('success', 'Menu deleted successfully.');

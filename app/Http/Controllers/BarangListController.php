@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\ProductList;
+use App\Models\ProductOut;
 use App\Models\ProductStock;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -30,6 +31,13 @@ class BarangListController extends Controller
         return view('admin.pages.barang.list.create');
     }
 
+    public function edit( ProductList $product)
+    {
+        return view('admin.pages.barang.list.edit', [
+            'product' => $product
+        ]);
+    }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -52,8 +60,22 @@ class BarangListController extends Controller
         return redirect(route('admin.barang.list.index'));
     }
 
+
+    public function update(Request $request, ProductList $product)
+    {
+        $product->fill($request->all());
+        $product->saveOrFail();
+
+        return redirect(route('admin.barang.list.index'));
+    }
+
     public function destroy(ProductList $product)
     {
+
+        Product::where('product_list_id', $product->id)->delete();
+        ProductOut::where('product_list_id', $product->id)->delete();
+        ProductStock::where('product_list_id', $product->id)->delete();
+
         $product->delete();
 
         return redirect(route('admin.barang.list.index'));

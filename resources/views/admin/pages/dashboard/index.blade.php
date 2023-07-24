@@ -144,14 +144,14 @@
                                         <span class="text-small text-muted">#{{ $product->code }}</span>
                                         <br>
                                         <div
-                                            class="badge badge-success text-capitalize">{{ $product->quantity }}</div>
+                                        style="background-color: rgb(70, 147, 177)" class="badge badge-success text-capitalize">{{ $product->quantity }}</div>
                                     </div>
                                 </li>
                                 @endforeach
                             </ul>
                             <div class="text-center pt-1 pb-1">
                                 <a href="{{ route('admin.barang.index') }}"
-                                   class="btn btn-primary btn-lg btn-round">
+                                style="background-color: rgb(70, 147, 177)" class="btn btn-primary btn-lg btn-round">
                                     View All
                                 </a>
                             </div>

@@ -95,6 +95,8 @@ class ReservationController extends Controller
 
     public function destroy(Reservation $reservation)
     {
+        Order::where('reservation_id', $reservation->id)->delete();
+        
         $reservation->delete();
 
         return redirect(route('admin.reservation.index'));

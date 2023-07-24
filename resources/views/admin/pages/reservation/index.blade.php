@@ -29,14 +29,14 @@
                                 <input type="text" name="search" id="search" class="form-control" placeholder="Pencarian"
                                     value="{{ Request::input('search') ?? ''}}">
                                 <div class="input-group-btn">
-                                    <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                                    <button style="background-color: rgb(70, 147, 177)" class="btn btn-primary"><i class="fas fa-search"></i></button>
                                 </div>
                             </div>
                         </form>
                     </div>
                     @canany(['owner', 'pegawai'])
                     <div class="ml-2">
-                        <a href="{{ route('admin.reservation.create') }}" class="btn btn-sm btn-primary">
+                        <a href="{{ route('admin.reservation.create') }}" style="background-color: rgb(70, 147, 177)" class="btn btn-sm btn-primary">
                             Tambah Data <i class="fas fa-plus"></i>
                         </a>
                     </div>

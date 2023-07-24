@@ -23,7 +23,7 @@
                         @foreach ($element as $page => $url)
                             @if ($page == $paginator->currentPage())
                                 <li class="page-item active">
-                                    <a class="page-link" href="javascript:;">
+                                    <a style="background-color: rgb(70, 147, 177)" class="page-link" href="javascript:;">
                                         {{$page}} 
                                         {{-- <span class="sr-only"></span> --}}
                                     </a>

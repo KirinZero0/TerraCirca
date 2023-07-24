@@ -58,7 +58,7 @@
                         </form>
                     </div>
                     <div class="ml-2">
-                        <a href="{{ route('admin.laporan.masuk.export') }}" class="btn btn-primary">
+                        <a href="{{ route('admin.laporan.masuk.export') }}" style="background-color: rgb(70, 147, 177)" class="btn btn-primary">
                             Export Data <i class="fas fa-download"></i>
                         </a>
                     </div>

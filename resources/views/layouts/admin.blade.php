@@ -8,7 +8,7 @@
 
 <body>
     <div class="main-wrapper main-wrapper-1" id="app">
-        <div class="navbar-bg"></div>
+        <div  style="background-color: rgb(70, 147, 177)" class="navbar-bg"></div>
         <nav class="navbar navbar-expand-lg main-navbar">
             @include('admin.partials.topnav')
         </nav>
