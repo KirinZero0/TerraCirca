@@ -144,6 +144,15 @@
                 modalOverlay.classList.add('hidden')
                 openModalButton.classList.remove('hidden');
             });
+
+            const submitButton = document.getElementById('submitButton');
+            const orderForm = document.getElementById('orderForm');
+
+            submitButton.addEventListener('click', function() {
+            if (orderForm) {
+            orderForm.submit();
+            }
+            });
         </script>
     </body>
 </html>
