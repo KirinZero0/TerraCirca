@@ -114,6 +114,17 @@ Route::group([], function () {
 
         });
 
+        Route::prefix('table')->as('table.')->group(function () {
+            Route::get('/', [\App\Http\Controllers\TableController::class, 'index'])->name('index');
+            Route::get('create', [\App\Http\Controllers\TableController::class, 'create'])->name('create');
+            Route::get('{refId}/download', [\App\Http\Controllers\TableController::class, 'downloadQRCode'])->name('download');
+            Route::get('{refId}/delete', [\App\Http\Controllers\TableController::class, 'deleteTable'])->name('destroy');
+
+            Route::get('order/{refId}', [\App\Http\Controllers\TableController::class, 'index'])->name('order.form');
+
+            Route::post('/', [\App\Http\Controllers\TableController::class, 'addTable'])->name('store');
+        });
+
 
     });
 });

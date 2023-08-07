@@ -26,6 +26,11 @@
                     <i class="fas fa-utensils"></i> <span>Menu</span>
                 </a>
             </li>
+            <li {{ is_nav_active('table') }}>
+                <a class="nav-link" href="{{ route('admin.table.index') }}">
+                    <i class="fas fa-sort-numeric-down"></i> <span>Tables</span>
+                </a>
+            </li>
         @endcan
         <li {{ is_nav_active('reservation') }}>
             <a class="nav-link" href="{{ route('admin.reservation.index') }}">
