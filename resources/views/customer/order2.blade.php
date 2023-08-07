@@ -145,6 +145,9 @@
                 openModalButton.classList.remove('hidden');
             });
 
+
+        </script>
+        <script>
             const submitButton = document.getElementById('submitButton');
             const orderForm = document.getElementById('orderForm');
 
