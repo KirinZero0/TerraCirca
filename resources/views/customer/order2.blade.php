@@ -36,7 +36,7 @@
             <div class="container mx-auto mt-5 px-4">
                 <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     @forelse($menus->where('type', \App\Models\Menu::MAKANAN) as $menu)
-                    <div class="bg-white p-4 rounded-lg shadow-md mb-3 border-b-4 border-[#4693B1] relative overflow-hidden">
+                    <div class="bg-white p-4 rounded-lg shadow-md mb-3 border-b-4 border-[#4693B1] relative">
                         <img src="{{ $menu->getImageUrl() }}" alt="Item 1" class="mb-4 w-full h-32 object-cover rounded-t-lg">
                         <div class="p-2">
                             <h3 class="text-xl font-semibold mb-2">{{ $menu->name }}</h3>
@@ -49,11 +49,11 @@
                             <input type="hidden" name="reservation_id" value="{{ $reservation->id }}">
                             <input type="hidden" name="menu_id" value="{{ $menu->id }}">
                             <input type="number" name="quantity" class="w-16 text-center border rounded-md mr-2" value="1" min="1">
-                            <button type="submit"
-                                class="bg-[#4693B1] text-white p-1 w-[3rem] h-[3rem] rounded-full hover:bg-blue-600 absolute right-[-0.5rem] bottom-[-0.5rem]">
-                                <i class="fa-regular fa-plus"></i>
-                            </button>
                         </form>
+                        <button type="submit"
+                            class="bg-[#4693B1] text-white p-1 w-[3rem] h-[3rem] rounded-full hover:bg-blue-600 absolute -bottom-2 -right-2">
+                            <i class="fa-regular fa-plus"></i>
+                        </button>
                     </div>
                     @empty
                         <p class="text-center text-gray-600 mt-4">Tidak Ada Makanan Yang Tersedia</p>
