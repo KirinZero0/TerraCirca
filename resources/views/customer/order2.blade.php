@@ -43,7 +43,7 @@
                             <p class="text-gray-600 text-sm">{{ $menu->description }}</p>
                             <p class="text-gray-600 text-sm">{{ formatRupiah($menu->price) }}</p>
                         </div>
-                        <form action="{{ route('customer.add.order') }}" enctype="multipart/form-data" method="post"
+                        <form action="{{ route('customer.add.order') }}"  id="orderForm" enctype="multipart/form-data" method="post"
                             class="relative" novalidate onkeydown="return event.key !== 'Enter';">
                             @csrf
                             <input type="hidden" name="reservation_id" value="{{ $reservation->id }}">
@@ -51,7 +51,7 @@
                             <input type="number" name="quantity" class="w-16 text-center border rounded-md mr-2" value="1" min="1">
                         </form>
                         <button type="submit"
-                            class="bg-[#4693B1] text-white p-1 w-[3rem] h-[3rem] rounded-full hover:bg-blue-600 absolute -bottom-2 -right-2">
+                        id="submitButton" class="bg-[#4693B1] text-white p-1 w-[3rem] h-[3rem] rounded-full hover:bg-blue-600 absolute -bottom-2 -right-2">
                             <i class="fa-regular fa-plus"></i>
                         </button>
                     </div>
@@ -67,7 +67,7 @@
                             <p class="text-gray-600 text-sm">{{ $menu->description }}</p>
                             <p class="text-gray-600 text-sm">{{ formatRupiah($menu->price) }}</p>
                         </div>
-                        <form action="{{ route('customer.add.order') }}" enctype="multipart/form-data" method="post"
+                        <form action="{{ route('customer.add.order') }}" id="orderForm" enctype="multipart/form-data" method="post"
                             class="relative" novalidate onkeydown="return event.key !== 'Enter';">
                             @csrf
                             <input type="hidden" name="reservation_id" value="{{ $reservation->id }}">
@@ -75,7 +75,7 @@
                             <input type="number" name="quantity" class="w-16 text-center border rounded-md mr-2" value="1" min="1">
                         </form>
                         <button type="submit"
-                            class="bg-[#4693B1] text-white p-1 w-[3rem] h-[3rem] rounded-full hover:bg-blue-600 absolute -bottom-2 -right-2">
+                        id="submitButton" class="bg-[#4693B1] text-white p-1 w-[3rem] h-[3rem] rounded-full hover:bg-blue-600 absolute -bottom-2 -right-2">
                             <i class="fa-regular fa-plus"></i>
                         </button>
                     </div>
