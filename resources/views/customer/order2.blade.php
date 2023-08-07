@@ -59,7 +59,7 @@
                     @endforelse
                 
                     @forelse($menus->where('type', \App\Models\Menu::MINUMAN) as $menu)
-                        <div class="bg-white p-4 rounded-lg shadow-md mb-5 border-b-4 border-[#4693B1]">
+                        <div class="bg-white p-4 rounded-lg shadow-md mb-10 border-b-4 border-[#4693B1]">
                             <img src="{{  $menu->getImageUrl() }}" alt="Item 1" class="mb-4 w-full h-32 object-cover rounded-t-lg">
                             <div class="p-2">
                                 <h3 class="text-xl font-semibold mb-2">{{$menu->name}}</h3>
@@ -72,9 +72,11 @@
                                 <input type="hidden" name="reservation_id" value="{{$reservation->id}}">
                                 <input type="hidden" name="menu_id" value="{{$menu->id}}">
                                 <input type="number" name="quantity" class="w-16 text-center border rounded-md mr-2" value="1"  min="1">
-                                <button type="submit" class="bg-[#4693B1] text-white p-1 w-[3rem] h-[3rem] rounded-full hover:bg-blue-600 absolute bottom-[-1.5rem] right-[-1.5rem]">
-                                    <i class="fa-regular fa-plus"></i>
-                                </button>
+                                <div>
+                                    <button type="submit" class="bg-[#4693B1] text-white p-1 w-[3rem] h-[3rem] rounded-full hover:bg-blue-600 absolute bottom-[-1.5rem] right-[-1.5rem]">
+                                        <i class="fa-regular fa-plus"></i>
+                                    </button>
+                                </div>
                             </form>
                         </div>
                     @empty
