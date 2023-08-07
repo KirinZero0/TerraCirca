@@ -84,7 +84,7 @@
                     @endforelse
                 </div>
             </div>
-            <div class="mt-2" style="height: 1rem;"></div> <!-- Empty div with 1rem height -->
+            <div class="mt-2" style="height: 2rem;"></div> <!-- Empty div with 1rem height -->
         <button id="openModal" class="fixed bottom-4 right-4 bg-[#4693B1] text-white py-3 px-6 rounded-full shadow-lg hover:bg-blue-600">
             Your Order
             <span class="bg-red-500 text-white rounded-full h-6 w-6 flex items-center justify-center absolute -top-1 -right-1">{{$totalQuantity}}</span>
