@@ -36,7 +36,7 @@
             <div class="container mx-auto mt-5 px-4">
                 <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     @forelse($menus->where('type', \App\Models\Menu::MAKANAN) as $menu)
-                        <div class="bg-white p-4 rounded-lg shadow-md mb-5 border-b-4 border-[#4693B1]">
+                        <div class="bg-white p-4 rounded-lg shadow-md mb-3 border-b-4 border-[#4693B1]">
                             <img src="{{  $menu->getImageUrl() }}" alt="Item 1" class="mb-4 w-full h-32 object-cover rounded-t-lg">
                             <div class="p-2">
                                 <h3 class="text-xl font-semibold mb-2">{{$menu->name}}</h3>
@@ -59,7 +59,7 @@
                     @endforelse
                 
                     @forelse($menus->where('type', \App\Models\Menu::MINUMAN) as $menu)
-                        <div class="bg-white p-4 rounded-lg shadow-md mb-5 border-b-4 border-[#4693B1]">
+                        <div class="bg-white p-4 rounded-lg shadow-md mb-3 border-b-4 border-[#4693B1]">
                             <img src="{{  $menu->getImageUrl() }}" alt="Item 1" class="mb-4 w-full h-32 object-cover rounded-t-lg">
                             <div class="p-2">
                                 <h3 class="text-xl font-semibold mb-2">{{$menu->name}}</h3>
