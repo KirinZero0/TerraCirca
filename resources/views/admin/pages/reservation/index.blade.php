@@ -106,19 +106,19 @@
                                             <i class="fas fa-eye"></i>
                                         </a>
                                         <a href="{{ route('admin.reservation.destroy', $reservation->id) }}" data-toggle="tooltip"
-                                            data-placement="top" title="" data-original-title="View"
+                                            data-placement="top" title="" data-original-title="Delete"
                                             class="btn btn-sm btn-danger">
                                              <i class="fas fa-trash"></i>
                                          </a>
                                     @elseif($reservation->status == \App\Models\Reservation::CANCEL)
                                         <a href="{{ route('admin.reservation.destroy', $reservation->id) }}" data-toggle="tooltip"
-                                           data-placement="top" title="" data-original-title="View"
+                                           data-placement="top" title="" data-original-title="Delete"
                                            class="btn btn-sm btn-danger">
                                             <i class="fas fa-trash"></i>
                                         </a>
                                     @elseif($reservation->status == \App\Models\Reservation::ORDER)
                                         <a href="{{ route('admin.reservation.destroy', $reservation->id) }}" data-toggle="tooltip"
-                                           data-placement="top" title="" data-original-title="View"
+                                           data-placement="top" title="" data-original-title="Delete"
                                            class="btn btn-sm btn-danger">
                                             <i class="fas fa-trash"></i>
                                         </a>

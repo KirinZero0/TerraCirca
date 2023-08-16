@@ -14,8 +14,11 @@ class Order extends Model
         'reservation_id',
         'menu_id',
         'quantity',
+        'status'
     ];
 
+    const DONE = 'DONE';
+    const PENDING = 'PENDING';
 
     public function reservation(): BelongsTo
     {

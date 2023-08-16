@@ -9,11 +9,19 @@ use App\Models\ProductList;
 use App\Models\ProductOut;
 use App\Models\ProductStock;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
     public function index()
     {
+        $user = Auth::user();
+        if ($user->role === Admin::CHEF) {
+            return redirect(route('admin.chef.index'));
+        } else if ($user->role === Admin::CASHIER) {
+            return redirect(route('admin.cashier.index'));
+        }
+
         $totalProducts = ProductStock::all()->sum('stock');
         
         $outProducts = ProductOut::all()->sum('quantity');

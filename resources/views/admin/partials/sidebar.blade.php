@@ -10,11 +10,13 @@
         </a>
     </div>
     <ul class="sidebar-menu">
-        <li {{ is_nav_active('dashboard') }}>
-            <a class="nav-link" href="{{ route('admin.dashboard') }}">
-                <i class="fas fa-home"></i> <span>Dashboard</span>
-            </a>
-        </li>
+        @canany(['pegawai', 'owner'])
+            <li {{ is_nav_active('dashboard') }}>
+                <a class="nav-link" href="{{ route('admin.dashboard') }}">
+                    <i class="fas fa-home"></i> <span>Dashboard</span>
+                </a>
+            </li>
+        @endcanany
         @can('owner')
             <li {{ is_nav_active('user') }}>
                 <a class="nav-link" href="{{ route('admin.user.index') }}">
@@ -32,6 +34,7 @@
                 </a>
             </li>
         @endcan
+        @canany(['pegawai', 'owner'])
         <li {{ is_nav_active('reservation') }}>
             <a class="nav-link" href="{{ route('admin.reservation.index') }}">
                 <i class="fas fa-scroll"></i> <span>Reservation</span>
@@ -99,5 +102,35 @@
                 </li>
             </ul>
         </li>
+        @endcanany
+        @can('chef')
+            <li {{ is_nav_active('orders') }}>
+                <a class="nav-link" href="{{ route('admin.chef.index') }}">
+                    <i class="fas fa-utensils"></i> <span>Orders</span>
+                </a>
+            </li>
+            <li {{ is_nav_active('keluar') }}>
+                <a class="nav-link" href="{{ route('admin.barang.keluar.index') }}">
+                    <i class="fas fa-box"></i> <span>Barang Keluar</span>
+                </a>
+            </li>
+        @endcan
+        @can('cashier')
+            <li {{ is_nav_active('reservation') }}>
+                <a class="nav-link" href="{{ route('admin.reservation.index') }}">
+                    <i class="fas fa-scroll"></i> <span>Reservation</span>
+                </a>
+            </li>
+            <li {{ is_nav_active('orders') }}>
+                <a class="nav-link" href="{{ route('admin.cashier.index') }}">
+                    <i class="fas fa-utensils"></i> <span>Orders</span>
+                </a>
+            </li>
+            <li {{ is_nav_active('transaksi') }}>
+                <a class="nav-link" href="{{ route('admin.laporan.transaksi.index') }}">
+                    <i class="fas fa-money-bill"></i> <span>Transaksi</span>
+                </a>
+            </li>
+        @endcan
     </ul>
 </aside>

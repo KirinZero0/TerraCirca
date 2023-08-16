@@ -50,6 +50,8 @@
                                     <select class="form-control" name="role" required>
                                         <option value="{{ \App\Models\Admin::PEGAWAI }}">Pegawai</option>
                                         <option value="{{ \App\Models\Admin::OWNER }}">Owner</option>
+                                        <option value="{{ \App\Models\Admin::CHEF }}">Chef</option>
+                                        <option value="{{ \App\Models\Admin::CASHIER }}">Kasir</option>
                                     </select>
                                     <div class="invalid-feedback"></div>
                                 </div>

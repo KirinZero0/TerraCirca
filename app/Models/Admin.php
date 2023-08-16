@@ -50,4 +50,6 @@ class Admin extends Authenticatable
 
     const PEGAWAI = "PEGAWAI";
     const OWNER = "OWNER";
+    const CASHIER = "CASHIER";
+    const CHEF = "CHEF";
 }

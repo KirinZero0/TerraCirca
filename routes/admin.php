@@ -125,6 +125,16 @@ Route::group([], function () {
             Route::post('/', [\App\Http\Controllers\TableController::class, 'addTable'])->name('store');
         });
 
+        Route::prefix('chef')->as('chef.')->group(function () {
+            Route::get('/orders', [\App\Http\Controllers\ChefController::class, 'index'])->name('index');
+            Route::get('{order}/cancel', [\App\Http\Controllers\ChefController::class, 'cancel'])->name('cancel');
+            Route::get('{order}/done', [\App\Http\Controllers\ChefController::class, 'done'])->name('done');
+        });
+
+        Route::prefix('cashier')->as('cashier.')->group(function () {
+            Route::get('/orders', [\App\Http\Controllers\CashierController::class, 'index'])->name('index');
+        });
+
 
     });
 });

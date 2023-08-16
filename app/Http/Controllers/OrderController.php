@@ -13,6 +13,7 @@ class OrderController extends Controller
             [
                 'reservation_id' => $request->reservation_id,
                 'menu_id' => $request->menu_id,
+                'status' => Order::PENDING
             ],
             [
                 'quantity' => $request->quantity,
