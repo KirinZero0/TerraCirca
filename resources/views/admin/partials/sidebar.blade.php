@@ -121,11 +121,6 @@
                     <i class="fas fa-scroll"></i> <span>Reservation</span>
                 </a>
             </li>
-            <li {{ is_nav_active('orders') }}>
-                <a class="nav-link" href="{{ route('admin.cashier.index') }}">
-                    <i class="fas fa-utensils"></i> <span>Orders</span>
-                </a>
-            </li>
             <li {{ is_nav_active('transaksi') }}>
                 <a class="nav-link" href="{{ route('admin.laporan.transaksi.index') }}">
                     <i class="fas fa-money-bill"></i> <span>Transaksi</span>

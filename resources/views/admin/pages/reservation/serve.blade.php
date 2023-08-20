@@ -7,6 +7,7 @@
 @endsection
 
 @section('js')
+
 @endsection
 
 @section('content')
@@ -42,7 +43,21 @@
                             @empty
                             <p class="card-text">Order Kosong</p>
                             @endforelse
-                            <a class="btn btn-success" href="{{route('admin.reservation.invoice', $reservation->id)}}">Print Invoice</a>
+                                <h5 class="card-title">Subtotal: 
+                                    <strong>
+                                    {{ formatRupiah($reservation->orders->sum(function($order) {
+                                        return $order->menu->price * $order->quantity;
+                                    })) }}
+                                    </strong>  
+                                </h5>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">Rp</span>
+                                    </div>
+                                    <input id="moneyInput" type="text" class="form-control" placeholder="Input Amount" aria-label="Input Amount" aria-describedby="basic-addon1">
+                                </div>
+                                <h5 class="card-title" id="change"> Kembalian: </h5>
+                            <a id="printInvoiceBtn" class="btn btn-success" href="{{route('admin.cashier.invoice2', $reservation->id)}}">Print Invoice</a>
                         </div>
                     </div>
                 </div>
@@ -132,5 +147,31 @@
             </div>
         </div>
     </x-content>
+    <script>
+        const moneyInput = document.getElementById('moneyInput');
+        const inputText = document.getElementById('inputText');
+        const change = document.getElementById('change');
+        
+        function formatRupiah(amount) {
+            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(amount);
+        }
+
+        moneyInput.addEventListener('input', () => {
+            const enteredAmount = parseFloat(moneyInput.value) || 0;
+            
+            const subtotal = {{ $reservation->orders->sum(function($order) {
+                return $order->menu->price * $order->quantity;
+            }) }};
+            
+            const diff = enteredAmount - subtotal;
+            change.textContent = `Kembalian: ${formatRupiah(diff)}`;
+
+            const invoiceUrl = `{{ route('admin.cashier.invoice2', ['reservation' => $reservation->id]) }}?enteredAmount=${enteredAmount}&change=${diff}`;
+            printInvoiceBtn.href = invoiceUrl;
+        });
+
+
+    </script>
 
 @endsection
+

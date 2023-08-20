@@ -34,7 +34,7 @@
                             </div>
                         </form>
                     </div>
-                    @canany(['owner', 'pegawai'])
+                    @canany(['owner', 'pegawai', 'cashier'])
                     <div class="ml-2">
                         <a href="{{ route('admin.reservation.create') }}" style="background-color: rgb(70, 147, 177)" class="btn btn-sm btn-primary">
                             Tambah Data <i class="fas fa-plus"></i>

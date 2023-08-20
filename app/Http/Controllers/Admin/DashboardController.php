@@ -19,7 +19,7 @@ class DashboardController extends Controller
         if ($user->role === Admin::CHEF) {
             return redirect(route('admin.chef.index'));
         } else if ($user->role === Admin::CASHIER) {
-            return redirect(route('admin.cashier.index'));
+            return redirect(route('admin.reservation.index'));
         }
 
         $totalProducts = ProductStock::all()->sum('stock');

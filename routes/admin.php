@@ -133,6 +133,7 @@ Route::group([], function () {
 
         Route::prefix('cashier')->as('cashier.')->group(function () {
             Route::get('/orders', [\App\Http\Controllers\CashierController::class, 'index'])->name('index');
+            Route::get('{reservation}/invoice', [\App\Http\Controllers\InvoiceController::class, 'generate2'])->name('invoice2');
         });
 
 
