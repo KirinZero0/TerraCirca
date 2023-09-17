@@ -37,4 +37,15 @@ class InvoiceController extends Controller
 
         $pdf->Output('INVOICE-'.$reservation->reference_id.'-'.$reservation->date->format('F j, Y - H:i').'.pdf', 'I');
     }
+
+    public function generate3(Reservation $reservation, Request $request)
+    {
+        $html = view('customer.reservation.invoice', compact('reservation'))->render();
+
+        $pdf = new \Mpdf\Mpdf();
+
+        $pdf->WriteHTML($html);
+
+        $pdf->Output('INVOICE-'.$reservation->reference_id.'.pdf', 'I');
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Menu;
 use App\Models\Order;
 use App\Models\Reservation;
+use App\Models\Table;
 use Illuminate\Http\Request;
 
 class ReservationController extends Controller
@@ -47,6 +48,14 @@ class ReservationController extends Controller
             ]);
             $reservation->saveOrFail();
 
+            $table_number = $reservation->table_number;
+            $table = Table::where('table_number', $table_number)->first();
+            
+            if($table){
+                $table->status = Table::UNAVAILABLE; 
+                $table->save();
+            }
+
             return redirect(route('admin.reservation.index'));
 
         } elseif ($submitType == 'serve') {
@@ -60,6 +69,14 @@ class ReservationController extends Controller
                 'status' => Reservation::PROGRESS,
             ]);
             $reservation->saveOrFail();
+
+            $table_number = $reservation->table_number;
+            $table = Table::where('table_number', $table_number)->first();
+            
+            if($table){
+                $table->status = Table::UNAVAILABLE; 
+                $table->save();
+            }
 
             $menus = Menu::where('name', 'like', '%'.\request()->get('search').'%')->get();
             $orders = Order::where('reservation_id', $reservation->id)->get();
@@ -82,11 +99,27 @@ class ReservationController extends Controller
 
         $reservation->orders()->delete();
 
+        $table_number = $reservation->table_number;
+        $table = Table::where('table_number', $table_number)->first();
+
+        if($table){
+            $table->status = Table::AVAILABLE; 
+            $table->save();
+        }
+
         return redirect()->back()->with('success', 'Reservation Canceled');
     }
 
     public function finish(Reservation $reservation)
     {
+        $table_number = $reservation->table_number;
+        $table = Table::where('table_number', $table_number)->first();
+
+        if($table){
+            $table->status = Table::AVAILABLE; 
+            $table->save();
+        }
+
         $reservation->status = Reservation::FINISH;
         $reservation->save();
 

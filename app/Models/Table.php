@@ -12,6 +12,10 @@ class Table extends Model
     protected $fillable = [
         'reference_id',
         'table_number',
-        'qr_code_path'
+        'qr_code_path',
+        'status'
     ];
+
+    const AVAILABLE = "AVAILABLE";
+    const UNAVAILABLE = "UNAVAILABLE";
 }

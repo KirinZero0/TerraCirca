@@ -38,8 +38,9 @@
                         <tr>
                             <th>Nomor Meja</th>
                             <th>Reference Id</th>
-                            
+                            <th>Status</th>
                             <th>QR</th>
+
                             <th style="width:150px">Action</th>
                         </tr>
                     </thead>
@@ -48,6 +49,7 @@
                         <tr>
                             <td>{{ $table->table_number}}</td>
                             <td>{{ $table->reference_id }}</td>
+                            <td>{{ $table->status }}</td>
                             <td>
                                 <a href="{{ route('admin.table.download', $table->reference_id) }}"
                                     class="btn btn-icon btn-sm btn-success" data-toggle="tooltip">

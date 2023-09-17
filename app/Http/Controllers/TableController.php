@@ -72,7 +72,8 @@ class TableController extends Controller
         Table::create([
             'reference_id' => $refId,
             'table_number' => $tableNumber,
-            'qr_code_path' => $qrCodePath
+            'qr_code_path' => $qrCodePath,
+            'status' => Table::AVAILABLE
         ]);
 
         return redirect()->route('admin.table.index')->with('success', 'Table added successfully!');

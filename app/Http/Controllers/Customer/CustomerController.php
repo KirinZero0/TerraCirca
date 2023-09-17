@@ -20,10 +20,23 @@ class CustomerController extends Controller
         return view('customer.order2', compact('reservation', 'totalQuantity', 'menus', 'orders'));
     }
 
+    public function tables()
+    {
+        $tables = Table::all();
+
+        return view ('customer.tables', compact ('tables'));
+    }
+
     public function customerRegis($qr) 
     {
         $table = Table::where('reference_id', $qr)->first();
         return view('customer.order1', compact('table'));
+    }
+
+    public function customerReserve($refid) 
+    {
+        $table = Table::where('reference_id', $refid)->first();
+        return view('customer.reserve', compact('table'));
     }
 
     public function customerFinish($refid)
@@ -49,8 +62,41 @@ class CustomerController extends Controller
             ]);
             $reservation->saveOrFail();
 
+            $table_number = $reservation->table_number;
+            $table = Table::where('table_number', $table_number)->first();
+            
+            if($table){
+                $table->status = Table::UNAVAILABLE; 
+                $table->save();
+            }
+
             return redirect()->route('customer.order', ['refid' => $reservation->reference_id]);
     }
+
+    public function reserve(Request $request){
+
+        $reservation = new Reservation();
+            $reservation->fill([
+                'reference_id' => "RSV" . rand(100000, 999999),
+                'table_number' => $request->table_number,
+                'name' => $request->name,
+                'number_of_people' => $request->number_of_people,
+                'date' => $request->date,
+                'status' => Reservation::PENDING,
+            ]);
+            $reservation->saveOrFail();
+
+            $table_number = $reservation->table_number;
+            $table = Table::where('table_number', $table_number)->first();
+            
+            if($table){
+                $table->status = Table::UNAVAILABLE; 
+                $table->save();
+            }
+
+            return view('customer.reserve2', compact('reservation'));
+    }
+
 
     public function addOrder(Request $request)
     {
