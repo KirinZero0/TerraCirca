@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\Product;
+use App\Models\ProductIn;
 use App\Models\ProductList;
 use App\Models\ProductOut;
 use App\Models\ProductStock;
@@ -25,12 +26,12 @@ class DashboardController extends Controller
         $totalProducts = ProductStock::all()->sum('stock');
         
         $outProducts = ProductOut::all()->sum('quantity');
-        $inProducts = Product::where('status', Product::APPROVED)->sum('quantity');
+        $inProducts = ProductIn::where('status', ProductIn::APPROVED)->sum('quantity');
         $employees = Admin::where('role', Admin::PEGAWAI)->count();
 
-        $products = Product::where('status', Product::APPROVED)->limit(4)->get();
+        $products = ProductIn::where('status', ProductIn::APPROVED)->limit(4)->get();
 
-        $pending = Product::where('status', Product::PENDING)->count();
+        $pending = ProductIn::where('status', ProductIn::PENDING)->count();
 
         $datesCount = 0;
         $dates = [];
@@ -41,7 +42,7 @@ class DashboardController extends Controller
             $date = now()->subDays($datesCount);
             $dates[] = $date->format('F j, Y');
 
-            $productInCount[] = Product::where('status', Product::APPROVED)->whereDate('created_at', $date)->sum('quantity');
+            $productInCount[] = ProductIn::where('status', ProductIn::APPROVED)->whereDate('created_at', $date)->sum('quantity');
             $productOutCount[] = ProductOut::whereDate('created_at', $date)->sum('quantity');
 
             $datesCount++;

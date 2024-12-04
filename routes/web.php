@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect(route('customer.tables'));    
+    return redirect(route('admin.login'));    
 });
 
 Route::get('/tables', [CustomerController::class, 'tables'])->name('customer.tables');

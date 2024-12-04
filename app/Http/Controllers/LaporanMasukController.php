@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\LaporanBarangMasuk;
 use App\Models\Product;
+use App\Models\ProductIn;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -12,7 +13,7 @@ class LaporanMasukController extends Controller
     public function index()
     {
         $months = [];
-        $products = Product::where('code', 'like', '%'.\request()->get('search').'%');
+        $products = ProductIn::where('code', 'like', '%'.\request()->get('search').'%');
 
         if(\request()->get('month')) {
             $products->whereMonth('date', \request()->get('month'));

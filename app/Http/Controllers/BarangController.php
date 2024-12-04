@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\LaporanBarangExport;
 use App\Models\Product;
+use App\Models\ProductIn;
 use App\Models\ProductList;
 use App\Models\ProductStock;
 use Illuminate\Http\Request;
@@ -13,7 +14,7 @@ class BarangController extends Controller
 {
     public function index()
     {
-        $products = Product::where(function ($query) {
+        $products = ProductIn::where(function ($query) {
             $search = \request()->get('search');
             $query->where('code', 'like', '%' . $search . '%')
             ->orWhereHas('product', function ($subQuery) use ($search) {
@@ -38,18 +39,18 @@ class BarangController extends Controller
         ]);
     }
 
-    public function edit(Product $product)
+    public function edit(ProductIn $productIn)
     {
         return view('admin.pages.barang.edit', [
-            'product' => $product
+            'product' => $productIn
         ]);
     }
 
     public function store(Request $request)
     {
-        $list = ProductList::where('custom_id', $request->code)->first();
+        $list = ProductList::where('code', $request->code)->first();
 
-        $product = new Product();
+        $product = new ProductIn();
         $product->fill([
             'product_list_id' => $list->id,
             'code' => $request->code,
@@ -62,37 +63,37 @@ class BarangController extends Controller
         return redirect(route('admin.barang.index'));
     }
 
-    public function update(Request $request, Product $product)
+    public function update(Request $request, ProductIn $productIn)
     {
-        $product->fill($request->all());
-        $product->saveOrFail();
+        $productIn->fill($request->all());
+        $productIn->saveOrFail();
 
         return redirect(route('admin.barang.index'));
     }
 
-    public function destroy(Product $product)
+    public function destroy(ProductIn $productIn)
     {
-        $product->delete();
+        $productIn->delete();
 
         return redirect(route('admin.barang.index'));
     }
 
-    public function updateStatus(Request $request, Product $product) //this function only adds stock if the request is approved
+    public function updateStatus(Request $request, ProductIn $productIn) //this function only adds stock if the request is approved
     {
-        $product->status = $request->status;
-        $product->reasons = $request->reasons;
-        $product->saveOrFail();
+        $productIn->status = $request->status;
+        $productIn->reasons = $request->reasons;
+        $productIn->saveOrFail();
 
-        if ($request->status === Product::APPROVED) {
-            $productStock = ProductStock::where('product_list_id', $product->product_list_id)->first();
-            $productStock->stock += $product->quantity;
+        if ($request->status === ProductIn::APPROVED) {
+            $productStock = ProductStock::where('product_list_id', $productIn->product_list_id)->first();
+            $productStock->stock += $productIn->quantity;
             $productStock->saveOrFail();
         }
 
         return redirect(route('admin.barang.index'));
     }
 
-    public function editStatus(Product $product)
+    public function editStatus(ProductIn $product)
     {
         return view('admin.pages.barang.editStatus', [
             'product' => $product

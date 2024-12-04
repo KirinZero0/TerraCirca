@@ -15,8 +15,11 @@ class CreateProductListsTable extends Migration
     {
         Schema::create('product_lists', function (Blueprint $table) {
             $table->id();
-            $table->string('custom_id');
+            $table->string('code')->unique();
             $table->string('name');
+            $table->string('category')->nullable();
+            $table->string('type');
+            $table->unsignedBigInteger('supplier_id')->nullable();
             $table->timestamps();
         });
     }

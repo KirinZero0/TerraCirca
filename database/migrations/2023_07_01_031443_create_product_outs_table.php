@@ -1,3 +1,10 @@
+/*
+ * author Arya Permana - Kirin
+ * created on 04-12-2024-21h-25m
+ * github: https://github.com/KirinZero0
+ * copyright 2024
+*/
+
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -15,14 +22,11 @@ class CreateProductOutsTable extends Migration
     {
         Schema::create('product_outs', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('transaction_id');
             $table->unsignedBigInteger('product_list_id');
-            $table->string('code')->unique();
-            $table->string('name');
-            $table->double('price')->default(0);
-            $table->double('quantity')->default(1);
+            $table->unsignedBigInteger('product_stock_id');
+            $table->double('quantity')->default(0);
             $table->date('date');
-            $table->string('type');
-            $table->string('reasons')->nullable();
             $table->timestamps();
         });
     }

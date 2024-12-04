@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\ProductIn;
 use App\Models\ProductList;
 use App\Models\ProductOut;
 use App\Models\ProductStock;
@@ -72,7 +73,7 @@ class BarangListController extends Controller
     public function destroy(ProductList $product)
     {
 
-        Product::where('product_list_id', $product->id)->delete();
+        ProductIn::where('product_list_id', $product->id)->delete();
         ProductOut::where('product_list_id', $product->id)->delete();
         ProductStock::where('product_list_id', $product->id)->delete();
 
