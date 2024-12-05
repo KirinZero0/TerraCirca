@@ -16,7 +16,7 @@ class BarangListController extends Controller
     {
         $products = ProductList::where(function ($query) {
             $search = \request()->get('search');
-            $query->where('custom_id', 'like', '%' . $search . '%')
+            $query->where('code', 'like', '%' . $search . '%')
                 ->orWhere('name', 'like', '%' . $search . '%');
         })
             ->orderBy('id', 'DESC')
@@ -42,7 +42,7 @@ class BarangListController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'custom_id' => ['required', Rule::unique('product_lists')->whereNull('deleted_at')],
+            'code' => ['required', Rule::unique('product_lists')->whereNull('deleted_at')],
             'name' => ['required']
         ], [
             'custom_id.unique' => 'Kode barang sudah digunakan '
@@ -52,11 +52,11 @@ class BarangListController extends Controller
         $listProduct->fill($request->all());
         $listProduct->saveOrFail();
 
-        $productStock = new ProductStock();
-        $productStock->product_list_id = $listProduct->id;
-        $productStock->code = $listProduct->custom_id;
-        $productStock->name = $listProduct->name;
-        $productStock->saveOrFail();
+        // $productStock = new ProductStock();
+        // $productStock->product_list_id = $listProduct->id;
+        // $productStock->code = $listProduct->custom_id;
+        // $productStock->name = $listProduct->name;
+        // $productStock->saveOrFail();
 
         return redirect(route('admin.barang.list.index'));
     }

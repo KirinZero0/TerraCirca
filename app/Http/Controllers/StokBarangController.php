@@ -11,8 +11,7 @@ class StokBarangController extends Controller
     {
         $products = ProductStock::where(function ($query) {
             $search = \request()->get('search');
-            $query->where('code', 'like', '%' . $search . '%')
-                ->orWhere('name', 'like', '%' . $search . '%');
+            $query->where('name', 'like', '%' . $search . '%');
         })
             ->orderBy('id', 'DESC')
             ->paginate(10);

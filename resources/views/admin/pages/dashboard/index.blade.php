@@ -53,7 +53,7 @@
                                 <h4>Total Pegawai</h4>
                             </div>
                             <div class="card-body">
-                                {{ $employees }}
+                                10
                             </div>
                         </div>
                     </div>

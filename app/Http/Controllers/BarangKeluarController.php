@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\ProductIn;
 use App\Models\ProductList;
 use App\Models\ProductOut;
 use App\Models\ProductStock;
@@ -118,13 +119,13 @@ class BarangKeluarController extends Controller
     
         return redirect(route('admin.barang.keluar.index'));
     }
-    public function updateStatus(Request $request, Product $product)
+    public function updateStatus(Request $request, ProductIn $product)
     {
         $product->status = $request->status;
         $product->reasons = $request->reasons;
         $product->saveOrFail();
 
-        if ($request->status === Product::APPROVED) {
+        if ($request->status === ProductIn::APPROVED) {
             $productStock = ProductStock::where('product_list_id', $product->product_list_id)->first();
             $productStock->stock += $product->quantity;
             $productStock->saveOrFail();
@@ -133,7 +134,7 @@ class BarangKeluarController extends Controller
         return redirect(route('admin.barang.index'));
     }
 
-    public function editStatus(Product $product)
+    public function editStatus(ProductIn $product)
     {
         return view('admin.pages.barang.editStatus', [
             'product' => $product

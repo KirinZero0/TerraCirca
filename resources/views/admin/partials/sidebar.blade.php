@@ -10,14 +10,11 @@
         </a>
     </div>
     <ul class="sidebar-menu">
-        @canany(['pegawai', 'owner'])
             <li {{ is_nav_active('dashboard') }}>
                 <a class="nav-link" href="{{ route('admin.dashboard') }}">
                     <i class="fas fa-home"></i> <span>Dashboard</span>
                 </a>
             </li>
-        @endcanany
-        @can('owner')
             <li {{ is_nav_active('user') }}>
                 <a class="nav-link" href="{{ route('admin.user.index') }}">
                     <i class="fas fa-users"></i> <span>Users</span>
@@ -33,30 +30,24 @@
                     <i class="fas fa-sort-numeric-down"></i> <span>Tables</span>
                 </a>
             </li>
-        @endcan
-        @canany(['pegawai', 'owner'])
         <li {{ is_nav_active('reservation') }}>
             <a class="nav-link" href="{{ route('admin.reservation.index') }}">
                 <i class="fas fa-scroll"></i> <span>Reservation</span>
             </a>
         </li>
-        <li class="dropdown {{ is_drop_active('barang') }}">
+        <li class="dropdown {{ is_drop_active('produk') }}">
             <a href="#" class="nav-link has-dropdown">
-                <i class="fas fa-box"></i> <span>Barang</span>
+                <i class="fas fa-box"></i> <span>Produk</span>
             </a>
             <ul class="dropdown-menu">
-                @canany(['pegawai', 'owner'])
-                    @canany(['owner', 'pegawai'])
-                        <li {{ is_nav_active('stok') }}>
-                            <a class="nav-link" href="{{ route('admin.barang.stok.index') }}">
-                                <i class="far fa-circle"></i> Stok Barang
-                            </a>
-                        </li>
-                    @endcanany
-                    @can('owner')
                         <li {{ is_nav_active('list') }}>
                             <a class="nav-link" href="{{ route('admin.barang.list.index') }}">
-                                <i class="far fa-circle"></i> List Barang
+                                <i class="far fa-circle"></i> List Produk
+                            </a>
+                        </li>
+                        <li {{ is_nav_active('stok') }}>
+                            <a class="nav-link" href="{{ route('admin.barang.stok.index') }}">
+                                <i class="far fa-circle"></i> Stok Produk
                             </a>
                         </li>
                         {{-- <li {{ is_nav_active('masuk') }}>
@@ -64,8 +55,6 @@
                                 <i class="far fa-circle"></i> Barang Masuk
                             </a>
                         </li> --}}
-                    @endcan
-                    @canany(['owner', 'pegawai'])
                         <li {{ is_nav_active('kelola') }}>
                             <a class="nav-link" href="{{ route('admin.barang.index') }}">
                                 <i class="far fa-circle"></i> Barang Masuk
@@ -76,8 +65,6 @@
                                 <i class="far fa-circle"></i> Barang Keluar
                             </a>
                         </li>
-                    @endcanany
-                @endcanany
             </ul>
         </li>
         <li class="dropdown {{ is_drop_active('laporan') }}" >
@@ -102,8 +89,6 @@
                 </li>
             </ul>
         </li>
-        @endcanany
-        @can('chef')
             <li {{ is_nav_active('orders') }}>
                 <a class="nav-link" href="{{ route('admin.chef.index') }}">
                     <i class="fas fa-utensils"></i> <span>Orders</span>
@@ -114,8 +99,6 @@
                     <i class="fas fa-box"></i> <span>Barang Keluar</span>
                 </a>
             </li>
-        @endcan
-        @can('cashier')
             <li {{ is_nav_active('reservation') }}>
                 <a class="nav-link" href="{{ route('admin.reservation.index') }}">
                     <i class="fas fa-scroll"></i> <span>Reservation</span>
@@ -126,6 +109,5 @@
                     <i class="fas fa-money-bill"></i> <span>Transaksi</span>
                 </a>
             </li>
-        @endcan
     </ul>
 </aside>

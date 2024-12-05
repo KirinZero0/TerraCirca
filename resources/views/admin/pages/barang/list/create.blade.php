@@ -13,7 +13,7 @@
 @section('content')
     <x-content>
         <x-slot name="modul">
-            @include('admin.partials.back-with-title', ['title' => 'Tambah Barang'])
+            @include('admin.partials.back-with-title', ['title' => 'Tambah Produk'])
         </x-slot>
         <div>
             <form action="{{ route('admin.barang.list.store') }}" enctype="multipart/form-data" method="post"
@@ -26,15 +26,15 @@
                                 <h4>Informasi Dasar</h4>
                             </div>
                             <div class="card-body">
-                                <div class="section-title mt-0">Informasi Barang</div>
+                                <div class="section-title mt-0">Informasi Produk</div>
                                 <div class="form-group">
-                                    <label>Kode Barang</label>
+                                    <label>Kode Produk</label>
                                     <input type="text" class="form-control" id="custom_id" name="custom_id" value="{{ old('custom_id') }}"
                                            required>
                                     <div class="invalid-feedback"></div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Nama Barang</label>
+                                    <label>Nama Produk</label>
                                     <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}"
                                            required>
                                     <div class="invalid-feedback"></div>

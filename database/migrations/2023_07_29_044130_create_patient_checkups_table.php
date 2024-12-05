@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTablesTable extends Migration
+class CreatePatientCheckupsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateTablesTable extends Migration
      */
     public function up()
     {
-        Schema::create('tables', function (Blueprint $table) {
+        Schema::create('patient_checkups', function (Blueprint $table) {
             $table->id();
-            $table->string('reference_id')->unique();
-            $table->string('table_number');
-            $table->string('qr_code_path');
+            $table->unsignedBigInteger('patient_id');
+            $table->unsignedBigInteger('transaction_id')->nullable();
+            $table->dateTime('date');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateTablesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tables');
+        Schema::dropIfExists('patient_checkups');
     }
 }

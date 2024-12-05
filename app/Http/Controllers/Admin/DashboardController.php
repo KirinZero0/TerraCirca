@@ -27,7 +27,7 @@ class DashboardController extends Controller
         
         $outProducts = ProductOut::all()->sum('quantity');
         $inProducts = ProductIn::where('status', ProductIn::APPROVED)->sum('quantity');
-        $employees = Admin::where('role', Admin::PEGAWAI)->count();
+        // $employees = Admin::where('role', Admin::PEGAWAI)->count();
 
         $products = ProductIn::where('status', ProductIn::APPROVED)->limit(4)->get();
 
@@ -50,7 +50,7 @@ class DashboardController extends Controller
 
         return view('admin.pages.dashboard.index',
             compact('totalProducts', 
-                'inProducts', 'employees', 'products', 'dates',
+                'inProducts', 'products', 'dates',
                 'productOutCount', 'productInCount', 'pending', 'outProducts'));
     }
 }

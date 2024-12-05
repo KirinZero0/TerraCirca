@@ -13,7 +13,7 @@
 
     <x-content>
         <x-slot name="modul">
-            <h1>List Barang</h1>
+            <h1>List Produk</h1>
         </x-slot>
 
         <x-section>
@@ -21,7 +21,7 @@
             </x-slot>
 
             <x-slot name="header">
-                <h4>Data List Barang</h4>
+                <h4>Data List Produk</h4>
                 <div class="card-header-form row">
                     <div>
                         <form>
@@ -34,13 +34,11 @@
                             </div>
                         </form>
                     </div>
-                    @can('owner')
                     <div class="ml-2">
                         <a href="{{ route('admin.barang.list.create') }}" style="background-color: rgb(70, 147, 177)" class="btn btn-sm btn-primary">
-                            Tambah Barang <i class="fas fa-plus"></i>
+                            Tambah Produk <i class="fas fa-plus"></i>
                         </a>
                     </div>
-                    @endcan
                 </div>
             </x-slot>
 
@@ -50,8 +48,8 @@
                         <thead>
                         <tr>
                             <th>No</th>
-                            <th>Kode Barang</th>
-                            <th>Nama Barang</th>
+                            <th>Kode Produk</th>
+                            <th>Nama Produk</th>
                             <th style="width:150px">Action</th>
                         </tr>
                         </thead>
@@ -59,7 +57,7 @@
                         @forelse($products as $product)
                             <tr>
                                 <td>{{ $loop->index + $products->firstItem() }}</td>
-                                <td>{{ $product->custom_id }}</td>
+                                <td>{{ $product->code }}</td>
                                 <td>{{ $product->name }}</td>
                                 <td>
                                     <a href="{{ route('admin.barang.list.edit', $product->id) }}"

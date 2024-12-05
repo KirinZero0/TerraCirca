@@ -16,6 +16,7 @@ class CreateProductStocksTable extends Migration
         Schema::create('product_stocks', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('product_list_id');
+            $table->string('name');
             $table->string('barcode')->nullable();
             $table->string('stock')->default(0);
             $table->date('expiration_date')->nullable();
