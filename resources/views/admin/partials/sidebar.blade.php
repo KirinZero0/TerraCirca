@@ -35,6 +35,11 @@
                 <i class="fas fa-scroll"></i> <span>Reservation</span>
             </a>
         </li>
+        <li {{ is_nav_active('supplier') }}>
+            <a class="nav-link" href="{{ route('admin.supplier.index') }}">
+                <i class="fas fa-users"></i> <span>Supplier</span>
+            </a>
+        </li>
         <li class="dropdown {{ is_drop_active('produk') }}">
             <a href="#" class="nav-link has-dropdown">
                 <i class="fas fa-box"></i> <span>Produk</span>

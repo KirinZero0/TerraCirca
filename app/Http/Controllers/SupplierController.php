@@ -36,12 +36,12 @@ class SupplierController extends Controller
 
     public function create()
     {
-        return view('admin.pages.barang.create');
+        return view('admin.pages.supplier.create');
     }
 
     public function edit(Supplier $supplier)
     {
-        return view('admin.pages.barang.edit', [
+        return view('admin.pages.supplier.edit', [
             'supplier' => $supplier
         ]);
     }
@@ -58,7 +58,7 @@ class SupplierController extends Controller
         ]);
         $supplier->saveOrFail();
 
-        return redirect(route('admin.barang.index'));
+        return redirect(route('admin.supplier.index'));
     }
 
     public function update(Request $request, Supplier $supplier)
@@ -66,13 +66,13 @@ class SupplierController extends Controller
         $supplier->fill($request->all());
         $supplier->saveOrFail();
 
-        return redirect(route('admin.barang.index'));
+        return redirect(route('admin.supplier.index'));
     }
 
     public function destroy(Supplier $supplier)
     {
         $supplier->delete();
 
-        return redirect(route('admin.barang.index'));
+        return redirect(route('admin.supplier.index'));
     }
 }

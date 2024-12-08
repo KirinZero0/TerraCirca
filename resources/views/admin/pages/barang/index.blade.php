@@ -34,13 +34,11 @@
                             </div>
                         </form>
                     </div>
-                    @canany(['owner', 'pegawai'])
                     <div class="ml-2">
                         <a href="{{ route('admin.barang.create') }}" style="background-color: rgb(70, 147, 177)" class="btn btn-sm btn-primary">
                             Tambah Barang <i class="fas fa-plus"></i>
                         </a>
                     </div>
-                    @endcanany
                 </div>
             </x-slot>
 
@@ -73,14 +71,11 @@
                                 </td>
                                 <td>
                                     @if($product->status !== \App\Models\Product::APPROVED && $product->status !== \App\Models\Product::REJECTED)
-                                    @canany(['owner', 'pegawai'])
                                         <a href="{{ route('admin.barang.editStatus', $product->id) }}"
                                            class="btn btn-icon btn-sm btn-success" data-toggle="tooltip"
                                            data-placement="top" title="" data-original-title="Update Status">
                                             <i class="fas fa-question"></i>
                                         </a>
-                                    @endcanany
-                                    @canany(['owner', 'pegawai'])
                                         {{-- <a href="{{ route('admin.barang.return.edit', $product->id) }}"
                                            class="btn btn-icon btn-sm btn-warning" data-toggle="tooltip"
                                            data-placement="top" title="" data-original-title="Retur">
@@ -101,7 +96,6 @@
                                            class="btn btn-sm btn-danger delete">
                                             <i class="fas fa-trash"></i>
                                         </a>
-                                        @endcanany
                                     @endif
                                 </td>
                             </tr>
