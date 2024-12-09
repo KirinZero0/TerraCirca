@@ -10,14 +10,14 @@ use App\Models\ProductStock;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
-class BarangController extends Controller
+class ProductInController extends Controller
 {
     public function index()
     {
-        $products = ProductIn::where(function ($query) {
+        $productIns = ProductIn::where(function ($query) {
             $search = \request()->get('search');
             $query->where('code', 'like', '%' . $search . '%')
-            ->orWhereHas('product', function ($subQuery) use ($search) {
+            ->orWhereHas('productList', function ($subQuery) use ($search) {
                 $subQuery->where('name', 'like', '%' . $search . '%');
             });
     })
@@ -25,7 +25,7 @@ class BarangController extends Controller
         ->paginate(10);
 
         return view('admin.pages.barang.index', [
-            'products' => $products
+            'productIns' => $productIns
         ]);
     }
 
@@ -34,7 +34,6 @@ class BarangController extends Controller
         $lists = ProductList::all();
 
         return view('admin.pages.barang.create', [
-            'code'  => rand(),
             'lists' => $lists
         ]);
     }
@@ -42,23 +41,22 @@ class BarangController extends Controller
     public function edit(ProductIn $productIn)
     {
         return view('admin.pages.barang.edit', [
-            'product' => $productIn
+            'productIn' => $productIn
         ]);
     }
 
     public function store(Request $request)
     {
-        $list = ProductList::where('code', $request->code)->first();
-
-        $product = new ProductIn();
-        $product->fill([
-            'product_list_id' => $list->id,
-            'code' => $request->code,
+        $productIn = new ProductIn();
+        $productIn->fill([
+            'product_list_id' => $request->product_list_id,
             'price' => $request->price,
             'quantity' => $request->quantity,
             'date' => $request->date
         ]);
-        $product->saveOrFail();
+        $productIn->saveOrFail();
+
+        
 
         return redirect(route('admin.barang.index'));
     }
