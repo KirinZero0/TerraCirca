@@ -140,7 +140,7 @@ Route::group([], function () {
         Route::prefix('supplier')->as('supplier.')->group(function () {
             Route::get('index', [SupplierController::class, 'index'])->name('index');
             Route::get('create', [SupplierController::class, 'create'])->name('create');
-            Route::get('edit', [SupplierController::class, 'edit'])->name('edit');
+            Route::get('{supplier}/edit', [SupplierController::class, 'edit'])->name('edit');
             Route::post('store', [SupplierController::class, 'store'])->name('store');
             Route::put('{supplier}/update', [SupplierController::class, 'update'])->name('update');
             Route::delete('{supplier}/destroy', [SupplierController::class, 'destroy'])->name('destroy');

@@ -63,12 +63,12 @@
                                 <td>{{ $supplier->phone }}</td>
                                 <td>{{ $supplier->email }}</td>
                                 <td>
-                                        <a href="{{ route('admin.barang.edit', $supplier->id) }}"
+                                        <a href="{{ route('admin.supplier.edit', $supplier->id) }}"
                                            class="btn btn-icon btn-sm btn-primary" data-toggle="tooltip"
                                            data-placement="top" title="" data-original-title="Edit">
                                             <i class="far fa-edit"></i>
                                         </a>
-                                        <a href="{{ route('admin.barang.destroy', $supplier->id) }}" data-toggle="tooltip"
+                                        <a href="{{ route('admin.supplier.destroy', $supplier->id) }}" data-toggle="tooltip"
                                            data-placement="top" title="" data-original-title="Delete"
                                            class="btn btn-sm btn-danger delete">
                                             <i class="fas fa-trash"></i>
