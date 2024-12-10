@@ -26,12 +26,12 @@ class DashboardController extends Controller
         $totalProducts = ProductStock::all()->sum('stock');
         
         $outProducts = ProductOut::all()->sum('quantity');
-        $inProducts = ProductIn::where('status', ProductIn::APPROVED)->sum('quantity');
+        $inProducts = ProductIn::all()->sum('quantity');
         // $employees = Admin::where('role', Admin::PEGAWAI)->count();
 
-        $products = ProductIn::where('status', ProductIn::APPROVED)->limit(4)->get();
+        $products = ProductIn::limit(4)->get();
 
-        $pending = ProductIn::where('status', ProductIn::PENDING)->count();
+        $pending = ProductIn::all()->count();
 
         $datesCount = 0;
         $dates = [];
@@ -42,7 +42,7 @@ class DashboardController extends Controller
             $date = now()->subDays($datesCount);
             $dates[] = $date->format('F j, Y');
 
-            $productInCount[] = ProductIn::where('status', ProductIn::APPROVED)->whereDate('created_at', $date)->sum('quantity');
+            $productInCount[] = ProductIn::whereDate('created_at', $date)->sum('quantity');
             $productOutCount[] = ProductOut::whereDate('created_at', $date)->sum('quantity');
 
             $datesCount++;

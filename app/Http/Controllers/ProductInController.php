@@ -8,6 +8,7 @@ use App\Models\ProductIn;
 use App\Models\ProductList;
 use App\Models\ProductStock;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ProductInController extends Controller
@@ -16,7 +17,7 @@ class ProductInController extends Controller
     {
         $productIns = ProductIn::where(function ($query) {
             $search = \request()->get('search');
-            $query->where('code', 'like', '%' . $search . '%')
+            $query->where('name', 'like', '%' . $search . '%')
             ->orWhereHas('productList', function ($subQuery) use ($search) {
                 $subQuery->where('name', 'like', '%' . $search . '%');
             });
@@ -24,7 +25,7 @@ class ProductInController extends Controller
         ->orderBy('id', 'DESC')
         ->paginate(10);
 
-        return view('admin.pages.barang.index', [
+        return view('admin.pages.productIn.index', [
             'productIns' => $productIns
         ]);
     }
@@ -33,7 +34,7 @@ class ProductInController extends Controller
     {
         $lists = ProductList::all();
 
-        return view('admin.pages.barang.create', [
+        return view('admin.pages.productIn.create', [
             'lists' => $lists
         ]);
     }
@@ -47,16 +48,40 @@ class ProductInController extends Controller
 
     public function store(Request $request)
     {
-        $productIn = new ProductIn();
-        $productIn->fill([
-            'product_list_id' => $request->product_list_id,
-            'price' => $request->price,
-            'quantity' => $request->quantity,
-            'date' => $request->date
-        ]);
-        $productIn->saveOrFail();
+        DB::transaction(function () use ($request) {
 
+            $productList = ProductList::findOrFail($request->product_list_id);
         
+            $productIn = new ProductIn();
+            $productIn->fill([
+                'product_list_id' => $productList->id,
+                'price' => $request->price,
+                'quantity' => $request->quantity,
+                'date' => $request->date
+            ]);
+            $productIn->saveOrFail();
+        
+            $productStock = ProductStock::where('barcode', $request->barcode)->first();
+        
+            if ($productStock) {
+                $productStock->increment('stock', $request->quantity);
+            } else {
+                $productStock = new ProductStock();
+                $productStock->fill([
+                    'product_list_id' => $productList->id,
+                    'name'            => $productList->name,
+                    'barcode'         => $request->barcode,
+                    'stock'           => $request->quantity,
+                    'price'           => $request->price,
+                    'expiration_date' => $request->expiration_date
+                ]);
+                $productStock->saveOrFail();
+
+                $productIn->update([
+                    'product_stock_id' => $productStock->id
+                ]);
+            }
+        });
 
         return redirect(route('admin.barang.index'));
     }
@@ -74,27 +99,5 @@ class ProductInController extends Controller
         $productIn->delete();
 
         return redirect(route('admin.barang.index'));
-    }
-
-    public function updateStatus(Request $request, ProductIn $productIn) //this function only adds stock if the request is approved
-    {
-        $productIn->status = $request->status;
-        $productIn->reasons = $request->reasons;
-        $productIn->saveOrFail();
-
-        if ($request->status === ProductIn::APPROVED) {
-            $productStock = ProductStock::where('product_list_id', $productIn->product_list_id)->first();
-            $productStock->stock += $productIn->quantity;
-            $productStock->saveOrFail();
-        }
-
-        return redirect(route('admin.barang.index'));
-    }
-
-    public function editStatus(ProductIn $product)
-    {
-        return view('admin.pages.barang.editStatus', [
-            'product' => $product
-        ]);
     }
 }

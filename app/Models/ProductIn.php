@@ -13,14 +13,7 @@ class ProductIn extends Model
 
     protected $table = 'product_ins';
 
-    protected $fillable = [
-        'product_list_id',
-        'code',
-        'price',
-        'quantity',
-        'date',
-        'status',
-        'reasons'
+    protected $guarded = [
     ];
 
     const PENDING   = "PENDING";

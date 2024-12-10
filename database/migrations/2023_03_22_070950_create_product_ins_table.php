@@ -17,8 +17,7 @@ class CreateProductInsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('product_list_id');
             $table->double('price')->default(0);
-            $table->double('quantity')->default(0);
-            $table->string('status')->default('pending');
+            $table->integer('quantity')->default(0);
             $table->date('date');
             $table->unsignedBigInteger('product_stock_id')->nullable();
             $table->timestamps();

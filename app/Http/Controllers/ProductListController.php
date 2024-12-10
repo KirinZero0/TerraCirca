@@ -7,6 +7,7 @@ use App\Models\ProductIn;
 use App\Models\ProductList;
 use App\Models\ProductOut;
 use App\Models\ProductStock;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -22,20 +23,23 @@ class ProductListController extends Controller
             ->orderBy('id', 'DESC')
             ->paginate(10);
 
-         return view('admin.pages.barang.list.index', [
+         return view('admin.pages.productList.index', [
             'productLists' => $productLists
      ]);
     }
 
     public function create()
     {
-        return view('admin.pages.barang.list.create');
+        $suppliers = Supplier::all();
+        return view('admin.pages.productList.create', [
+            'suppliers' => $suppliers
+        ]);
     }
 
-    public function edit(ProductList $product)
+    public function edit(ProductList $productList)
     {
-        return view('admin.pages.barang.list.edit', [
-            'product' => $product
+        return view('admin.pages.productList.edit', [
+            'productList' => $productList
         ]);
     }
 
@@ -45,7 +49,7 @@ class ProductListController extends Controller
             'code' => 'required|string|unique:product_lists,code',
             'name' => 'required|string|max:255',
             'category' => 'required|string|max:255',
-            'type' => 'required|string|max:255',
+            'type' => 'sometimes|string|max:255',
             'supplier_id' => 'required|integer|exists:suppliers,id',
         ]);
 
@@ -54,7 +58,7 @@ class ProductListController extends Controller
 
         $productList->saveOrFail();
 
-        return redirect(route('admin.barang.list.index'));
+        return redirect(route('admin.product_list.index'));
     }
 
 
@@ -63,7 +67,7 @@ class ProductListController extends Controller
         $productList->fill($request->all());
         $productList->saveOrFail();
 
-        return redirect(route('admin.barang.list.index'));
+        return redirect(route('admin.product_list.index'));
     }
 
     public function destroy(ProductList $productList)
@@ -75,6 +79,6 @@ class ProductListController extends Controller
 
         $productList->delete();
 
-        return redirect(route('admin.barang.list.index'));
+        return redirect(route('admin.product_list.index'));
     }
 }

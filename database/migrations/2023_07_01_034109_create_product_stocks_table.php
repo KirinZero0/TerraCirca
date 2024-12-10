@@ -18,7 +18,8 @@ class CreateProductStocksTable extends Migration
             $table->unsignedBigInteger('product_list_id');
             $table->string('name');
             $table->string('barcode')->nullable();
-            $table->string('stock')->default(0);
+            $table->integer('stock')->default(0);
+            $table->double('price')->default(0);
             $table->date('expiration_date')->nullable();
             $table->timestamps();
         });

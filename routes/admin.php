@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\ProductInController;
+use App\Http\Controllers\ProductListController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 
@@ -144,6 +146,24 @@ Route::group([], function () {
             Route::post('store', [SupplierController::class, 'store'])->name('store');
             Route::put('{supplier}/update', [SupplierController::class, 'update'])->name('update');
             Route::delete('{supplier}/destroy', [SupplierController::class, 'destroy'])->name('destroy');
+        });
+
+        Route::prefix('product_list')->as('product_list.')->group(function () {
+            Route::get('index', [ProductListController::class, 'index'])->name('index');
+            Route::get('create', [ProductListController::class, 'create'])->name('create');
+            Route::get('{productList}/edit', [ProductListController::class, 'edit'])->name('edit');
+            Route::post('store', [ProductListController::class, 'store'])->name('store');
+            Route::put('{productList}/update', [ProductListController::class, 'update'])->name('update');
+            Route::delete('{productList}/destroy', [ProductListController::class, 'destroy'])->name('destroy');
+        });
+
+        Route::prefix('product_in')->as('product_in.')->group(function () {
+            Route::get('index', [ProductInController::class, 'index'])->name('index');
+            Route::get('create', [ProductInController::class, 'create'])->name('create');
+            Route::get('{productIn}/edit', [ProductInController::class, 'edit'])->name('edit');
+            Route::post('store', [ProductInController::class, 'store'])->name('store');
+            Route::put('{productIn}/update', [ProductInController::class, 'update'])->name('update');
+            Route::delete('{productIn}/destroy', [ProductInController::class, 'destroy'])->name('destroy');
         });
 
     });
