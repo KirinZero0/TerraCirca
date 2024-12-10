@@ -10,14 +10,10 @@ class ProductStock extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'product_list_id',
-        'code',
-        'name',
-        'stock'
+    protected $guarded = [
     ];
 
-    public function product(): BelongsTo
+    public function productList(): BelongsTo
     {
         return $this->belongsTo(ProductList::class, 'product_list_id')->onDelete('cascade');
     }

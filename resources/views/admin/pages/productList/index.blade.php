@@ -67,12 +67,12 @@
                                 <td>{{ $productList->type }}</td>
                                 <td>{{ $productList->supplier->name }}</td>
                                 <td>
-                                        <a href="{{ route('admin.supplier.edit', $productList->id) }}"
+                                        <a href="{{ route('admin.product_list.edit', $productList->id) }}"
                                            class="btn btn-icon btn-sm btn-primary" data-toggle="tooltip"
                                            data-placement="top" title="" data-original-title="Edit">
                                             <i class="far fa-edit"></i>
                                         </a>
-                                        <a href="{{ route('admin.supplier.destroy', $productList->id) }}" data-toggle="tooltip"
+                                        <a href="{{ route('admin.product_list.destroy', $productList->id) }}" data-toggle="tooltip"
                                            data-placement="top" title="" data-original-title="Delete"
                                            class="btn btn-sm btn-danger delete">
                                             <i class="fas fa-trash"></i>

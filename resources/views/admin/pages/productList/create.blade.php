@@ -22,6 +22,25 @@
             productTypeView.innerHTML = e.srcElement.options[e.srcElement.selectedIndex].text;
         });
     </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const searchInput = document.getElementById('product_search');
+                const productDropdown = document.getElementById('product_name');
+        
+                searchInput.addEventListener('input', function () {
+                    const searchValue = this.value.toLowerCase();
+        
+                    // Loop through all options
+                    Array.from(productDropdown.options).forEach(option => {
+                        if (option.value === '') return; // Ignore placeholder option
+        
+                        // Use the "data-name" attribute for a consistent lowercase comparison
+                        const optionText = option.getAttribute('data-name');
+                        option.hidden = !optionText.includes(searchValue);
+                    });
+                });
+            });
+        </script>
 @endsection
 
 @section('content')
@@ -75,13 +94,20 @@
                                     <div class="invalid-feedback"></div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Supplier</label>
-                                    <select class="custom-select" id="product_name" name="supplier_id">
-                                        <option selected="">Pick Supplier</option>
+                                    <label>Product</label>
+                                    <!-- Search input -->
+                                    <input type="text" id="product_search" class="form-control mb-2" placeholder="Search product..." />
+                                
+                                    <!-- Product dropdown -->
+                                    <select class="custom-select" id="product_name" name="supplier_id" required size="5">
+                                        <option value="" disabled selected hidden>Select a Product</option>
                                         @foreach($suppliers as $supplier)
-                                            <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+                                            <option value="{{ $supplier->id }}" data-name="{{ strtolower($supplier->name) }}">
+                                                {{ $supplier->name }}
+                                            </option>
                                         @endforeach
                                     </select>
+                                    <div class="invalid-feedback">Please select a product from the list.</div>
                                 </div>
                             </div>
                         </div>

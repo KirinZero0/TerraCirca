@@ -15,13 +15,10 @@ class ProductInController extends Controller
 {
     public function index()
     {
-        $productIns = ProductIn::where(function ($query) {
-            $search = \request()->get('search');
-            $query->where('name', 'like', '%' . $search . '%')
-            ->orWhereHas('productList', function ($subQuery) use ($search) {
-                $subQuery->where('name', 'like', '%' . $search . '%');
-            });
-    })
+        $productIns = ProductIn::whereHas('productList', function ($query) {
+            $search = request()->get('search');
+            $query->where('name', 'like', '%' . $search . '%');
+        })
         ->orderBy('id', 'DESC')
         ->paginate(10);
 
@@ -61,10 +58,15 @@ class ProductInController extends Controller
             ]);
             $productIn->saveOrFail();
         
-            $productStock = ProductStock::where('barcode', $request->barcode)->first();
+            $productStock = ProductStock::where('barcode', $request->barcode)
+                ->where('product_list_id', $productList->id)
+                ->first();
         
             if ($productStock) {
                 $productStock->increment('stock', $request->quantity);
+                $productIn->update([
+                    'product_stock_id' => $productStock->id
+                ]);
             } else {
                 $productStock = new ProductStock();
                 $productStock->fill([
@@ -83,7 +85,7 @@ class ProductInController extends Controller
             }
         });
 
-        return redirect(route('admin.barang.index'));
+        return redirect(route('admin.product_in.index'));
     }
 
     public function update(Request $request, ProductIn $productIn)
@@ -91,13 +93,13 @@ class ProductInController extends Controller
         $productIn->fill($request->all());
         $productIn->saveOrFail();
 
-        return redirect(route('admin.barang.index'));
+        return redirect(route('admin.product_in.index'));
     }
 
     public function destroy(ProductIn $productIn)
     {
         $productIn->delete();
 
-        return redirect(route('admin.barang.index'));
+        return redirect(route('admin.product_in.index'));
     }
 }

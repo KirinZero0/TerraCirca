@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Tambah Barang')
+@section('title', 'Tambah Produk Masuk')
 
 @section('css')
 
@@ -22,15 +22,34 @@
             productTypeView.innerHTML = e.srcElement.options[e.srcElement.selectedIndex].text;
         });
     </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const searchInput = document.getElementById('product_search');
+            const productDropdown = document.getElementById('product_name');
+    
+            searchInput.addEventListener('input', function () {
+                const searchValue = this.value.toLowerCase();
+    
+                // Loop through all options
+                Array.from(productDropdown.options).forEach(option => {
+                    if (option.value === '') return; // Ignore placeholder option
+    
+                    // Use the "data-name" attribute for a consistent lowercase comparison
+                    const optionText = option.getAttribute('data-name');
+                    option.hidden = !optionText.includes(searchValue);
+                });
+            });
+        });
+    </script>
 @endsection
 
 @section('content')
     <x-content>
         <x-slot name="modul">
-            @include('admin.partials.back-with-title', ['title' => 'Tambah Barang'])
+            @include('admin.partials.back-with-title', ['title' => 'Tambah Procuk Masuk'])
         </x-slot>
         <div>
-            <form action="{{ route('admin.barang.store') }}" enctype="multipart/form-data" method="post"
+            <form action="{{ route('admin.product_in.store') }}" enctype="multipart/form-data" method="post"
                   class="needs-validation" novalidate onkeydown="return event.key !== 'Enter';">
                 @csrf
                 <div class="row">
@@ -42,30 +61,43 @@
                             <div class="card-body">
                                 <div class="section-title mt-0">Informasi Dasar</div>
                                 <div class="form-group">
-                                    <label>Nama Barang</label>
-                                    <select class="custom-select" id="product_name" name="product_list_id">
-                                        <option selected="">Pilih Barang</option>
+                                    <label>Product</label>
+                                    <!-- Search input -->
+                                    <input type="text" id="product_search" class="form-control mb-2" placeholder="Search product..." />
+                                
+                                    <!-- Product dropdown -->
+                                    <select class="custom-select" id="product_name" name="product_list_id" required size="5">
+                                        <option value="" disabled selected hidden>Select a Product</option>
                                         @foreach($lists as $list)
-                                            <option value="{{ $list->id }}">{{ $list->name }}</option>
+                                            <option value="{{ $list->id }}" data-name="{{ strtolower($list->name) }}">
+                                                {{ $list->name }}
+                                            </option>
                                         @endforeach
                                     </select>
+                                    <div class="invalid-feedback">Please select a product from the list.</div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Kode Barang</label>
-                                    <input type="text" class="form-control" name="code" id="product_code" value="{{ old('code') }}"
-                                           required readonly>
-                                    <div class="invalid-feedback"></div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Harga Satuan</label>
+                                    <label>Price/piece</label>
                                     <input type="text" class="form-control" name="price"
                                            value="{{ old('price') }}" required>
                                     <div class="invalid-feedback"></div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Jumlah</label>
+                                    <label>Quantity</label>
                                     <input type="number" class="form-control" name="quantity" min="0"
                                            value="{{ old('quantity') }}" required>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Batch/Barcode</label>
+                                    <input type="text" class="form-control" name="barcode" min="0"
+                                           value="{{ old('barcode') }}" required>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label id="product_type_view">Expiration Date</label>
+                                    <input type="date" class="form-control" name="expiration_date"
+                                           value="{{ old('expiration_date') }}" required>
                                     <div class="invalid-feedback"></div>
                                 </div>
     {{--                            <div class="form-group">
@@ -78,7 +110,7 @@
                                     <div class="invalid-feedback"></div>
                                 </div>--}}
                                 <div class="form-group">
-                                    <label id="product_type_view">Tanggal Masuk</label>
+                                    <label id="product_type_view">Date</label>
                                     <input type="date" class="form-control" name="date"
                                            value="{{ old('date') }}" required>
                                     <div class="invalid-feedback"></div>

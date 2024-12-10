@@ -35,7 +35,7 @@
                         </form>
                     </div>
                     <div class="ml-2">
-                        <a href="{{ route('admin.barang.create') }}" style="background-color: rgb(70, 147, 177)" class="btn btn-sm btn-primary">
+                        <a href="{{ route('admin.product_in.create') }}" style="background-color: rgb(70, 147, 177)" class="btn btn-sm btn-primary">
                             Tambah Barang <i class="fas fa-plus"></i>
                         </a>
                     </div>
@@ -59,7 +59,7 @@
                         @forelse($productIns as $productIn)
                             <tr>
                                 <td>{{ $productIn->id }}</td>
-                                <td>{{ $productIn->name }}</td>
+                                <td>{{ $productIn->productList->name }}</td>
                                 <td>{{ formatRupiah($productIn->price) }}</td>
                                 <td>{{ $productIn->quantity }}</td>
                                 <td>{{ $productIn->date->format('F j, Y') }}</td>

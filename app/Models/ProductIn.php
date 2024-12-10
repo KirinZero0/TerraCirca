@@ -16,29 +16,9 @@ class ProductIn extends Model
     protected $guarded = [
     ];
 
-    const PENDING   = "PENDING";
-    const REJECTED  = "REJECTED";
-    const APPROVED  = "APPROVED";
+    protected $dates = ['date', 'expiration_date'];
 
-    protected $dates = ['date'];
-
-    public function getStatus()
-    {
-        if($this->status == self::PENDING) return 'Menunggu Persetujuan';
-        if($this->status == self::REJECTED) return 'Ditolak';
-
-        return 'Disetujui';
-    }
-
-    public function getStatusColor()
-    {
-        if($this->status == self::PENDING) return 'badge badge-warning';
-        if($this->status == self::REJECTED) return 'badge badge-danger';
-
-        return 'badge badge-success';
-    }
-
-    public function product(): BelongsTo
+    public function productList(): BelongsTo
     {
         return $this->belongsTo(ProductList::class, 'product_list_id');
     }
