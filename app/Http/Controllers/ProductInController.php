@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ProductStockStatusEnum;
 use App\Exports\LaporanBarangExport;
 use App\Models\Product;
 use App\Models\ProductIn;
@@ -76,7 +77,8 @@ class ProductInController extends Controller
                     'stock'           => $request->quantity,
                     'price'           => $request->price,
                     'selling_price'   => $request->selling_price,
-                    'expiration_date' => $request->expiration_date
+                    'expiration_date' => $request->expiration_date,
+                    'status'          => ProductStockStatusEnum::AVAILABLE
                 ]);
                 $productStock->saveOrFail();
 
