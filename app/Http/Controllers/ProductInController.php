@@ -75,6 +75,7 @@ class ProductInController extends Controller
                     'barcode'         => $request->barcode,
                     'stock'           => $request->quantity,
                     'price'           => $request->price,
+                    'selling_price'   => $request->selling_price,
                     'expiration_date' => $request->expiration_date
                 ]);
                 $productStock->saveOrFail();

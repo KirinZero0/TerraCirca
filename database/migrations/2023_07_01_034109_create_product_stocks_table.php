@@ -20,7 +20,9 @@ class CreateProductStocksTable extends Migration
             $table->string('barcode')->nullable();
             $table->integer('stock')->default(0);
             $table->double('price')->default(0);
+            $table->double('selling_price')->default(0);
             $table->date('expiration_date')->nullable();
+            $table->string('status');
             $table->timestamps();
         });
     }

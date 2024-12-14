@@ -1,28 +1,28 @@
 <?php
+/*
+ * author Arya Permana - Kirin
+ * created on 13-12-2024-22h-34m
+ * github: https://github.com/KirinZero0
+ * copyright 2024
+*/
 
 namespace App\Models;
 
+use App\Models\Traits\HandleUpload;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class ProductOut extends Model
+class TransactionItem extends Model
 {
     use HasFactory;
 
-    protected $table = 'product_outs';
+    protected $table = 'transaction_items';
 
     protected $guarded = [
     ];
 
-    protected $dates = ['date'];
-
-    public function productList(): BelongsTo
-    {
-        return $this->belongsTo(ProductList::class, 'product_list_id');
-    }
-
-    public function transaction(): BelongsTo
+    public function Transaction(): BelongsTo
     {
         return $this->belongsTo(Transaction::class, 'transaction_id');
     }
@@ -31,5 +31,4 @@ class ProductOut extends Model
     {
         return $this->belongsTo(ProductStock::class, 'product_stock_id');
     }
-
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ProductStockStatusEnum;
 use App\Models\Product;
 use App\Models\ProductIn;
 use App\Models\ProductList;
@@ -13,10 +14,10 @@ class BarangKeluarController extends Controller
 {
     public function index()
     {
-        $products = ProductOut::where(function ($query) {
+        $productOuts = ProductOut::where(function ($query) {
             $search = \request()->get('search');
-            $query->where('code', 'like', '%' . $search . '%')
-            ->orWhereHas('product', function ($subQuery) use ($search) {
+            $query->where('type', 'like', '%' . $search . '%')
+            ->orWhereHas('productStock', function ($subQuery) use ($search) {
                 $subQuery->where('name', 'like', '%' . $search . '%');
             });
     })
@@ -24,47 +25,44 @@ class BarangKeluarController extends Controller
         ->paginate(10);
 
         return view('admin.pages.barang.keluar.index', [
-            'products' => $products
+            'productOuts' => $productOuts
         ]);
     }
 
     public function create()
     {
-        $lists = ProductList::with('productStock')->get();
+        $productStocks = ProductStock::where('status', '!=', ProductStockStatusEnum::UNAVAILABLE)->get();
 
         return view('admin.pages.barang.keluar.create', [
-            'code'  => rand(),
-            'lists' => $lists
+            'productStocks' => $productStocks
         ]);
     }
 
-    public function edit(ProductOut $product)
+    public function edit(ProductOut $productOut)
     {
-        $maxQuantity = ProductStock::where('code', $product->code)->value('stock');
+        $maxQuantity = $productOut->productStock->stock;
 
         return view('admin.pages.barang.keluar.edit', [
-            'product' => $product,
+            'productOut' => $productOut,
             'maxQuantity' => $maxQuantity
         ]);
     }
 
     public function store(Request $request)
     {
-        $list = ProductList::where('custom_id', $request->code)->first();
+        $productStock = ProductStock::find($request->product_stock_id)->first();
 
-        $product = new ProductOut();
-        $product->fill([
-            'product_list_id' => $list->id,
-            'code' => $request->code,
+        $productOut = new ProductOut();
+        $productOut->fill([
+            'product_list_id' => $productStock->product_list_id,
+            'product_stock_id' => $productStock->id,
             'quantity' => $request->quantity,
-            'status' => $request->status,
-            'reasons' => $request->reasons,
+            'type' => $request->type,
             'date' => $request->date,
 
         ]);
-        $product->saveOrFail();
+        $productOut->saveOrFail();
 
-        $productStock = ProductStock::where('code', $request->code)->first();
         if ($productStock) {
             $productStock->stock -= $request->quantity;
             $productStock->save();
@@ -73,28 +71,25 @@ class BarangKeluarController extends Controller
         return redirect(route('admin.barang.keluar.index'));
     }
 
-    public function update(Request $request, ProductOut $product) 
+    public function update(Request $request, ProductOut $productOut) 
     {
-        $originalQuantity = $product->quantity; 
+        $originalQuantity = $productOut->quantity; 
     
-        $product->fill($request->all());
-        $product->saveOrFail();
+        $productOut->fill($request->all());
+        $productOut->saveOrFail();
     
-        $updatedQuantity = $product->quantity; 
+        $updatedQuantity = $productOut->quantity; 
     
-        // Compare the original quantity with the updated quantity
         if ($updatedQuantity > $originalQuantity) {
             $quantityDifference = $updatedQuantity - $originalQuantity;
-            // Decrease the stock in ProductStock by the quantity difference
-            $productStock = ProductStock::where('code', $product->code)->first();
+            $productStock = $productOut->productStock;
             if ($productStock) {
                 $productStock->stock -= $quantityDifference;
                 $productStock->save();
             }
         } elseif ($updatedQuantity < $originalQuantity) {
             $quantityDifference = $originalQuantity - $updatedQuantity;
-            // Increase the stock in ProductStock by the quantity difference
-            $productStock = ProductStock::where('code', $product->code)->first();
+            $productStock = $productOut->productStock;
             if ($productStock) {
                 $productStock->stock += $quantityDifference;
                 $productStock->save();
@@ -104,40 +99,19 @@ class BarangKeluarController extends Controller
         return redirect(route('admin.barang.keluar.index'));
     }
 
-    public function destroy(ProductOut $product) //more like a cancel function , it rollbacks the store function
+    public function destroy(ProductOut $productOut) //more like a cancel function , it rollbacks the store function
     {
-        $quantity = $product->quantity;
+        $quantity = $productOut->quantity;
     
-        $productStock = ProductStock::where('code', $product->code)->first();
+        $productStock = $productOut->productStock;
     
         if ($productStock) {
             $productStock->stock += $quantity;
             $productStock->save();
         }
     
-        $product->delete();
+        $productOut->delete();
     
         return redirect(route('admin.barang.keluar.index'));
-    }
-    public function updateStatus(Request $request, ProductIn $product)
-    {
-        $product->status = $request->status;
-        $product->reasons = $request->reasons;
-        $product->saveOrFail();
-
-        if ($request->status === ProductIn::APPROVED) {
-            $productStock = ProductStock::where('product_list_id', $product->product_list_id)->first();
-            $productStock->stock += $product->quantity;
-            $productStock->saveOrFail();
-        }
-
-        return redirect(route('admin.barang.index'));
-    }
-
-    public function editStatus(ProductIn $product)
-    {
-        return view('admin.pages.barang.editStatus', [
-            'product' => $product
-        ]);
     }
 }

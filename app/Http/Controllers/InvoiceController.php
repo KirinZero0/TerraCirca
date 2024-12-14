@@ -4,48 +4,46 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\Reservation;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class InvoiceController extends Controller
 {
-    public function generate(Reservation $reservation)
+    // public function generate(Reservation $reservation)
+    // {
+
+    //     $orders = Order::where('reservation_id', $reservation->id)->get();
+    //     $html = view('admin.pages.reservation.invoices.index', compact('reservation', 'orders'))->render();
+
+    //     $pdf = new \Mpdf\Mpdf();
+
+    //     $pdf->WriteHTML($html);
+
+    //     $pdf->Output('INVOICE-'.$reservation->reference_id.'-'.$reservation->date->format('F j, Y - H:i').'.pdf', 'I');
+    // }
+
+    public function generate2(Transaction $transaction, Request $request) //USE THIS
     {
 
-        $orders = Order::where('reservation_id', $reservation->id)->get();
-        $html = view('admin.pages.reservation.invoices.index', compact('reservation', 'orders'))->render();
+        $transactionItems = $transaction->transactionItems;
+
+        $html = view('admin.pages.cashier.invoices.index', compact('reservation', 'transactionItems'))->render();
 
         $pdf = new \Mpdf\Mpdf();
 
         $pdf->WriteHTML($html);
 
-        $pdf->Output('INVOICE-'.$reservation->reference_id.'-'.$reservation->date->format('F j, Y - H:i').'.pdf', 'I');
+        $pdf->Output('INVOICE-'.$transaction->reference_id.'-'.$transaction->date->format('F j, Y - H:i').'.pdf', 'I');
     }
 
-    public function generate2(Reservation $reservation, Request $request)
-    {
+    // public function generate3(Reservation $reservation, Request $request)
+    // {
+    //     $html = view('customer.reservation.invoice', compact('reservation'))->render();
 
-        $orders = Order::where('reservation_id', $reservation->id)->get();
+    //     $pdf = new \Mpdf\Mpdf();
 
-        $enteredAmount = $request->query('enteredAmount');
-        $change = $request->query('change');
+    //     $pdf->WriteHTML($html);
 
-        $html = view('admin.pages.cashier.invoices.index', compact('reservation', 'orders', 'enteredAmount', 'change'))->render();
-
-        $pdf = new \Mpdf\Mpdf();
-
-        $pdf->WriteHTML($html);
-
-        $pdf->Output('INVOICE-'.$reservation->reference_id.'-'.$reservation->date->format('F j, Y - H:i').'.pdf', 'I');
-    }
-
-    public function generate3(Reservation $reservation, Request $request)
-    {
-        $html = view('customer.reservation.invoice', compact('reservation'))->render();
-
-        $pdf = new \Mpdf\Mpdf();
-
-        $pdf->WriteHTML($html);
-
-        $pdf->Output('INVOICE-'.$reservation->reference_id.'.pdf', 'I');
-    }
+    //     $pdf->Output('INVOICE-'.$reservation->reference_id.'.pdf', 'I');
+    // }
 }

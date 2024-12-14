@@ -17,4 +17,9 @@ class ProductStock extends Model
     {
         return $this->belongsTo(ProductList::class, 'product_list_id')->onDelete('cascade');
     }
+
+    public function productIn(): BelongsTo
+    {
+        return $this->belongsTo(ProductIn::class, 'product_stock_id')->onDelete('cascade');
+    }
 }

@@ -22,10 +22,11 @@ class CreateProductOutsTable extends Migration
     {
         Schema::create('product_outs', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('transaction_id');
+            $table->unsignedBigInteger('transaction_id')->nullable();
             $table->unsignedBigInteger('product_list_id');
             $table->unsignedBigInteger('product_stock_id');
             $table->double('quantity')->default(0);
+            $table->string('type');
             $table->date('date');
             $table->timestamps();
         });

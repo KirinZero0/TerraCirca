@@ -16,11 +16,12 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->string('reference_id');
-            $table->unsignedBigInteger('patient_id');
-            $table->double('total_amount');
-            $table->double('paid_amount');
-            $table->double('change_amount');
+            $table->unsignedBigInteger('patient_id')->nullable();
+            $table->double('total_amount')->default(0);
+            $table->double('paid_amount')->default(0);
+            $table->double('change_amount')->default(0);
             $table->date('date');
+            $table->string('status');
             $table->timestamps();
         });
     }

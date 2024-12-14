@@ -83,6 +83,12 @@
                                     <div class="invalid-feedback"></div>
                                 </div>
                                 <div class="form-group">
+                                    <label>Selling Price/piece</label>
+                                    <input type="text" class="form-control" name="selling_price"
+                                           value="{{ old('selling_price') }}" required>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                                <div class="form-group">
                                     <label>Quantity</label>
                                     <input type="number" class="form-control" name="quantity" min="0"
                                            value="{{ old('quantity') }}" required>
