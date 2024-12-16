@@ -22,6 +22,16 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class PatientController extends Controller
 {
+    public function search(Request $request)
+    {
+        $search = $request->get('search');
+        $patients = Patient::where('name', 'like', "%$search%")
+                            ->orWhere('phone', 'like', "%$search%")
+                            ->get();
+        
+        return response()->json($patients);
+    }
+
     public function index()
     {
         $patients = Patient::where(function ($query) {

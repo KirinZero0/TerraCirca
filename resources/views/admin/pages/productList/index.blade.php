@@ -35,7 +35,7 @@
                         </form>
                     </div>
                     <div class="ml-2">
-                        <a href="{{ route('admin.product_list.create') }}" style="background-color: rgb(70, 147, 177)" class="btn btn-sm btn-primary">
+                        <a href="{{ route('admin.product.product_list.create') }}" style="background-color: rgb(70, 147, 177)" class="btn btn-sm btn-primary">
                             Tambah Produk <i class="fas fa-plus"></i>
                         </a>
                     </div>
@@ -67,12 +67,12 @@
                                 <td>{{ $productList->type }}</td>
                                 <td>{{ $productList->supplier->name }}</td>
                                 <td>
-                                        <a href="{{ route('admin.product_list.edit', $productList->id) }}"
+                                        <a href="{{ route('admin.product.product_list.edit', $productList->id) }}"
                                            class="btn btn-icon btn-sm btn-primary" data-toggle="tooltip"
                                            data-placement="top" title="" data-original-title="Edit">
                                             <i class="far fa-edit"></i>
                                         </a>
-                                        <a href="{{ route('admin.product_list.destroy', $productList->id) }}" data-toggle="tooltip"
+                                        <a href="{{ route('admin.product.product_list.destroy', $productList->id) }}" data-toggle="tooltip"
                                            data-placement="top" title="" data-original-title="Delete"
                                            class="btn btn-sm btn-danger delete">
                                             <i class="fas fa-trash"></i>

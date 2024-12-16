@@ -16,7 +16,7 @@ class ProductIn extends Model
     protected $guarded = [
     ];
 
-    protected $dates = ['date', 'expiration_date'];
+    protected $dates = ['date'];
 
     public function productList(): BelongsTo
     {

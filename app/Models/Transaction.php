@@ -24,7 +24,7 @@ class Transaction extends Model
     protected $guarded = [
     ];
 
-    protected $dates = ['date', 'expiration_date'];
+    protected $dates = ['date'];
 
     public function patient(): BelongsTo
     {

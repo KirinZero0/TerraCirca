@@ -9,6 +9,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ProductStockStatusEnum;
 use App\Enums\TransactionStatusEnum;
 use App\Exports\LaporanBarangExport;
 use App\Models\Patient;
@@ -35,7 +36,7 @@ class TransactionController extends Controller
         ->orderBy('id', 'DESC')
         ->paginate(10);
 
-        return view('admin.pages.supplier.index', [
+        return view('admin.pages.transaction.index', [
             'transactions' => $transactions
         ]);
     }
@@ -43,12 +44,26 @@ class TransactionController extends Controller
     public function show(Transaction $transaction)
     {
         $transactionItems = $transaction->transactionItems;
-        $patients = Patient::all();
+        $patients = Patient::where('name', 'like', '%'.\request()->get('search').'%')
+                    ->orWhere('phone', 'like', '%'.\request()->get('search').'%')
+                    ->get();
 
-        return view('admin.pages.supplier.edit', [
+        $productStocks = ProductStock::whereNotIn('status', [
+                        ProductStockStatusEnum::UNAVAILABLE, 
+                        ProductStockStatusEnum::EXPIRED
+                    ])
+                    ->where(function ($query) {
+                        $search = \request()->get('search');
+                        $query->where('barcode', 'like', '%' . $search . '%')
+                            ->orWhere('name', 'like', '%' . $search . '%');
+                    })
+                    ->get();
+
+        return view('admin.pages.transaction.view', [
             'transaction' => $transaction,
             'transactionItems' => $transactionItems,
-            'patients'  => $patients
+            'patients'  => $patients,
+            'productStocks' => $productStocks
         ]);
     }
 
@@ -67,7 +82,7 @@ class TransactionController extends Controller
         ]);
         $transaction->saveOrFail();
 
-        return redirect(route('admin.supplier.index'));
+        return redirect(route('admin.transaction.show'));
     }
 
     public function update(Transaction $transaction, Request $request)

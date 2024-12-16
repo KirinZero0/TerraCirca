@@ -30,9 +30,9 @@
                     <i class="fas fa-sort-numeric-down"></i> <span>Tables</span>
                 </a>
             </li>
-        <li {{ is_nav_active('reservation') }}>
-            <a class="nav-link" href="{{ route('admin.reservation.index') }}">
-                <i class="fas fa-scroll"></i> <span>Reservation</span>
+        <li {{ is_nav_active('transaction') }}>
+            <a class="nav-link" href="{{ route('admin.transaction.index') }}">
+                <i class="fas fa-scroll"></i> <span>Transaction</span>
             </a>
         </li>
         <li {{ is_nav_active('supplier') }}>
@@ -40,18 +40,18 @@
                 <i class="fas fa-users"></i> <span>Supplier</span>
             </a>
         </li>
-        <li class="dropdown {{ is_drop_active('produk') }}">
+        <li class="dropdown {{ is_drop_active('product') }}">
             <a href="#" class="nav-link has-dropdown">
                 <i class="fas fa-box"></i> <span>Produk</span>
             </a>
             <ul class="dropdown-menu">
-                        <li {{ is_nav_active('list') }}>
-                            <a class="nav-link" href="{{ route('admin.product_list.index') }}">
+                        <li {{ is_nav_active('product_list') }}>
+                            <a class="nav-link" href="{{ route('admin.product.product_list.index') }}">
                                 <i class="far fa-circle"></i> List Produk
                             </a>
                         </li>
-                        <li {{ is_nav_active('stok') }}>
-                            <a class="nav-link" href="{{ route('admin.barang.stok.index') }}">
+                        <li {{ is_nav_active('product_stock') }}>
+                            <a class="nav-link" href="{{ route('admin.product.product_stock.index') }}">
                                 <i class="far fa-circle"></i> Stok Produk
                             </a>
                         </li>
@@ -60,8 +60,8 @@
                                 <i class="far fa-circle"></i> Barang Masuk
                             </a>
                         </li> --}}
-                        <li {{ is_nav_active('kelola') }}>
-                            <a class="nav-link" href="{{ route('admin.product_in.index') }}">
+                        <li {{ is_nav_active('product_in') }}>
+                            <a class="nav-link" href="{{ route('admin.product.product_in.index') }}">
                                 <i class="far fa-circle"></i> Produk Masuk
                             </a>
                         </li>

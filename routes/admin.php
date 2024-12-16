@@ -2,9 +2,13 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ProductInController;
 use App\Http\Controllers\ProductListController;
+use App\Http\Controllers\ProductStockController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\TransactionItemController;
 use Illuminate\Support\Facades\Route;
 
 Route::group([], function () {
@@ -144,27 +148,51 @@ Route::group([], function () {
             Route::get('create', [SupplierController::class, 'create'])->name('create');
             Route::get('{supplier}/edit', [SupplierController::class, 'edit'])->name('edit');
             Route::post('store', [SupplierController::class, 'store'])->name('store');
-            Route::put('{supplier}/update', [SupplierController::class, 'update'])->name('update');
+            Route::patch('{supplier}/update', [SupplierController::class, 'update'])->name('update');
             Route::delete('{supplier}/destroy', [SupplierController::class, 'destroy'])->name('destroy');
         });
 
-        Route::prefix('product_list')->as('product_list.')->group(function () {
-            Route::get('index', [ProductListController::class, 'index'])->name('index');
-            Route::get('create', [ProductListController::class, 'create'])->name('create');
-            Route::get('{productList}/edit', [ProductListController::class, 'edit'])->name('edit');
-            Route::post('store', [ProductListController::class, 'store'])->name('store');
-            Route::put('{productList}/update', [ProductListController::class, 'update'])->name('update');
-            Route::delete('{productList}/destroy', [ProductListController::class, 'destroy'])->name('destroy');
+        Route::prefix('product')->as('product.')->group(function () {
+            Route::prefix('product_list')->as('product_list.')->group(function () {
+                Route::get('index', [ProductListController::class, 'index'])->name('index');
+                Route::get('create', [ProductListController::class, 'create'])->name('create');
+                Route::get('{productList}/edit', [ProductListController::class, 'edit'])->name('edit');
+                Route::post('store', [ProductListController::class, 'store'])->name('store');
+                Route::patch('{productList}/update', [ProductListController::class, 'update'])->name('update');
+                Route::delete('{productList}/destroy', [ProductListController::class, 'destroy'])->name('destroy');
+            });
+    
+            Route::prefix('product_in')->as('product_in.')->group(function () {
+                Route::get('index', [ProductInController::class, 'index'])->name('index');
+                Route::get('create', [ProductInController::class, 'create'])->name('create');
+                Route::get('{productIn}/edit', [ProductInController::class, 'edit'])->name('edit');
+                Route::post('store', [ProductInController::class, 'store'])->name('store');
+                Route::patch('{productIn}/update', [ProductInController::class, 'update'])->name('update');
+                Route::delete('{productIn}/destroy', [ProductInController::class, 'destroy'])->name('destroy');
+            });
+    
+            Route::prefix('product_stock')->as('product_stock.')->group(function () {
+                Route::get('index', [ProductStockController::class, 'index'])->name('index');
+            });
         });
 
-        Route::prefix('product_in')->as('product_in.')->group(function () {
-            Route::get('index', [ProductInController::class, 'index'])->name('index');
-            Route::get('create', [ProductInController::class, 'create'])->name('create');
-            Route::get('{productIn}/edit', [ProductInController::class, 'edit'])->name('edit');
-            Route::post('store', [ProductInController::class, 'store'])->name('store');
-            Route::put('{productIn}/update', [ProductInController::class, 'update'])->name('update');
-            Route::delete('{productIn}/destroy', [ProductInController::class, 'destroy'])->name('destroy');
+        Route::prefix('transaction')->as('transaction.')->group(function () {
+            Route::get('index', [TransactionController::class, 'index'])->name('index');
+            Route::get('{transaction}/show', [TransactionController::class, 'show'])->name('show');
+            Route::post('store', [TransactionController::class, 'store'])->name('store');
+            Route::patch('{transaction}/update', [TransactionController::class, 'update'])->name('update');
+            Route::patch('{transaction}/finish', [TransactionController::class, 'finish'])->name('finish');
+            Route::delete('{transaction}/destroy', [TransactionController::class, 'destroy'])->name('destroy');
+                Route::prefix('transaction-item')->as('transaction-item.')->group(function () {
+                    Route::post('{transaction}/store', [TransactionItemController::class, 'store'])->name('store');
+                    Route::patch('{transactionItem}/update', [TransactionItemController::class, 'update'])->name('update');
+                    Route::get('{transactionItem}/destroy', [TransactionItemController::class, 'destroy'])->name('destroy');
+                });
         });
 
+        Route::prefix('patient')->as('patient.')->group(function () {
+            Route::get('index', [PatientController::class, 'index'])->name('index');
+            Route::get('search', [PatientController::class, 'search'])->name('search');
+        });
     });
 });

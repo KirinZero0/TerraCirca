@@ -22,7 +22,7 @@ class TransactionItem extends Model
     protected $guarded = [
     ];
 
-    public function Transaction(): BelongsTo
+    public function transaction(): BelongsTo
     {
         return $this->belongsTo(Transaction::class, 'transaction_id');
     }

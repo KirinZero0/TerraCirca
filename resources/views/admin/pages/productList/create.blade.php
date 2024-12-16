@@ -94,20 +94,20 @@
                                     <div class="invalid-feedback"></div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Product</label>
+                                    <label>Supplier</label>
                                     <!-- Search input -->
-                                    <input type="text" id="product_search" class="form-control mb-2" placeholder="Search product..." />
+                                    <input type="text" id="product_search" class="form-control mb-2" placeholder="Search supplier...." />
                                 
                                     <!-- Product dropdown -->
                                     <select class="custom-select" id="product_name" name="supplier_id" required size="5">
-                                        <option value="" disabled selected hidden>Select a Product</option>
+                                        <option value="" disabled selected hidden>Select a Supplier</option>
                                         @foreach($suppliers as $supplier)
                                             <option value="{{ $supplier->id }}" data-name="{{ strtolower($supplier->name) }}">
                                                 {{ $supplier->name }}
                                             </option>
                                         @endforeach
                                     </select>
-                                    <div class="invalid-feedback">Please select a product from the list.</div>
+                                    <div class="invalid-feedback">Please select a supplier from the list.</div>
                                 </div>
                             </div>
                         </div>

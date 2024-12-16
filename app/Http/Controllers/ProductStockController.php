@@ -23,6 +23,21 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ProductStockController extends Controller
 {
+    public function index()
+    {
+        $productStocks = ProductStock::where(function ($query) {
+            $search = \request()->get('search');
+            $query->where('barcode', 'like', '%' . $search . '%')
+                ->orWhere('name', 'like', '%' . $search . '%');
+        })
+            ->orderBy('id', 'DESC')
+            ->paginate(10);
+
+         return view('admin.pages.productStock.index', [
+            'productStocks' => $productStocks
+     ]);
+    }
+
     public function show(ProductStock $productStock)
     {
         $productIn = $productStock->productIn;
