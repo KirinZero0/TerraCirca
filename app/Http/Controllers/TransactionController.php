@@ -82,7 +82,7 @@ class TransactionController extends Controller
         ]);
         $transaction->saveOrFail();
 
-        return redirect(route('admin.transaction.show'));
+        return redirect(route('admin.transaction.show', ['transaction' => $transaction->id]));
     }
 
     public function update(Transaction $transaction, Request $request)
@@ -98,7 +98,7 @@ class TransactionController extends Controller
             ]);
         }
     
-        return redirect(route('admin.supplier.index'));
+        return redirect(route('admin.transaction.show', ['transaction' => $transaction->id]));
     }
 
     public function finish(Transaction $transaction)
@@ -114,7 +114,7 @@ class TransactionController extends Controller
                 $productStock = $transactionItem->productStock;
                 $quantity = $transactionItem->quantity;
     
-                $productStock->decrement('quantity', $quantity);
+                $productStock->decrement('stock', $quantity);
     
             }
     

@@ -42,20 +42,35 @@ class PatientController extends Controller
         ->orderBy('id', 'DESC')
         ->paginate(10);
     
-        return view('admin.pages.supplier.index', [
+        return view('admin.pages.patient.index', [
             'patients' => $patients
+        ]);
+    }
+
+    public function create()
+    {
+        return view('admin.pages.patient.create');
+    }
+
+    public function edit(Patient $patient)
+    {
+        return view('admin.pages.patient.edit', [
+            'patient' => $patient
         ]);
     }
 
     public function show(Patient $patient)
     {
         $checkups = $patient->checkups;
-        $transactions = $patient->transactions;
+        $transactions = $patient->transactions()->where('reference_id', 'like', '%'.\request()->get('search').'%')
+        ->get();
+        $latestCheckup = $patient->checkups()->latest()->first();
 
-        return view('admin.pages.supplier.edit', [
+        return view('admin.pages.patient.view', [
             'patient' => $patient,
             'checkups' => $checkups,
-            'transactions'  => $transactions
+            'transactions'  => $transactions,
+            'latestCheckup' => $latestCheckup
         ]);
     }
 
@@ -68,7 +83,7 @@ class PatientController extends Controller
         ]);
         $patient->saveOrFail();
 
-        return redirect(route('admin.supplier.index'));
+        return redirect(route('admin.patient.index'));
     }
 
     public function update(Patient $patient, Request $request)
@@ -76,13 +91,13 @@ class PatientController extends Controller
         $patient->fill($request->all());
         $patient->saveOrFail();
 
-        return redirect(route('admin.supplier.index'));
+        return redirect(route('admin.patient.index'));
     }
 
     public function destroy(Patient $patient)
     {
         $patient->delete();
 
-        return redirect(route('admin.supplier.index'));
+        return redirect(route('admin.patient.index'));
     }
 }

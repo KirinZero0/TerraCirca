@@ -23,6 +23,8 @@ class PatientCheckup extends Model
     protected $guarded = [
     ];
 
+    protected $dates = ['date'];
+
     public function transaction(): BelongsTo
     {
         return $this->belongsTo(Transaction::class, 'transaction_id');

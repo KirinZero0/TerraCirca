@@ -23,7 +23,7 @@
         <div>
             <form action="{{ route('admin.menu.update' , $menu->id) }}" enctype="multipart/form-data" method="post"
                     class="needs-validation" novalidate onkeydown="return event.key !== 'Enter';">
-                @method('PUT')
+                @method('PATCH')
                 @csrf
                 <div class="row">
                     <div class="col-md-12 col-sm-12 my-1">

@@ -19,7 +19,7 @@
             <form action="{{ route('admin.supplier.update', $supplier->id) }}" enctype="multipart/form-data" method="post"
                   class="needs-validation" novalidate onkeydown="return event.key !== 'Enter';">
                 @csrf
-                @method('PUT')
+                @method('PATCH')
                 <div class="row">
                     {{--                    <div class="col-md-4 col-sm-12 my-1">--}}
                     {{--                        @include('admin.pages.barang.partials.image-upload', ['imageUrl' => $supplier->getImageUrl()])--}}

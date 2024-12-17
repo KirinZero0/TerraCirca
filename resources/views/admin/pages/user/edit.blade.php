@@ -19,7 +19,7 @@
             <form action="{{ route('admin.user.update', $user->id) }}" enctype="multipart/form-data" method="post"
                   class="needs-validation" novalidate onkeydown="return event.key !== 'Enter';">
                 @csrf
-                @method('PUT')
+                @method('PATCH')
                 <div class="row">
                     <div class="col-md-12 col-sm-12 my-1">
                         <div class="card">

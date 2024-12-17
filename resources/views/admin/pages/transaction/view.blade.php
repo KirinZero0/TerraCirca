@@ -35,7 +35,7 @@
                 <a href="{{ route('admin.transaction.index') }} " style="color: #404040;" class="text-decoration-none mr-2">
                     <i class="fas fa-arrow-left" style="font-size: 21px;"></i>
                 </a>
-                Serve
+                Transaksi
             </h1>
         </x-slot>
         <div>
@@ -51,11 +51,12 @@
                             <!-- Patient Selection -->
                             <div class="d-flex align-items-center mb-3">
                                 @if($transaction->patient)
-                                    <p class="card-text mb-0">{{ $transaction->patient->name }}</p>
+                                    <p class="card-text mb-0">{{ $transaction->patient->name. ' - ' . $transaction->patient->phone }}</p>
                                 @else
                                     <!-- Patient Dropdown -->
                                     <form action="{{ route('admin.transaction.update', $transaction->id) }}" method="post" class="w-100">
                                         @csrf
+                                        @method('PATCH')
                                         <div class="form-group w-100">
                                             <label for="patientDropdown" class="sr-only">Pilih Pasien</label>
                                             <select name="patient_id" id="patientDropdown" class="form-control" required>

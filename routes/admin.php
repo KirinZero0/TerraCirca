@@ -193,6 +193,12 @@ Route::group([], function () {
         Route::prefix('patient')->as('patient.')->group(function () {
             Route::get('index', [PatientController::class, 'index'])->name('index');
             Route::get('search', [PatientController::class, 'search'])->name('search');
+            Route::get('create', [PatientController::class, 'create'])->name('create');
+            Route::get('{patient}/edit', [PatientController::class, 'edit'])->name('edit');
+            Route::get('{patient}/show', [PatientController::class, 'show'])->name('show');
+            Route::post('store', [PatientController::class, 'store'])->name('store');
+            Route::patch('{patient}/update', [PatientController::class, 'update'])->name('update');
+            Route::get('{patient}/destroy', [PatientController::class, 'destroy'])->name('destroy');
         });
     });
 });

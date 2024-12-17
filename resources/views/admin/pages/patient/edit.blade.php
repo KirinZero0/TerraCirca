@@ -1,43 +1,53 @@
 @extends('layouts.admin')
 
-@section('title', 'Edit Barang')
+@section('title', 'Edit Pasien')
 
 @section('css')
 
 @endsection
 
 @section('js')
-
+    <script src="{{  asset('stisla/js/upload-image.js') }}"></script>
 @endsection
 
 @section('content')
     <x-content>
         <x-slot name="modul">
-            @include('admin.partials.back-with-title', ['title' => 'Edit Barang'])
+            @include('admin.partials.back-with-title', ['title' => 'Edit Pasien'])
         </x-slot>
         <div>
-            <form action="{{ route('admin.barang.list.update', $product->id) }}" enctype="multipart/form-data" method="post"
+            <form action="{{ route('admin.patient.update', $patient->id) }}" enctype="multipart/form-data" method="post"
                   class="needs-validation" novalidate onkeydown="return event.key !== 'Enter';">
                 @csrf
                 @method('PATCH')
                 <div class="row">
+                    {{--                    <div class="col-md-4 col-sm-12 my-1">--}}
+                    {{--                        @include('admin.pages.barang.partials.image-upload', ['imageUrl' => $supplier->getImageUrl()])--}}
+                    {{--                    </div>--}}
                     <div class="col-md-12 col-sm-12 my-1">
                         <div class="card">
                             <div class="card-header">
                                 <h4>Informasi Dasar</h4>
                             </div>
                             <div class="card-body">
-                                <div class="section-title mt-0">Informasi Barang</div>
+                                <div class="section-title mt-0">Informasi Dasar</div>
                                 <div class="form-group">
-                                    <label>Kode Barang</label>
-                                    <input type="text" class="form-control" id="custom_id" name="custom_id" value="{{ old('custom_id', $product->custom_id) }}"
+                                    <label>Name</label>
+                                    <input type="text" class="form-control" name="name"
+                                           value="{{ old('name', $patient->name) }}"
                                            required>
                                     <div class="invalid-feedback"></div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Nama Barang</label>
-                                    <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $product->name) }}"
-                                           required>
+                                    <label>Phone</label>
+                                    <input type="text" class="form-control" name="phone"
+                                           value="{{ old('phone', $patient->phone) }}">
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Address</label>
+                                    <input type="text" class="form-control" name="address"
+                                           value="{{ old('address', $patient->address) }}" required>
                                     <div class="invalid-feedback"></div>
                                 </div>
                             </div>
