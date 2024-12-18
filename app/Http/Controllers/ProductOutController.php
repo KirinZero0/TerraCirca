@@ -71,7 +71,7 @@ class ProductOutController extends Controller
                 return redirect()->back()->with('error', 'Something went wrong, please try again.');
             }
         });
-        return redirect(route('admin.productOut.index'))->with('success', 'Product out registered successfully.');
+        return redirect(route('admin.product.product_out.index'))->with('success', 'Product out registered successfully.');
     }
 
     public function update(Request $request, ProductOut $productOut)
@@ -79,14 +79,14 @@ class ProductOutController extends Controller
         $productOut->fill($request->all());
         $productOut->saveOrFail();
 
-        return redirect(route('admin.productOut.index'));
+        return redirect(route('admin.product.product_out.index'));
     }
 
     public function destroy(ProductOut $productOut)
     {
         $productOut->delete();
 
-        return redirect(route('admin.productOut.index'));
+        return redirect(route('admin.product.product_out.index'));
     }
 
     public function undo(ProductOut $productOut)
@@ -96,6 +96,6 @@ class ProductOutController extends Controller
 
         $productOut->delete();
     
-        return redirect(route('admin.productOut.index'))->with('success', 'Product out undone and stock restored.');
+        return redirect(route('admin.product.product_out.index'))->with('success', 'Product out undone and stock restored.');
     }
 }

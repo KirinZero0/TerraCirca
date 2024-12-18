@@ -11,6 +11,7 @@ namespace App\Enums;
 class ProductOutTypeEnum
 {
     const RETUR = 'Retur';
+    const DEFECT = 'Defect';
     const TRANSACTION = 'Transaction';
     const EXPIRED = 'Expired';
 }

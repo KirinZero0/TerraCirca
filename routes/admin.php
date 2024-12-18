@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ProductInController;
 use App\Http\Controllers\ProductListController;
+use App\Http\Controllers\ProductOutController;
 use App\Http\Controllers\ProductStockController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TransactionController;
@@ -169,6 +170,16 @@ Route::group([], function () {
                 Route::post('store', [ProductInController::class, 'store'])->name('store');
                 Route::patch('{productIn}/update', [ProductInController::class, 'update'])->name('update');
                 Route::delete('{productIn}/destroy', [ProductInController::class, 'destroy'])->name('destroy');
+            });
+    
+            Route::prefix('product_out')->as('product_out.')->group(function () {
+                Route::get('index', [ProductOutController::class, 'index'])->name('index');
+                Route::get('create', [ProductOutController::class, 'create'])->name('create');
+                Route::get('{productIn}/edit', [ProductOutController::class, 'edit'])->name('edit');
+                Route::post('store', [ProductOutController::class, 'store'])->name('store');
+                Route::patch('{productIn}/update', [ProductOutController::class, 'update'])->name('update');
+                Route::delete('{productIn}/destroy', [ProductOutController::class, 'destroy'])->name('destroy');
+                Route::delete('{productIn}/undo', [ProductOutController::class, 'undo'])->name('undo');
             });
     
             Route::prefix('product_stock')->as('product_stock.')->group(function () {
