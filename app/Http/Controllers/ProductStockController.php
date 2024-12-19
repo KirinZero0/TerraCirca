@@ -40,22 +40,26 @@ class ProductStockController extends Controller
 
     public function show(ProductStock $productStock)
     {
-        $productIn = $productStock->productIn;
-        $productList = $productStock->productList;
-
-        return view('admin.pages.supplier.edit', [
-            'productList' => $productList,
-            'productIn' => $productIn,
-            'productStock'  => $productStock
+        $productOuts = $productStock->productOuts()->where('type', 'like', '%' . request()->get('search') . '%')
+        ->get();
+        return view('admin.pages.productStock.view', [
+            'stock'  => $productStock,
+            'productOuts'   => $productOuts
         ]);
     }
 
+    public function edit(ProductStock $productStock)
+    {
+        return view('admin.pages.productStock.edit', [
+            'stock'  => $productStock,
+        ]);
+    }
     public function update(ProductStock $productStock, Request $request)
     {
         $productStock->fill($request->all());
         $productStock->saveOrFail();
     
-        return redirect(route('admin.supplier.index'));
+        return redirect(route('admin.product.product_stock.show', $productStock->id));
     }
 
     public function destroy(ProductStock $productStock)

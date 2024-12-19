@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Pasien')
+@section('title', 'Stok')
 
 @section('css')
 
@@ -15,10 +15,10 @@
     <x-content>
         <x-slot name="modul">
             <h1>
-                <a href="{{ route('admin.patient.index') }} " style="color: #404040;" class="text-decoration-none mr-2">
+                <a href="{{ route('admin.product.product_stock.index') }} " style="color: #404040;" class="text-decoration-none mr-2">
                     <i class="fas fa-arrow-left" style="font-size: 21px;"></i>
                 </a>
-                Pasien
+                Stok
             </h1>
         </x-slot>
         <div>
@@ -26,27 +26,34 @@
                 <div class="col-lg-3 col-md-12 col-12 col-sm-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Data Pasien</h4>
+                            <h4>Data Stok</h4>
+                            <a href="{{ route('admin.product.product_stock.edit', $stock->id) }}"
+                                class="btn btn-icon btn-sm btn-primary" data-toggle="tooltip"
+                                data-placement="top" title="" data-original-title="Edit">
+                                 <i class="far fa-edit"></i>
+                             </a>
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">{{$patient->name}} <span class="badge badge-secondary">{{$patient->id}}</span></h5>
-                            <p class="card-text">Alamat: {{$patient->address}}</p>
-                            <p class="card-text">No Tlp: {{$patient->phone}}</p>
-                            <p class="card-title">
-                                @if($latestCheckup)
-                                    Checkup Terakhir: {{ $latestCheckup->date->format('F j, Y') }}
-                                @else
-                                    This patient didn't have any checkup histories
-                                @endif
-                            </p>
+                            <h5 class="card-title">{{$stock->name}} <span class="badge badge-secondary">{{$stock->productList->code}}</span></h5>
+                            <p class="card-text">Barcode: {{$stock->barcode}}</p>
+                            <p class="card-text">Stok: {{$stock->stock}}</p>
+                            <p class="card-text">Harga: {{$stock->selling_price}}</p>
+                            <p class="card-text">Status: {{$stock->status}}</p>
+                            <p class="card-text">Harga: {{formatRupiah($stock->selling_price)}}</p>
+                            <p class="card-text">Exp: {{$stock->expiration_date->format('F j, Y')}}</p>
                             </p>  
                         </div>
+                        <a href="{{ route('admin.product.product_stock.destroy', $stock->id) }}" data-toggle="tooltip"
+                            data-placement="top" title="" data-original-title="Delete"
+                            class="btn btn-sm btn-danger delete">
+                             <i class="fas fa-trash"></i>
+                         </a>
                     </div>
                 </div>
                 <div class="col-lg-8 col-md-12 col-12 col-sm-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Data</h4>
+                            <h4>History</h4>
                             <div>
                                 <form>
                                     <div class="input-group">
@@ -62,19 +69,14 @@
                             
                         <div class="card-body">
                             <div class="table-responsive">
-                                <h5 class="mb-3">Transaksi dan Checkup</h5>
                                 <table class="table table-bordered table-md">
                                     <tbody>
-                                        @forelse($transactions as $transaction)
+                                        @forelse($productOuts as $productOut)
                                             <tr>
-                                                    <td>
-                                                        <a href="{{ route('admin.transaction.show', $transaction->id) }}" 
-                                                            class="d-inline-block border border-primary rounded p-2 text-primary text-decoration-none">
-                                                            {{ $transaction->reference_id }}
-                                                        </a>
-                                                    </td>
-                                                    <td style="width: 30%">{{ formatRupiah($transaction->total_amount) }}</td>
-                                                    <td style="width: 30%">{{ $transaction->date->format('F j, Y') }}</td>
+                                                    <td style="width: 20%">{{ $productOut->type }}</td>
+                                                    <td style="width: 30%">{{ $productOut->quantity }}</td>
+                                                    <td style="width: 30%">{{ $productOut->stock }}</td>
+                                                    <td style="width: 30%">{{ $productOut->date->format('F j, Y') }}</td>
                                             </tr>
                                         @empty
                                             <tr>

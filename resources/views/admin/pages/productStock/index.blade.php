@@ -54,7 +54,12 @@
                         @forelse($productStocks as $productStock)
                             <tr>
                                 <td>{{ $productStock->id }}</td>
-                                <td>{{ $productStock->barcode }}</td>
+                                <td>
+                                    <a href="{{ route('admin.product.product_stock.show', $productStock->id) }}" 
+                                        class="d-inline-block border border-primary rounded p-2 text-primary text-decoration-none">
+                                        {{ $productStock->barcode }}
+                                    </a>
+                                </td>
                                 <td>{{ $productStock->productList->code }}</td>
                                 <td>{{ $productStock->name }}</td>
                                 <td>{{ $productStock->stock }}</td>

@@ -158,6 +158,7 @@ Route::group([], function () {
                 Route::get('index', [ProductListController::class, 'index'])->name('index');
                 Route::get('create', [ProductListController::class, 'create'])->name('create');
                 Route::get('{productList}/edit', [ProductListController::class, 'edit'])->name('edit');
+                Route::get('{productList}/show', [ProductListController::class, 'show'])->name('show');
                 Route::post('store', [ProductListController::class, 'store'])->name('store');
                 Route::patch('{productList}/update', [ProductListController::class, 'update'])->name('update');
                 Route::delete('{productList}/destroy', [ProductListController::class, 'destroy'])->name('destroy');
@@ -175,15 +176,19 @@ Route::group([], function () {
             Route::prefix('product_out')->as('product_out.')->group(function () {
                 Route::get('index', [ProductOutController::class, 'index'])->name('index');
                 Route::get('create', [ProductOutController::class, 'create'])->name('create');
-                Route::get('{productIn}/edit', [ProductOutController::class, 'edit'])->name('edit');
+                Route::get('{productOut}/edit', [ProductOutController::class, 'edit'])->name('edit');
                 Route::post('store', [ProductOutController::class, 'store'])->name('store');
-                Route::patch('{productIn}/update', [ProductOutController::class, 'update'])->name('update');
-                Route::delete('{productIn}/destroy', [ProductOutController::class, 'destroy'])->name('destroy');
-                Route::delete('{productIn}/undo', [ProductOutController::class, 'undo'])->name('undo');
+                Route::patch('{productOut}/update', [ProductOutController::class, 'update'])->name('update');
+                Route::delete('{productOut}/destroy', [ProductOutController::class, 'destroy'])->name('destroy');
+                Route::delete('{productOut}/undo', [ProductOutController::class, 'undo'])->name('undo');
             });
     
             Route::prefix('product_stock')->as('product_stock.')->group(function () {
                 Route::get('index', [ProductStockController::class, 'index'])->name('index');
+                Route::get('{productStock}/show', [ProductStockController::class, 'show'])->name('show');
+                Route::get('{productStock}/edit', [ProductStockController::class, 'edit'])->name('edit');
+                Route::patch('{productStock}/update', [ProductStockController::class, 'update'])->name('update');
+                Route::patch('{productStock}/destroy', [ProductStockController::class, 'destroy'])->name('destroy');
             });
         });
 

@@ -88,7 +88,7 @@ class ProductInController extends Controller
             }
         });
 
-        return redirect(route('admin.product_in.index'));
+        return redirect(route('admin.product.product_in.index'));
     }
 
     public function update(Request $request, ProductIn $productIn)
@@ -96,13 +96,13 @@ class ProductInController extends Controller
         $productIn->fill($request->all());
         $productIn->saveOrFail();
 
-        return redirect(route('admin.product_in.index'));
+        return redirect(route('admin.product.product_in.index'));
     }
 
     public function destroy(ProductIn $productIn)
     {
         $productIn->delete();
 
-        return redirect(route('admin.product_in.index'));
+        return redirect(route('admin.product.product_in.index'));
     }
 }

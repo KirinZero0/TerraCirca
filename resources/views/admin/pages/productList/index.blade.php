@@ -54,30 +54,22 @@
                             <th>Kategori</th>
                             <th>Tipe</th>
                             <th>Supplier</th>
-                            <th style="width:150px">Action</th>
                         </tr>
                         </thead>
                         <tbody>
                         @forelse($productLists as $productList)
                             <tr>
                                 <td>{{ $productList->id }}</td>
-                                <td>{{ $productList->code }}</td>
+                                <td>
+                                    <a href="{{ route('admin.product.product_list.show', $productList->id) }}" 
+                                        class="d-inline-block border border-primary rounded p-2 text-primary text-decoration-none">
+                                        {{ $productList->code }}
+                                    </a>
+                                </td>
                                 <td>{{ $productList->name }}</td>
                                 <td>{{ $productList->category }}</td>
                                 <td>{{ $productList->type }}</td>
                                 <td>{{ $productList->supplier->name }}</td>
-                                <td>
-                                        <a href="{{ route('admin.product.product_list.edit', $productList->id) }}"
-                                           class="btn btn-icon btn-sm btn-primary" data-toggle="tooltip"
-                                           data-placement="top" title="" data-original-title="Edit">
-                                            <i class="far fa-edit"></i>
-                                        </a>
-                                        <a href="{{ route('admin.product.product_list.destroy', $productList->id) }}" data-toggle="tooltip"
-                                           data-placement="top" title="" data-original-title="Delete"
-                                           class="btn btn-sm btn-danger delete">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
-                                </td>
                             </tr>
                         @empty
                             <tr>

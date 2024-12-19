@@ -46,27 +46,21 @@ class ProductOutController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'product_stock_id' => 'required|exists:product_stocks,id',
-            'quantity' => 'required|integer|min:1',
-            'type' => 'required|string',
-            'date' => 'required|date',
-        ]);
-    
-        DB::transaction(function () use ($validated) {
+    {    
+        DB::transaction(function () use ($request) {
             try {
-                $productStock = ProductStock::findOrFail($validated['product_stock_id']);
-            
+                // dd($request->product_stock_id);
+                $productStock = ProductStock::findOrFail($request->product_stock_id);
                 $productOut = new ProductOut([
                     'product_list_id' => $productStock->productList->id,
-                    'quantity' => $validated['quantity'],
-                    'type'  => $validated['type'],
-                    'date' => $validated['date']
+                    'product_stock_id' => $productStock->id,
+                    'quantity' => $request->quantity,
+                    'type'  => $request->type,
+                    'date' => $request->date
                 ]);
                 $productOut->saveOrFail();
     
-                $productStock->decrement('stock', $validated['quantity']);
+                $productStock->decrement('stock', $request->quantity);
             } catch (\Exception $e) {
                 return redirect()->back()->with('error', 'Something went wrong, please try again.');
             }
@@ -92,7 +86,7 @@ class ProductOutController extends Controller
     public function undo(ProductOut $productOut)
     {
         $productStock = $productOut->productStock;
-        $productStock->increment('quantity', $productOut->quantity);
+        $productStock->increment('stock', $productOut->quantity);
 
         $productOut->delete();
     

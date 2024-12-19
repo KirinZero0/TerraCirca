@@ -36,10 +36,24 @@ class ProductListController extends Controller
         ]);
     }
 
-    public function edit(ProductList $productList)
+    public function show (ProductList $productList)
     {
+        $stocks = $productList->productStocks()
+        ->where('barcode', 'like', '%' . request()->get('search') . '%')
+        ->get();
+    
+        return view('admin.pages.productList.view', [
+            'product' => $productList,
+            'stocks' => $stocks
+        ]);
+    }
+
+    public function edit(ProductList $productList)
+    {        
+        $suppliers = Supplier::all();
         return view('admin.pages.productList.edit', [
-            'productList' => $productList
+            'productList' => $productList,
+            'suppliers' => $suppliers
         ]);
     }
 
@@ -58,7 +72,7 @@ class ProductListController extends Controller
 
         $productList->saveOrFail();
 
-        return redirect(route('admin.product_list.index'));
+        return redirect(route('admin.product.product_list.index'));
     }
 
 
@@ -67,7 +81,7 @@ class ProductListController extends Controller
         $productList->fill($request->all());
         $productList->saveOrFail();
 
-        return redirect(route('admin.product_list.index'));
+        return redirect(route('admin.product.product_list.index'));
     }
 
     public function destroy(ProductList $productList)
@@ -79,6 +93,6 @@ class ProductListController extends Controller
 
         $productList->delete();
 
-        return redirect(route('admin.product_list.index'));
+        return redirect(route('admin.product.product_list.index'));
     }
 }

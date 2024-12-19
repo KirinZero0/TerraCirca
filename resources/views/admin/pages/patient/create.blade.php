@@ -41,7 +41,7 @@
                                 <div class="form-group">
                                     <label>Address</label>
                                     <input type="text" class="form-control" name="address"
-                                           value="{{ old('address') }}" required>
+                                           value="{{ old('address') }}">
                                     <div class="invalid-feedback"></div>
                                 </div>
                             </div>

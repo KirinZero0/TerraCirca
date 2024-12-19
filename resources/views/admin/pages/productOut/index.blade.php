@@ -53,7 +53,7 @@
                             <th>Jumlah</th>   
                             <th>Type</th>   
                             <th>Tanggal Keluar</th>
-                            {{-- <th style="width:150px">Action</th> --}}
+                            <th style="width:150px">Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -65,12 +65,16 @@
                                 <td>{{ $productOut->quantity }}</td>
                                 <td>{{ $productOut->type }}</td>
                                 <td>{{ $productOut->date->format('F j, Y') }}</td>
-                                {{-- <td>
-                                        <a href="{{ route('admin.product.product_out.undo', $productOut->id) }}"
-                                           class="btn btn-icon btn-sm btn-success" data-toggle="tooltip"
-                                           data-placement="top" title="" data-original-title="Undo">
-                                            <i class="fas fa-question"></i>
-                                        </a> --}}
+                                <td>
+                                    <form action="{{ route('admin.product.product_out.undo', $productOut->id) }}" method="POST" style="display: inline-block;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-icon btn-sm btn-warning" data-toggle="tooltip" data-placement="top"
+                                                title="Undo" data-original-title="Undo">
+                                            <i class="fas fa-backward"></i>
+                                        </button>
+                                    </form>
+                                </td>
                                         {{-- <a href="{{ route('admin.barang.return.edit', $product->id) }}"
                                            class="btn btn-icon btn-sm btn-warning" data-toggle="tooltip"
                                            data-placement="top" title="" data-original-title="Retur">

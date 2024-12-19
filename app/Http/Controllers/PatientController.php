@@ -80,6 +80,7 @@ class PatientController extends Controller
         $patient->fill([
             'name' => $request->name,
             'phone' => $request->phone,
+            'address' => $request->address
         ]);
         $patient->saveOrFail();
 

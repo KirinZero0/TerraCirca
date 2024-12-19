@@ -49,7 +49,7 @@
             @include('admin.partials.back-with-title', ['title' => 'Tambah List Produk'])
         </x-slot>
         <div>
-            <form action="{{ route('admin.product_list.store') }}" enctype="multipart/form-data" method="post"
+            <form action="{{ route('admin.product.product_list.store') }}" enctype="multipart/form-data" method="post"
                   class="needs-validation" novalidate onkeydown="return event.key !== 'Enter';">
                 @csrf
                 <div class="row">

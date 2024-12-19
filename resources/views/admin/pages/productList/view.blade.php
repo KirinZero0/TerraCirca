@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Pasien')
+@section('title', 'Produk')
 
 @section('css')
 
@@ -15,10 +15,10 @@
     <x-content>
         <x-slot name="modul">
             <h1>
-                <a href="{{ route('admin.patient.index') }} " style="color: #404040;" class="text-decoration-none mr-2">
+                <a href="{{ route('admin.product.product_list.index') }} " style="color: #404040;" class="text-decoration-none mr-2">
                     <i class="fas fa-arrow-left" style="font-size: 21px;"></i>
                 </a>
-                Pasien
+                Produk
             </h1>
         </x-slot>
         <div>
@@ -26,27 +26,31 @@
                 <div class="col-lg-3 col-md-12 col-12 col-sm-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Data Pasien</h4>
+                            <h4>Data Produk</h4>
+                            <a href="{{ route('admin.product.product_list.edit', $product->id) }}"
+                                class="btn btn-icon btn-sm btn-primary" data-toggle="tooltip"
+                                data-placement="top" title="" data-original-title="Edit">
+                                 <i class="far fa-edit"></i>
+                             </a>
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">{{$patient->name}} <span class="badge badge-secondary">{{$patient->id}}</span></h5>
-                            <p class="card-text">Alamat: {{$patient->address}}</p>
-                            <p class="card-text">No Tlp: {{$patient->phone}}</p>
-                            <p class="card-title">
-                                @if($latestCheckup)
-                                    Checkup Terakhir: {{ $latestCheckup->date->format('F j, Y') }}
-                                @else
-                                    This patient didn't have any checkup histories
-                                @endif
-                            </p>
+                            <h5 class="card-title">{{$product->name}} <span class="badge badge-secondary">{{$product->code}}</span></h5>
+                            <p class="card-text">Supplier: {{$product->supplier->name}}</p>
+                            <p class="card-text">Kategori: {{$product->category}}</p>
+                            <p class="card-text">Tipe: {{$product->type}}</p>
                             </p>  
                         </div>
+                        <a href="{{ route('admin.product.product_list.destroy', $product->id) }}" data-toggle="tooltip"
+                            data-placement="top" title="" data-original-title="Delete"
+                            class="btn btn-sm btn-danger delete">
+                             <i class="fas fa-trash"></i>
+                         </a>
                     </div>
                 </div>
                 <div class="col-lg-8 col-md-12 col-12 col-sm-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Data</h4>
+                            <h4>Stock</h4>
                             <div>
                                 <form>
                                     <div class="input-group">
@@ -62,19 +66,19 @@
                             
                         <div class="card-body">
                             <div class="table-responsive">
-                                <h5 class="mb-3">Transaksi dan Checkup</h5>
                                 <table class="table table-bordered table-md">
                                     <tbody>
-                                        @forelse($transactions as $transaction)
+                                        @forelse($stocks as $stock)
                                             <tr>
                                                     <td>
-                                                        <a href="{{ route('admin.transaction.show', $transaction->id) }}" 
+                                                        <a href="{{ route('admin.product.product_stock.show', $stock->id) }}" 
                                                             class="d-inline-block border border-primary rounded p-2 text-primary text-decoration-none">
-                                                            {{ $transaction->reference_id }}
+                                                            {{ $stock->barcode }}
                                                         </a>
                                                     </td>
-                                                    <td style="width: 30%">{{ formatRupiah($transaction->total_amount) }}</td>
-                                                    <td style="width: 30%">{{ $transaction->date->format('F j, Y') }}</td>
+                                                    <td style="width: 30%">{{ $stock->name }}</td>
+                                                    <td style="width: 30%">{{ $stock->stock }}</td>
+                                                    <td style="width: 30%">{{ $stock->status }}</td>
                                             </tr>
                                         @empty
                                             <tr>

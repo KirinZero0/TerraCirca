@@ -55,9 +55,9 @@
                                 <i class="far fa-circle"></i> Produk Masuk
                             </a>
                         </li>
-                        <li {{ is_nav_active('keluar') }}>
-                            <a class="nav-link" href="{{ route('admin.barang.keluar.index') }}">
-                                <i class="far fa-circle"></i> Barang Keluar
+                        <li {{ is_nav_active('product_out') }}>
+                            <a class="nav-link" href="{{ route('admin.product.product_out.index') }}">
+                                <i class="far fa-circle"></i> Produk Keluar
                             </a>
                         </li>
             </ul>
