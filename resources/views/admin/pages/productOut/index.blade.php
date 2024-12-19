@@ -50,7 +50,8 @@
                             <th>No</th>
                             <th>Barcode</th>
                             <th>Nama Produk</th>
-                            <th>Jumlah</th>
+                            <th>Jumlah</th>   
+                            <th>Type</th>   
                             <th>Tanggal Keluar</th>
                             {{-- <th style="width:150px">Action</th> --}}
                         </tr>
@@ -62,6 +63,7 @@
                                 <td>{{ $productOut->productStock->barcode }}</td>
                                 <td>{{ $productOut->productStock->name }}</td>
                                 <td>{{ $productOut->quantity }}</td>
+                                <td>{{ $productOut->type }}</td>
                                 <td>{{ $productOut->date->format('F j, Y') }}</td>
                                 {{-- <td>
                                         <a href="{{ route('admin.product.product_out.undo', $productOut->id) }}"

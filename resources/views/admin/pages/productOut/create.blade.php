@@ -68,42 +68,18 @@
                                     <!-- Product dropdown -->
                                     <select class="custom-select" id="product_name" name="product_list_id" required size="5">
                                         <option value="" disabled selected hidden>Select a Product</option>
-                                        @foreach($lists as $list)
-                                            <option value="{{ $list->id }}" data-name="{{ strtolower($list->name) }}">
-                                                {{ $list->name }}
+                                        @foreach($stocks as $stock)
+                                            <option value="{{ $stock->id }}" data-name="{{ $stock->barcode }}">
+                                                {{ $stock->barcode }} - {{ $list->name }}
                                             </option>
                                         @endforeach
                                     </select>
                                     <div class="invalid-feedback">Please select a product from the list.</div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Price/piece</label>
-                                    <input type="text" class="form-control" name="price"
-                                           value="{{ old('price') }}" required>
-                                    <div class="invalid-feedback"></div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Selling Price/piece</label>
-                                    <input type="text" class="form-control" name="selling_price"
-                                           value="{{ old('selling_price') }}" required>
-                                    <div class="invalid-feedback"></div>
-                                </div>
-                                <div class="form-group">
                                     <label>Quantity</label>
                                     <input type="number" class="form-control" name="quantity" min="0"
                                            value="{{ old('quantity') }}" required>
-                                    <div class="invalid-feedback"></div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Batch/Barcode</label>
-                                    <input type="text" class="form-control" name="barcode" min="0"
-                                           value="{{ old('barcode') }}" required>
-                                    <div class="invalid-feedback"></div>
-                                </div>
-                                <div class="form-group">
-                                    <label id="product_type_view">Expiration Date</label>
-                                    <input type="date" class="form-control" name="expiration_date"
-                                           value="{{ old('expiration_date') }}" required>
                                     <div class="invalid-feedback"></div>
                                 </div>
     {{--                            <div class="form-group">
