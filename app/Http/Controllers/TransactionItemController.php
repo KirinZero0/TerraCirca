@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ProductStockStatusEnum;
 use App\Enums\TransactionStatusEnum;
 use App\Models\Order;
 use App\Models\ProductStock;
@@ -27,12 +28,11 @@ class TransactionItemController extends Controller
             return redirect()->back()->with('error', 'Product does not exist or has not been inputted.');
         }
 
-        if ($productStock && $productStock->expiration_date) {
-            $threeMonthsFromNow = Carbon::now()->addMonths(3);
-            if (Carbon::parse($productStock->expiration_date)->lte($threeMonthsFromNow)) {
+       
+        if ($productStock->status == ProductStockStatusEnum::NEAR_EXPIRED) {
                 $warningMessage = 'Warning: The product is nearing expiration (within 3 months).';
             }
-        }
+        
     
         if ($transaction->status == TransactionStatusEnum::ONGOING) {
             $existingItem = $transaction->transactionItems()

@@ -11,7 +11,6 @@ namespace App\Enums;
 class ProductStockStatusEnum
 {
     const AVAILABLE = 'Available';
-    const OUT_OF_STOCK = 'Out Of Stock';
     const NEAR_EXPIRED = 'Near Expired';
     const EXPIRED = 'Expired';
     const UNAVAILABLE = 'Unavailable';

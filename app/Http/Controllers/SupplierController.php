@@ -15,13 +15,18 @@ use App\Models\ProductIn;
 use App\Models\ProductList;
 use App\Models\ProductStock;
 use App\Models\Supplier;
+use App\Traits\UpdateProductStockStatus;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
 class SupplierController extends Controller
 {
+    use UpdateProductStockStatus;
+
     public function index()
     {
+        $this->updateProductStockStatuses();
+
         $suppliers = Supplier::where(function ($query) {
             $search = \request()->get('search');
             $query->where('name', 'like', '%' . $search . '%');
@@ -43,6 +48,17 @@ class SupplierController extends Controller
     {
         return view('admin.pages.supplier.edit', [
             'supplier' => $supplier
+        ]);
+    }
+    
+    public function show(Supplier $supplier)
+    {
+        $lists = $supplier->products()->where('name', 'like', '%' . request()->get('search') . '%')
+        ->get();
+
+        return view('admin.pages.supplier.view', [
+            'supplier' => $supplier,
+            'lists' => $lists
         ]);
     }
 

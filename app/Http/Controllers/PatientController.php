@@ -17,13 +17,17 @@ use App\Models\ProductList;
 use App\Models\ProductStock;
 use App\Models\Supplier;
 use App\Models\Transaction;
+use App\Traits\UpdateProductStockStatus;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
 class PatientController extends Controller
 {
+    use UpdateProductStockStatus;
     public function search(Request $request)
     {
+        $this->updateProductStockStatuses();
+        
         $search = $request->get('search');
         $patients = Patient::where('name', 'like', "%$search%")
                             ->orWhere('phone', 'like', "%$search%")

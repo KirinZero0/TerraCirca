@@ -34,7 +34,13 @@
                              </a>
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">{{$stock->name}} <span class="badge badge-secondary">{{$stock->productList->code}}</span></h5>
+                            <h5 class="card-title">{{$stock->name}} <span class="badge badge-secondary">{{$stock->productList->code}}</span>
+                                @if($stock->status == 'Expired')
+                                <i class="fa fa-exclamation text-danger" title="Expired"></i>
+                            @elseif($stock->status == 'Near Expired')
+                                <i class="fa fa-exclamation text-warning" title="Near Expired"></i>
+                            @endif
+                        </h5>
                             <p class="card-text">Barcode: {{$stock->barcode}}</p>
                             <p class="card-text">Stok: {{$stock->stock}}</p>
                             <p class="card-text">Harga: {{$stock->selling_price}}</p>

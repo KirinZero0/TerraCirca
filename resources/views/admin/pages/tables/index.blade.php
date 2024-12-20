@@ -24,7 +24,7 @@
             <h4 style="color: black">Data Nomor Meja</h4>
             <div class="card-header-form row">
                 <div class="ml-2">
-                    <a href="{{ route('admin.table.create') }}" style="background-color: rgb(70, 147, 177)" class="btn btn-sm btn-primary">
+                    <a href="{{ route('admin.table.create') }}" style="background-color: rgb(26, 85, 36)" class="btn btn-sm btn-primary">
                         Tambah Data <i class="fas fa-plus"></i>
                     </a>
                 </div>

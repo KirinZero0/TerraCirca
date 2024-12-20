@@ -29,13 +29,13 @@
                                 <input type="text" name="search" id="search" class="form-control" placeholder="Pencarian"
                                     value="{{ Request::input('search') ?? ''}}">
                                 <div class="input-group-btn">
-                                    <button style="background-color: rgb(70, 147, 177)" class="btn btn-primary"><i class="fas fa-search"></i></button>
+                                    <button style="background-color: rgb(26, 85, 36)" class="btn btn-primary"><i class="fas fa-search"></i></button>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="ml-2">
-                        <a href="{{ route('admin.supplier.create') }}" style="background-color: rgb(70, 147, 177)" class="btn btn-sm btn-primary">
+                        <a href="{{ route('admin.supplier.create') }}" style="background-color: rgb(26, 85, 36)" class="btn btn-sm btn-primary">
                             Tambah Supplier <i class="fas fa-plus"></i>
                         </a>
                     </div>
@@ -52,28 +52,20 @@
                             <th>Name</th>
                             <th>Phone</th>
                             <th>Email</th>
-                            <th style="width:150px">Action</th>
                         </tr>
                         </thead>
                         <tbody>
                         @forelse($suppliers as $supplier)
                             <tr>
                                 <td>{{ $supplier->id }}</td>
-                                <td>{{ $supplier->name }}</td>
+                                <td>
+                                    <a href="{{ route('admin.supplier.show', $supplier->id) }}" 
+                                        class="d-inline-block text-decoration-none badge badge-primary">
+                                        {{ $supplier->name }}
+                                    </a>
+                                </td>
                                 <td>{{ $supplier->phone }}</td>
                                 <td>{{ $supplier->email }}</td>
-                                <td>
-                                        <a href="{{ route('admin.supplier.edit', $supplier->id) }}"
-                                           class="btn btn-icon btn-sm btn-primary" data-toggle="tooltip"
-                                           data-placement="top" title="" data-original-title="Edit">
-                                            <i class="far fa-edit"></i>
-                                        </a>
-                                        <a href="{{ route('admin.supplier.destroy', $supplier->id) }}" data-toggle="tooltip"
-                                           data-placement="top" title="" data-original-title="Delete"
-                                           class="btn btn-sm btn-danger delete">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
-                                </td>
                             </tr>
                         @empty
                             <tr>

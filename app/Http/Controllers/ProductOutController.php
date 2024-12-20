@@ -9,14 +9,19 @@ use App\Models\ProductIn;
 use App\Models\ProductList;
 use App\Models\ProductOut;
 use App\Models\ProductStock;
+use App\Traits\UpdateProductStockStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ProductOutController extends Controller
 {
+    use UpdateProductStockStatus;
+    
     public function index()
     {
+        $this->updateProductStockStatuses();
+
         $productOuts = ProductOut::whereHas('productList', function ($query) {
             $search = request()->get('search');
             $query->where('name', 'like', '%' . $search . '%');

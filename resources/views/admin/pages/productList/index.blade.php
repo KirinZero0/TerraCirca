@@ -29,13 +29,13 @@
                                 <input type="text" name="search" id="search" class="form-control" placeholder="Pencarian"
                                     value="{{ Request::input('search') ?? ''}}">
                                 <div class="input-group-btn">
-                                    <button style="background-color: rgb(70, 147, 177)" class="btn btn-primary"><i class="fas fa-search"></i></button>
+                                    <button style="background-color: rgb(26, 85, 36)" class="btn btn-primary"><i class="fas fa-search"></i></button>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="ml-2">
-                        <a href="{{ route('admin.product.product_list.create') }}" style="background-color: rgb(70, 147, 177)" class="btn btn-sm btn-primary">
+                        <a href="{{ route('admin.product.product_list.create') }}" style="background-color: rgb(26, 85, 36)" class="btn btn-sm btn-primary">
                             Tambah Produk <i class="fas fa-plus"></i>
                         </a>
                     </div>
@@ -62,7 +62,7 @@
                                 <td>{{ $productList->id }}</td>
                                 <td>
                                     <a href="{{ route('admin.product.product_list.show', $productList->id) }}" 
-                                        class="d-inline-block border border-primary rounded p-2 text-primary text-decoration-none">
+                                        class="d-inline-block text-decoration-none badge badge-primary">
                                         {{ $productList->code }}
                                     </a>
                                 </td>

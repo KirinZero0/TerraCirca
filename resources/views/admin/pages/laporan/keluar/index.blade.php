@@ -50,7 +50,7 @@
                         </form>
                     </div>
                     <div class="ml-2">
-                        <a href="{{ route('admin.laporan.keluar.export') }}" style="background-color: rgb(70, 147, 177)" class="btn btn-primary">
+                        <a href="{{ route('admin.laporan.keluar.export') }}" style="background-color: rgb(26, 85, 36)" class="btn btn-primary">
                             Export Data <i class="fas fa-download"></i>
                         </a>
                     </div>

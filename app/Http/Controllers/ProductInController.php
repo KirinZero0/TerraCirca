@@ -8,14 +8,19 @@ use App\Models\Product;
 use App\Models\ProductIn;
 use App\Models\ProductList;
 use App\Models\ProductStock;
+use App\Traits\UpdateProductStockStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ProductInController extends Controller
 {
+    use UpdateProductStockStatus;
+
     public function index()
     {
+        $this->updateProductStockStatuses();
+        
         $productIns = ProductIn::whereHas('productList', function ($query) {
             $search = request()->get('search');
             $query->where('name', 'like', '%' . $search . '%');

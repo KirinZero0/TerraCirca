@@ -8,13 +8,17 @@ use App\Models\ProductList;
 use App\Models\ProductOut;
 use App\Models\ProductStock;
 use App\Models\Supplier;
+use App\Traits\UpdateProductStockStatus;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
 class ProductListController extends Controller
 {
+    use UpdateProductStockStatus;
     public function index()
     {
+        $this->updateProductStockStatuses();
+        
         $productLists = ProductList::where(function ($query) {
             $search = \request()->get('search');
             $query->where('code', 'like', '%' . $search . '%')

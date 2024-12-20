@@ -76,9 +76,17 @@
                             </div>
                             <h5 class="card-title">Item:</h5>
                             @forelse($transactionItems as $item)
-                            <p class="card-text d-flex align-items-center justify-content-between">{{$item->productStock->name}}
+                            <p class="card-text d-flex align-items-center justify-content-between">
+                                {{$item->productStock->name}}
                                 <span class="ml-2 mr-2"> x{{$item->quantity}}</span> 
-                                <span class="mr-2">{{ formatRupiah($item->total_amount) }}</span> 
+                                <span class="mr-2">{{ formatRupiah($item->total_amount) }}</span>
+                                <span>                                
+                                    @if($item->productStock->status == 'Expired')
+                                    <i class="fa fa-exclamation text-danger" title="Expired"></i>
+                                    @elseif($item->productStock->status == 'Near Expired')
+                                        <i class="fa fa-exclamation text-warning" title="Near Expired"></i>
+                                    @endif
+                                </span>
                                 <a class="btn btn-sm btn-danger ml-auto" href="{{ route('admin.transaction.transaction-item.destroy', $item->id)}}"><i class="fas fa-trash"></i></a>
                             </p>     
                             @empty
@@ -128,7 +136,13 @@
                                                 class="needs-validation" novalidate onkeydown="return event.key !== 'Enter';">
                                                 @csrf
                                                     <input type="hidden" name="product_stock_id" value="{{ $productStock->id }}">
-                                                    <td style="width: 20%">{{ $productStock->barcode }}</td>
+                                                    <td style="width: 20%">
+                                                        @if($productStock->status == 'Expired')
+                                                        <i class="fa fa-exclamation text-danger" title="Expired"></i>
+                                                    @elseif($productStock->status == 'Near Expired')
+                                                        <i class="fa fa-exclamation text-warning" title="Near Expired"></i>
+                                                    @endif
+                                                        {{ $productStock->barcode }}</td>
                                                     <td style="width: 30%">{{ $productStock->name }}</td>
                                                     <td style="width: 30%">{{ formatRupiah($productStock->selling_price) }}</td>
                                                     <td style="width: 10%">

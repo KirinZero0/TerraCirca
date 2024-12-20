@@ -27,6 +27,11 @@
                     <div class="card">
                         <div class="card-header">
                             <h4>Data Pasien</h4>
+                            <a href="{{ route('admin.patient.edit', $patient->id) }}"
+                                class="btn btn-icon btn-sm btn-primary" data-toggle="tooltip"
+                                data-placement="top" title="" data-original-title="Edit">
+                                 <i class="far fa-edit"></i>
+                             </a>
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">{{$patient->name}} <span class="badge badge-secondary">{{$patient->id}}</span></h5>
@@ -36,11 +41,16 @@
                                 @if($latestCheckup)
                                     Checkup Terakhir: {{ $latestCheckup->date->format('F j, Y') }}
                                 @else
-                                    This patient didn't have any checkup histories
+                                    Pasien belum pernah checkup atau tidak ada data checkup
                                 @endif
                             </p>
                             </p>  
                         </div>
+                        <a href="{{ route('admin.patient.destroy', $patient->id) }}" data-toggle="tooltip"
+                            data-placement="top" title="" data-original-title="Delete"
+                            class="btn btn-sm btn-danger delete">
+                             <i class="fas fa-trash"></i>
+                         </a>
                     </div>
                 </div>
                 <div class="col-lg-8 col-md-12 col-12 col-sm-12">
@@ -69,7 +79,7 @@
                                             <tr>
                                                     <td>
                                                         <a href="{{ route('admin.transaction.show', $transaction->id) }}" 
-                                                            class="d-inline-block border border-primary rounded p-2 text-primary text-decoration-none">
+                                                            class="d-inline-block text-decoration-none badge badge-primary">
                                                             {{ $transaction->reference_id }}
                                                         </a>
                                                     </td>

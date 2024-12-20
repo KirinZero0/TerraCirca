@@ -9,6 +9,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ProductOutTypeEnum;
 use App\Enums\ProductStockStatusEnum;
 use App\Enums\TransactionStatusEnum;
 use App\Exports\LaporanBarangExport;
@@ -21,14 +22,19 @@ use App\Models\ProductOut;
 use App\Models\ProductStock;
 use App\Models\Supplier;
 use App\Models\Transaction;
+use App\Traits\UpdateProductStockStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
 class TransactionController extends Controller
 {
+    use UpdateProductStockStatus;
+
     public function index()
     {
+        $this->updateProductStockStatuses();
+
         $transactions = Transaction::where(function ($query) {
             $search = \request()->get('search');
             $query->where('reference_id', 'like', '%' . $search . '%');
@@ -105,7 +111,7 @@ class TransactionController extends Controller
     {
         DB::transaction(function () use ($transaction) {
             $productOut = new ProductOut();
-            $productOut->type = 'Transaction';
+            $productOut->type = ProductOutTypeEnum::TRANSACTION;
             $productOut->transaction_id = $transaction->id;
             $productOut->date = now();
             $productOut->saveOrFail();
@@ -113,11 +119,11 @@ class TransactionController extends Controller
             foreach ($transaction->transactionItems as $transactionItem) {
                 $productStock = $transactionItem->productStock;
                 $quantity = $transactionItem->quantity;
-    
+            
                 $productStock->decrement('stock', $quantity);
-    
+            
             }
-    
+            
             $transaction->status = TransactionStatusEnum::FINISHED;
             $transaction->saveOrFail();
         });

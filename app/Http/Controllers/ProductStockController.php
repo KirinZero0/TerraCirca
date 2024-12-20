@@ -18,13 +18,18 @@ use App\Models\ProductList;
 use App\Models\ProductStock;
 use App\Models\Supplier;
 use App\Models\Transaction;
+use App\Traits\UpdateProductStockStatus;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ProductStockController extends Controller
 {
+    use UpdateProductStockStatus;
+
     public function index()
     {
+        $this->updateProductStockStatuses();
+        
         $productStocks = ProductStock::where(function ($query) {
             $search = \request()->get('search');
             $query->where('barcode', 'like', '%' . $search . '%')

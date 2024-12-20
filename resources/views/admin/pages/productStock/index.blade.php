@@ -29,7 +29,7 @@
                                 <input type="text" name="search" id="search" class="form-control" placeholder="Pencarian"
                                        value="{{ Request::input('search') ?? ''}}">
                                 <div class="input-group-btn">
-                                    <button style="background-color: rgb(70, 147, 177)" class="btn btn-primary"><i class="fas fa-search"></i></button>
+                                    <button style="background-color: rgb(26, 85, 36)" class="btn btn-primary"><i class="fas fa-search"></i></button>
                                 </div>
                             </div>
                         </form>
@@ -51,25 +51,31 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @forelse($productStocks as $productStock)
+                            @forelse($productStocks as $productStock)
                             <tr>
                                 <td>{{ $productStock->id }}</td>
                                 <td>
                                     <a href="{{ route('admin.product.product_stock.show', $productStock->id) }}" 
-                                        class="d-inline-block border border-primary rounded p-2 text-primary text-decoration-none">
+                                        class="d-inline-block text-decoration-none badge badge-primary">
                                         {{ $productStock->barcode }}
                                     </a>
                                 </td>
                                 <td>{{ $productStock->productList->code }}</td>
                                 <td>{{ $productStock->name }}</td>
                                 <td>{{ $productStock->stock }}</td>
-                                <td>{{ $productStock->expiration_date->format('F j, Y') }}</td>
+                                <td>
+                                    {{ $productStock->expiration_date->format('F j, Y') }}
+                                    
+                                    @if($productStock->status == 'Expired')
+                                        <i class="fa fa-exclamation text-danger" title="Expired"></i>
+                                    @elseif($productStock->status == 'Near Expired')
+                                        <i class="fa fa-exclamation text-warning" title="Near Expired"></i>
+                                    @endif
+                                </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="8">
-                                    <p class="text-center"><em>There is no record.</em></p>
-                                </td>
+                                <td colspan="6" class="text-center">No product stocks available.</td>
                             </tr>
                         @endforelse
                         </tbody>

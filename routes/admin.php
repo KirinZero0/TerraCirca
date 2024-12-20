@@ -148,6 +148,7 @@ Route::group([], function () {
             Route::get('index', [SupplierController::class, 'index'])->name('index');
             Route::get('create', [SupplierController::class, 'create'])->name('create');
             Route::get('{supplier}/edit', [SupplierController::class, 'edit'])->name('edit');
+            Route::get('{supplier}/show', [SupplierController::class, 'show'])->name('show');
             Route::post('store', [SupplierController::class, 'store'])->name('store');
             Route::patch('{supplier}/update', [SupplierController::class, 'update'])->name('update');
             Route::delete('{supplier}/destroy', [SupplierController::class, 'destroy'])->name('destroy');
