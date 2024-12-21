@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>INVOICE-{{$reservation->reference_id}} - {{ $reservation->date->format('F j, Y - H:i') }}</title>
+    <title>INVOICE-{{$transaction->reference_id}} - {{ $transaction->date->format('F j, Y - H:i') }}</title>
     <style>
         /* Add your invoice styling here */
         body {
@@ -59,33 +59,31 @@
 <body>
     <div class="invoice">
         <div class="invoice-header">
-            <h2>UMAI SUSHI</h2>
+            <h2>TERRA CIRCA</h2>
         </div>
         <div class="invoice-info">
-            <h2>{{$reservation->reference_id}}</h2>
-            <h3>{{$reservation->name}}</h3>
-            <p>{{ $reservation->date->format('H:i - F j, Y ') }}</p>
-            <p>Nomor meja: {{$reservation->table_number}}</p>
-            <p>Jumlah orang: {{$reservation->number_of_people}}</p>
+            <h2>{{$transaction->reference_id}}</h2>
+            @if($transaction->patient)
+            <p>{{ $transaction->patient->name. ' - ' . $transaction->patient->phone }}</p>
+            @endif
+            <p>{{ $transaction->date->format('F j, Y ') }}</p>
         </div>
         <table class="invoice-table">
             <thead>
                 <tr>
-                    <th>Code</th>
-                    <th>Item</th>
-                    <th>Qty</th>
+                    <th>Nama</th>
                     <th>Harga</th>
+                    <th>Qty</th>
                     <th>Total</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($orders as $order)
+                @foreach ($items as $item)
                 <tr>
-                    <td>{{$order->menu->custom_id}}</td>
-                    <td>{{$order->menu->name}}</td>
-                    <td>x{{$order->quantity}}</td>
-                    <td>{{formatRupiah($order->menu->price)}}</td>
-                    <td>{{ formatRupiah($order->menu->price * $order->quantity) }}</td>
+                    <td>{{$item->productStock->name}}</td>
+                    <td>{{formatRupiah($item->productStock->selling_price)}}</td>
+                    <td>{{ $item->quantity }}</td>
+                    <td>{{formatRupiah($item->total_amount)}}</td>
                 </tr>
                 @endforeach
             </tbody>
@@ -98,17 +96,15 @@
                     <th>Kembalian</th>
                 </tr>
                 <tr>
-                    <td>{{ formatRupiah($orders->sum(function ($order) {
-                        return $order->menu->price * $order->quantity;
-                    })) }}</td>
-                    <td>{{ formatRupiah($enteredAmount) }}</td>
-                    <td>{{ formatRupiah($change) }}</td>
+                    <td>{{ formatRupiah($transaction->total_amount) }}</td>
+                    <td>{{ formatRupiah($transaction->paid_amount) }}</td>
+                    <td>{{ formatRupiah($transaction->change_amount) }}</td>
                 </tr>
             </table>
         </div>
     </div>
     <div class="invoice-footer">
-        <p>Thank you for dining at our restaurant!</p>
+        <p>Thank you for your visit!</p>
     </div>
 </body>
 </html>

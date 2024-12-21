@@ -56,11 +56,11 @@
                             </p>
                             {{-- <a id="printInvoiceBtn" class="btn btn-success" href="{{route('admin.cashier.invoice2', $reservation->id)}}">Print Invoice</a> --}}
                         </div>
-                        {{-- <a href="{{ route('admin.supplier.destroy', $supplier->id) }}" data-toggle="tooltip"
-                            data-placement="top" title="" data-original-title="Delete"
-                            class="btn btn-sm btn-danger delete">
-                             <i class="fas fa-trash"></i>
-                         </a> --}}
+                        <a href="{{ route('admin.transaction.invoice', $transaction->id) }}" data-toggle="tooltip"
+                            data-placement="top" title="" data-original-title="Invoice"
+                            class="btn btn-sm btn-primary delete">
+                             <i class="fas fa-scroll"></i>
+                         </a>
                     </div>
                 </div>
                 <div class="col-lg-8 col-md-12 col-12 col-sm-12">
@@ -92,9 +92,9 @@
                                                             {{ $item->productStock->name }}
                                                         </a>
                                                     </td>
-                                                    <td style="width: 30%">{{ $item->productStock->selling_price }}</td>
+                                                    <td style="width: 30%">{{ formatRupiah($item->productStock->selling_price) }}</td>
                                                     <td style="width: 30%">{{ $item->quantity }}</td>
-                                                    <td style="width: 30%">{{ $item->total_amount }}</td>
+                                                    <td style="width: 30%">{{ formatRupiah($item->total_amount) }}</td>
                                             </tr>
                                         @empty
                                             <tr>

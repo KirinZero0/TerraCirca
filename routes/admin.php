@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ProductInController;
 use App\Http\Controllers\ProductListController;
@@ -151,7 +152,7 @@ Route::group([], function () {
             Route::get('{supplier}/show', [SupplierController::class, 'show'])->name('show');
             Route::post('store', [SupplierController::class, 'store'])->name('store');
             Route::patch('{supplier}/update', [SupplierController::class, 'update'])->name('update');
-            Route::delete('{supplier}/destroy', [SupplierController::class, 'destroy'])->name('destroy');
+            Route::get('{supplier}/destroy', [SupplierController::class, 'destroy'])->name('destroy');
         });
 
         Route::prefix('product')->as('product.')->group(function () {
@@ -162,7 +163,7 @@ Route::group([], function () {
                 Route::get('{productList}/show', [ProductListController::class, 'show'])->name('show');
                 Route::post('store', [ProductListController::class, 'store'])->name('store');
                 Route::patch('{productList}/update', [ProductListController::class, 'update'])->name('update');
-                Route::delete('{productList}/destroy', [ProductListController::class, 'destroy'])->name('destroy');
+                Route::get('{productList}/destroy', [ProductListController::class, 'destroy'])->name('destroy');
             });
     
             Route::prefix('product_in')->as('product_in.')->group(function () {
@@ -180,7 +181,7 @@ Route::group([], function () {
                 Route::get('{productOut}/edit', [ProductOutController::class, 'edit'])->name('edit');
                 Route::post('store', [ProductOutController::class, 'store'])->name('store');
                 Route::patch('{productOut}/update', [ProductOutController::class, 'update'])->name('update');
-                Route::delete('{productOut}/destroy', [ProductOutController::class, 'destroy'])->name('destroy');
+                Route::get('{productOut}/destroy', [ProductOutController::class, 'destroy'])->name('destroy');
                 Route::delete('{productOut}/undo', [ProductOutController::class, 'undo'])->name('undo');
             });
     
@@ -189,7 +190,7 @@ Route::group([], function () {
                 Route::get('{productStock}/show', [ProductStockController::class, 'show'])->name('show');
                 Route::get('{productStock}/edit', [ProductStockController::class, 'edit'])->name('edit');
                 Route::patch('{productStock}/update', [ProductStockController::class, 'update'])->name('update');
-                Route::patch('{productStock}/destroy', [ProductStockController::class, 'destroy'])->name('destroy');
+                Route::get('{productStock}/destroy', [ProductStockController::class, 'destroy'])->name('destroy');
             });
         });
 
@@ -200,7 +201,8 @@ Route::group([], function () {
             Route::patch('{transaction}/update', [TransactionController::class, 'update'])->name('update');
             Route::patch('{transaction}/finish', [TransactionController::class, 'finish'])->name('finish');
             Route::get('{transaction}/finish/show', [TransactionController::class, 'finishShow'])->name('finish.show');
-            Route::delete('{transaction}/destroy', [TransactionController::class, 'destroy'])->name('destroy');
+            Route::get('{transaction}/invoice', [InvoiceController::class, 'generate2'])->name('invoice');
+            Route::get('{transaction}/destroy', [TransactionController::class, 'destroy'])->name('destroy');
                 Route::prefix('transaction-item')->as('transaction-item.')->group(function () {
                     Route::post('{transaction}/store', [TransactionItemController::class, 'store'])->name('store');
                     Route::patch('{transactionItem}/update', [TransactionItemController::class, 'update'])->name('update');

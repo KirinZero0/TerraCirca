@@ -25,9 +25,9 @@ class InvoiceController extends Controller
     public function generate2(Transaction $transaction, Request $request) //USE THIS
     {
 
-        $transactionItems = $transaction->transactionItems;
+        $items = $transaction->transactionItems;
 
-        $html = view('admin.pages.cashier.invoices.index', compact('reservation', 'transactionItems'))->render();
+        $html = view('admin.pages.invoice.index', compact('transaction', 'items'))->render();
 
         $pdf = new \Mpdf\Mpdf();
 
