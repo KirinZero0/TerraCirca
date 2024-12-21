@@ -3,24 +3,18 @@
     <tr>
         <th>No</th>
         <th>Reference Id</th>
-        <th>Atas Nama</th>
         <th>Tanggal</th>
-        <th>Status</th>
         <th>Subtotal</th>
     </tr>
     </thead>
     <tbody>
-    @forelse($reservations as $reservation)
+    @forelse($transactions as $transaction)
         <tr>
             <td>{{ $loop->index }}</td>
-            <td>{{ $reservation->reference_id }}</td>
-            <td>{{ $reservation->name }}</td>
-            <td>{{ $reservation->date->format('H:i - F j, Y ') }}</td>
+            <td>{{ $transaction->reference_id }}</td>
+            <td>{{ $transaction->date->format('F j, Y') }}</td>
             <td>
-                <span>{{ $reservation->getStatus() }}</span>
-            </td>
-            <td>
-                {{ formatRupiah($reservation->getSubtotalAttribute()) }}
+                {{ formatRupiah($transaction->total_amount) }}
             </td>
         </tr>
     @empty
@@ -33,9 +27,9 @@
     <tr>
         <td colspan="5"></td>
         <td>{{ 
-            formatRupiah($reservations->sum(function ($reservation) 
+            formatRupiah($transactions->sum(function ($transaction) 
             {
-            return $reservation->getSubtotalAttribute();
+            return $transaction->total_amount;
             })) 
             }}
         </td>

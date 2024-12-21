@@ -29,8 +29,10 @@
                                 <select type="text" class="form-control" name="type" id="product_type_select" required
                                         onchange="this.form.submit()">
                                     <option value="">Pilih Tipe</option>
-                                    <option @if(request()->get('type') == \App\Models\ProductOut::KELUAR) selected @endif value="{{ \App\Models\ProductOut::KELUAR }}">Barang Keluar</option>
-                                    <option @if(request()->get('type') == \App\Models\ProductOut::RETURN) selected @endif value="{{ \App\Models\ProductOut::RETURN }}">Barang Retur</option>
+                                    <option @if(request()->get('type') == \App\Enums\ProductOutTypeEnum::RETUR) selected @endif value="{{ \App\Enums\ProductOutTypeEnum::RETUR }}">Retur</option>
+                                    <option @if(request()->get('type') == \App\Enums\ProductOutTypeEnum::DEFECT) selected @endif value="{{ \App\Enums\ProductOutTypeEnum::DEFECT }}">Rusak</option>
+                                    <option @if(request()->get('type') == \App\Enums\ProductOutTypeEnum::TRANSACTION) selected @endif value="{{ \App\Enums\ProductOutTypeEnum::TRANSACTION }}">Transaksi</option>
+                                    <option @if(request()->get('type') == \App\Enums\ProductOutTypeEnum::EXPIRED) selected @endif value="{{ \App\Enums\ProductOutTypeEnum::EXPIRED }}">Expire</option>
                                 </select>
                             </div>
                         </form>
@@ -63,8 +65,8 @@
                         <thead>
                         <tr>
                             <th>No</th>
-                            <th>Kode Barang</th>
-                            <th>Nama Barang</th>
+                            <th>Barcode</th>
+                            <th>Nama Produk</th>
                             <th>Jumlah</th>
                             <th>Tanggal Keluar/Retur</th>
                             <th>Tipe</th>
@@ -74,13 +76,11 @@
                         @forelse($products as $product)
                             <tr>
                                 <td>{{ $loop->index + $products->firstItem() }}</td>
-                                <td>{{ $product->product['custom_id'] }}</td>
-                                <td>{{ $product->product['name'] }}</td>
+                                <td>{{ $product->productStock->barcode }}</td>
+                                <td>{{ $product->productStock->name }}</td>
                                 <td>{{ $product->quantity }}</td>
                                 <td>{{ $product->date->format('F j, Y') }}</td>
-                                <td>
-                                    <span>{{ $product->getType() }}@if(!blank($product->reasons)){{ ': ' . $product->reasons }} @endif</span>
-                                </td>
+                                <td>{{ $product->type }}</td>
                             </tr>
                         @empty
                             <tr>

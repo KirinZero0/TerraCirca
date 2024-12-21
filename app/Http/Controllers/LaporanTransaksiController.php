@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\TransactionStatusEnum;
 use App\Exports\LaporanBarangMasuk;
 use App\Exports\LaporanTransaksi;
 use App\Models\Reservation;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -13,10 +15,10 @@ class LaporanTransaksiController extends Controller
     public function index()
     {
         $months = [];
-        $reservations = Reservation::where('name', 'like', '%'.\request()->get('search').'%')->where('status', Reservation::FINISH);
+        $transactions = Transaction::where('reference_id', 'like', '%'.\request()->get('search').'%')->where('status', TransactionStatusEnum::FINISHED);
 
         if(\request()->get('month')) {
-            $reservations->whereMonth('date', \request()->get('month'));
+            $transactions->whereMonth('date', \request()->get('month'));
         }
 
         $month = 1;
@@ -29,7 +31,7 @@ class LaporanTransaksiController extends Controller
         session()->put('status', \request()->get('status'));
 
         return view('admin.pages.laporan.transaksi.index', [
-            'reservations' => $reservations->orderby('id', 'DESC')->paginate(10),
+            'transactions' => $transactions->orderby('id', 'DESC')->paginate(10),
             'months' => $months
         ]);
     }

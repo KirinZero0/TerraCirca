@@ -31,7 +31,7 @@
             <x-slot name="header">
                 <h4>Laporan Barang Masuk</h4>
                 <div class="card-header-form row">
-                    <div>
+                    {{-- <div>
                         <form>
                             <div class="input-group">
                                 <select type="text" class="form-control" name="status" id="product_type_select" required
@@ -42,7 +42,7 @@
                                 </select>
                             </div>
                         </form>
-                    </div>
+                    </div> --}}
                     <div>
                         <form>
                             <div class="input-group">
@@ -71,26 +71,20 @@
                         <thead>
                         <tr>
                             <th>No</th>
-                            <th>Kode Barang</th>
-                            <th>Nama Barang</th>
+                            <th>Nama Produk</th>
                             <th>Harga</th>
                             <th>Jumlah</th>
-                            <th>Tanggal</th>
-                            <th>Status</th>
+                            <th>Tanggal Masuk</th>
                         </tr>
                         </thead>
                         <tbody>
                         @forelse($products as $product)
                             <tr>
                                 <td>{{ $loop->index + $products->firstItem() }}</td>
-                                <td>{{ $product->product['custom_id'] }}</td>
-                                <td>{{ $product->product['name'] }}</td>
+                                <td>{{ $product->productList->name }}</td>
                                 <td>{{ formatRupiah($product->price) }}</td>
                                 <td>{{ $product->quantity }}</td>
                                 <td>{{ $product->date->format('F j, Y') }}</td>
-                                <td>
-                                    <span class="{{ $product->getStatusColor() }}">{{ $product->getStatus() }}@if(!blank($product->reasons)){{ ': ' . $product->reasons }} @endif</span>
-                                </td>
                             </tr>
                         @empty
                             <tr>

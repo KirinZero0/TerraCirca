@@ -2,8 +2,8 @@
     <thead>
     <tr>
         <th>No</th>
-        <th>Kode Barang</th>
-        <th>Nama Barang</th>
+        <th>Barcode</th>
+        <th>Nama Produk</th>
         <th>Jumlah</th>
         <th>Tanggal Keluar/Retur</th>
         <th>Tipe</th>
@@ -12,14 +12,12 @@
     <tbody>
     @forelse($products as $product)
         <tr>
-            <td>{{ $loop->index}}</td>
-            <td>{{ $product->product['custom_id'] }}</td>
-            <td>{{ $product->product['name'] }}</td>
+            <td>{{ $loop->index }}</td>
+            <td>{{ $product->productStock->barcode }}</td>
+            <td>{{ $product->productStock->name }}</td>
             <td>{{ $product->quantity }}</td>
             <td>{{ $product->date->format('F j, Y') }}</td>
-            <td>
-                <span class="{{ $product->getTypeColor() }}">{{ $product->getType() }}@if(!blank($product->reasons)){{ ': ' . $product->reasons }} @endif</span>
-            </td>
+            <td>{{ $product->type }}</td>
         </tr>
     @empty
         <tr>

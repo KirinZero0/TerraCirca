@@ -13,14 +13,13 @@ class LaporanMasukController extends Controller
     public function index()
     {
         $months = [];
-        $products = ProductIn::where('code', 'like', '%'.\request()->get('search').'%');
+        $products = ProductIn::whereHas('productList', function ($query) {
+            $search = request()->get('search');
+            $query->where('name', 'like', '%' . $search . '%');
+        });
 
         if(\request()->get('month')) {
             $products->whereMonth('date', \request()->get('month'));
-        }
-
-        if($status = request()->get('status')) {
-            $products->where('status', $status);
         }
 
         $month = 1;

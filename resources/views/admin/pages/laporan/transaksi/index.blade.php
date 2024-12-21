@@ -51,25 +51,23 @@
                         <thead>
                         <tr>
                             <th>No</th>
-                            <th>Reference Id</th>
-                            <th>Atas Nama</th>
-                            <th>Tanggal</th>
+                            <th>Reference</th>
+                            <th>Date</th>
                             <th>Subtotal</th>
                             <th>Invoice</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @forelse($reservations as $reservation)
+                        @forelse($transactions as $transaction)
                             <tr>
-                                <td>{{ $loop->index + $reservations->firstItem() }}</td>
-                                <td>{{ $reservation->reference_id }}</td>
-                                <td>{{ $reservation->name }}</td>
-                                <td>{{ $reservation->date->format('H:i - F j, Y ') }}</td>
+                                <td>{{ $loop->index + $transactions->firstItem() }}</td>
+                                <td>{{ $transaction->reference_id }}</td>
+                                <td>{{ $transaction->date->format('H:i - F j, Y ') }}</td>
                                 <td>
-                                    {{ formatRupiah($reservation->getSubtotalAttribute()) }}
+                                    {{ formatRupiah($transaction->total_amount) }}
                                 </td>
                                 <td>
-                                    <a class="btn btn-sm btn-success" href="{{route('admin.reservation.invoice', $reservation->id)}}"><i class="fas fa-download"></i></a>
+                                    <a class="btn btn-sm btn-success" href="{{route('admin.transaction.invoice', $transaction->id)}}"><i class="fas fa-download"></i></a>
                                 </td>
                             </tr>
                         @empty
@@ -85,7 +83,7 @@
             </x-slot>
 
             <x-slot name="footer">
-                {{ $reservations->onEachSide(2)->appends($_GET)->links('admin.partials.pagination') }}
+                {{ $transactions->onEachSide(2)->appends($_GET)->links('admin.partials.pagination') }}
             </x-slot>
         </x-section>
 

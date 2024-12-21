@@ -11,7 +11,10 @@ class LaporanBarangKeluar implements FromView, ShouldAutoSize
 {
     public function view(): View
     {
-        $products = ProductOut::where('code', 'like', '%'.session()->get('search').'%');
+        $products = ProductOut::whereHas('productList', function ($query) {
+            $search = session()->get('search');
+            $query->where('name', 'like', '%' . $search . '%');
+        });
 
         if(session()->get('month')) {
             $products->whereMonth('date', session()->get('month'));

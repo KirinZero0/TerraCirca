@@ -12,7 +12,10 @@ class LaporanKeluarController extends Controller
     public function index()
     {
         $months = [];
-        $products = ProductOut::where('code', 'like', '%'.\request()->get('search').'%');
+        $products = ProductOut::whereHas('productList', function ($query) {
+            $search = request()->get('search');
+            $query->where('name', 'like', '%' . $search . '%');
+        });
 
         if(\request()->get('month')) {
             $products->whereMonth('date', \request()->get('month'));

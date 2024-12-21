@@ -2,8 +2,10 @@
 
 namespace App\Exports;
 
+use App\Enums\TransactionStatusEnum;
 use App\Models\Product;
 use App\Models\Reservation;
+use App\Models\Transaction;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
@@ -12,14 +14,14 @@ class LaporanTransaksi implements FromView, ShouldAutoSize
 {
     public function view(): View
     {
-        $reservations = Reservation::where('name', 'like', '%'.\request()->get('search').'%')->where('status', Reservation::FINISH);
+        $transactions = Transaction::where('reference_id', 'like', '%'.\request()->get('search').'%')->where('status', TransactionStatusEnum::FINISHED);
 
         if(session()->get('month')) {
-            $reservations->whereMonth('date', session()->get('month'));
+            $transactions->whereMonth('date', session()->get('month'));
         }
 
         return view('admin.pages.laporan.transaksi.excel', [
-            'reservations' =>  $reservations->orderby('id', 'DESC')->get()
+            'transactions' =>  $transactions->orderby('id', 'DESC')->get()
         ]);
     }
 }
