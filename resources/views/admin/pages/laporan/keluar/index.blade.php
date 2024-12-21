@@ -23,7 +23,7 @@
             <x-slot name="header">
                 <h4>Laporan Barang Keluar</h4>
                 <div class="card-header-form row">
-                    <div>
+                    {{-- <div>
                         <form>
                             <div class="input-group">
                                 <select type="text" class="form-control" name="type" id="product_type_select" required
@@ -36,7 +36,7 @@
                                 </select>
                             </div>
                         </form>
-                    </div>
+                    </div> --}}
                     <div>
                         <form>
                             <div class="input-group">

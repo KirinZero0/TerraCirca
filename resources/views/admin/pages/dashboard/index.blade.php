@@ -130,8 +130,8 @@
                 <div class="col-lg-4 col-md-12 col-12 col-sm-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Riwayat Barang Masuk</h4>
-                            <div class="badge badge-pendings text-capitalize">{{ $pending }} Pending</div>
+                            <h4>Produk Kadaluarsa / Hampir Kadaluarsa</h4>
+                            <div class="badge badge-pendings text-capitalize">{{ $expireds }}</div>
                         </div>
                         <div class="card-body">
                             <ul class="list-unstyled list-unstyled-border">
@@ -139,9 +139,21 @@
                                 <li class="media">
                                     <div class="media-body">
                                         <div
-                                            class="float-right text-primary">{{ $product->created_at->diffForHumans() }}</div>
-                                        <div class="media-title">{{ $product->name }}</div>
-                                        <span class="text-small text-muted">#{{ $product->code }}</span>
+                                            class="float-right text-primary">
+                                            <span>
+                                                @if($product->status == 'Expired')
+                                                <i class="fa fa-exclamation text-danger" title="Expired"></i>
+                                            @elseif($product->status == 'Near Expired')
+                                                <i class="fa fa-exclamation text-warning" title="Near Expired"></i>
+                                            @endif
+                                            </span>
+                                        </div>
+                                        <div class="media-title">
+                                            <a href="{{ route('admin.product.product_stock.show', $product->id) }}">
+                                                {{$product->barcode}}-{{ $product->name }}
+                                            </a>
+                                        </div>
+                                        <span class="text-small text-muted">{{ $product->stock }}</span>
                                         <br>
                                         <div
                                         style="background-color: rgb(26, 85, 36)" class="badge badge-success text-capitalize">{{ $product->quantity }}</div>
@@ -150,7 +162,7 @@
                                 @endforeach
                             </ul>
                             <div class="text-center pt-1 pb-1">
-                                <a href="{{ route('admin.barang.index') }}"
+                                <a href="{{ route('admin.product.product_stock.index') }}"
                                 style="background-color: rgb(26, 85, 36)" class="btn btn-primary btn-lg btn-round">
                                     View All
                                 </a>

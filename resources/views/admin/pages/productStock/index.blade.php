@@ -23,6 +23,20 @@
             <x-slot name="header">
                 <h4>Data Stok Produk</h4>
                 <div class="card-header-form row">
+                    {{-- <div>
+                        <form>
+                            <div class="input-group">
+                                <select type="text" class="form-control" name="type" id="product_type_select" required
+                                        onchange="this.form.submit()">
+                                    <option value="">Pilih Tipe</option>
+                                    <option @if(request()->get('type') == \App\Enums\ProductStockStatusEnum::AVAILABLE) selected @endif value="{{ \App\Enums\ProductStockStatusEnum::AVAILABLE }}">Tersedia</option>
+                                    <option @if(request()->get('type') == \App\Enums\ProductStockStatusEnum::NEAR_EXPIRED) selected @endif value="{{ \App\Enums\ProductStockStatusEnum::NEAR_EXPIRED }}">Hampir Kadaluarsa</option>
+                                    <option @if(request()->get('type') == \App\Enums\ProductStockStatusEnum::EXPIRED) selected @endif value="{{ \App\Enums\ProductStockStatusEnum::EXPIRED }}">Kadaluarsa</option>
+                                    <option @if(request()->get('type') == \App\Enums\ProductStockStatusEnum::UNAVAILABLE) selected @endif value="{{ \App\Enums\ProductStockStatusEnum::UNAVAILABLE }}">Tidak Tersedia</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div> --}}
                     <div>
                         <form>
                             <div class="input-group">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\ProductStockStatusEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\Product;
@@ -29,9 +30,12 @@ class DashboardController extends Controller
         $inProducts = ProductIn::all()->sum('quantity');
         // $employees = Admin::where('role', Admin::PEGAWAI)->count();
 
-        $products = ProductIn::limit(4)->get();
+        $products = ProductStock::whereIn('status', [ProductStockStatusEnum::EXPIRED, ProductStockStatusEnum::NEAR_EXPIRED])
+                    ->limit(4)
+                    ->get();
 
-        $pending = ProductIn::all()->count();
+        $expireds = ProductStock::whereIn('status', [ProductStockStatusEnum::EXPIRED, ProductStockStatusEnum::NEAR_EXPIRED])
+        ->count();
 
         $datesCount = 0;
         $dates = [];
@@ -51,6 +55,6 @@ class DashboardController extends Controller
         return view('admin.pages.dashboard.index',
             compact('totalProducts', 
                 'inProducts', 'products', 'dates',
-                'productOutCount', 'productInCount', 'pending', 'outProducts'));
+                'productOutCount', 'productInCount', 'expireds', 'outProducts'));
     }
 }
