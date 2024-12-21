@@ -36,7 +36,7 @@ class TransactionItemController extends Controller
     
         if ($transaction->status == TransactionStatusEnum::ONGOING) {
             $existingItem = $transaction->transactionItems()
-                ->where('product_stock_id', $productStockId)
+                ->where('product_stock_id', $productStock->id)
                 ->first();
     
             if ($existingItem) {

@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Pasien')
+@section('title', 'Transaksi')
 
 @section('css')
 
@@ -15,10 +15,10 @@
     <x-content>
         <x-slot name="modul">
             <h1>
-                <a href="{{ route('admin.patient.index') }} " style="color: #404040;" class="text-decoration-none mr-2">
+                <a href="{{ route('admin.transaction.index') }} " style="color: #404040;" class="text-decoration-none mr-2">
                     <i class="fas fa-arrow-left" style="font-size: 21px;"></i>
                 </a>
-                Pasien
+                Transaksi
             </h1>
         </x-slot>
         <div>
@@ -26,37 +26,47 @@
                 <div class="col-lg-3 col-md-12 col-12 col-sm-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Data Pasien</h4>
-                            <a href="{{ route('admin.patient.edit', $patient->id) }}"
-                                class="btn btn-icon btn-sm btn-primary" data-toggle="tooltip"
-                                data-placement="top" title="" data-original-title="Edit">
-                                 <i class="far fa-edit"></i>
-                             </a>
+                            <h4>Data Transaksi</h4>
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">{{$patient->name}} <span class="badge badge-secondary">{{$patient->id}}</span></h5>
-                            <p class="card-text">Alamat: {{$patient->address}}</p>
-                            <p class="card-text">No Tlp: {{$patient->phone}}</p>
-                            <p class="card-title">
-                                @if($latestCheckup)
-                                    Checkup Terakhir: {{ $latestCheckup->date->format('F j, Y') }}
+                            <h5 class="card-title">{{$transaction->reference_id}}</h5>
+                            <p class="card-text">{{$transaction->date->format('F j, Y')}}</p>
+                            <!-- Patient Selection -->
+                            <div class="d-flex align-items-center mb-3">
+                                @if($transaction->patient)
+                                    <p class="card-text mb-0">{{ $transaction->patient->name. ' - ' . $transaction->patient->phone }}</p>
                                 @else
-                                    Pasien belum pernah checkup atau tidak ada data checkup
+                                    Transaksi tanpa data pasien
                                 @endif
+                            </div>
+                            <p class="card-title">Subtotal: 
+                                    <strong>
+                                    {{formatRupiah($transaction->total_amount)}}
+                                    </strong>  
                             </p>
-                            </p>  
+                            <p class="card-title">Dibayar: 
+                                    <strong>
+                                    {{formatRupiah($transaction->paid_amount)}}
+                                    </strong>  
+                            </p>
+                            <p class="card-title">Kembalian: 
+                                    <strong>
+                                    {{formatRupiah($transaction->change_amount)}}
+                                    </strong>  
+                            </p>
+                            {{-- <a id="printInvoiceBtn" class="btn btn-success" href="{{route('admin.cashier.invoice2', $reservation->id)}}">Print Invoice</a> --}}
                         </div>
-                        <a href="{{ route('admin.patient.destroy', $patient->id) }}" data-toggle="tooltip"
+                        {{-- <a href="{{ route('admin.supplier.destroy', $supplier->id) }}" data-toggle="tooltip"
                             data-placement="top" title="" data-original-title="Delete"
                             class="btn btn-sm btn-danger delete">
                              <i class="fas fa-trash"></i>
-                         </a>
+                         </a> --}}
                     </div>
                 </div>
                 <div class="col-lg-8 col-md-12 col-12 col-sm-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Data</h4>
+                            <h4>Produk</h4>
                             <div>
                                 <form>
                                     <div class="input-group">
@@ -72,19 +82,19 @@
                             
                         <div class="card-body">
                             <div class="table-responsive">
-                                <h5 class="mb-3">Transaksi dan Checkup</h5>
                                 <table class="table table-bordered table-md">
                                     <tbody>
-                                        @forelse($transactions as $transaction)
+                                        @forelse($items as $item)
                                             <tr>
                                                     <td>
-                                                        <a href="{{ route('admin.transaction.finish.show', $transaction->id) }}" 
+                                                        <a href="{{ route('admin.product.product_stock.show', $item->productStock->id) }}" 
                                                             class="d-inline-block text-decoration-none badge badge-primary">
-                                                            {{ $transaction->reference_id }}
+                                                            {{ $item->productStock->name }}
                                                         </a>
                                                     </td>
-                                                    <td style="width: 30%">{{ formatRupiah($transaction->total_amount) }}</td>
-                                                    <td style="width: 30%">{{ $transaction->date->format('F j, Y') }}</td>
+                                                    <td style="width: 30%">{{ $item->productStock->selling_price }}</td>
+                                                    <td style="width: 30%">{{ $item->quantity }}</td>
+                                                    <td style="width: 30%">{{ $item->total_amount }}</td>
                                             </tr>
                                         @empty
                                             <tr>

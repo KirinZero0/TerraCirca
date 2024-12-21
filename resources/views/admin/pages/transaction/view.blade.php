@@ -92,18 +92,31 @@
                             @empty
                             <p class="card-text">Item Kosong</p>
                             @endforelse
+                            <form action="{{ route('admin.transaction.finish', $transaction->id) }}" method="POST">
+                                @csrf
+                                @method('PATCH')
                                 <h5 class="card-title">Subtotal: 
                                     <strong>
                                     {{formatRupiah($transaction->total_amount)}}
                                     </strong>  
                                 </h5>
                                 <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
+                                    <div class="input-group">
                                         <span class="input-group-text" id="basic-addon1">Rp</span>
+                                        <input 
+                                            id="moneyInput" 
+                                            type="text" 
+                                            name="paid_amount" 
+                                            class="form-control" 
+                                            placeholder="Input Amount" 
+                                            aria-label="Input Amount" 
+                                            aria-describedby="basic-addon1"
+                                        >
                                     </div>
-                                    <input id="moneyInput" type="text" class="form-control" placeholder="Input Amount" aria-label="Input Amount" aria-describedby="basic-addon1">
                                 </div>
                                 <h5 class="card-title" id="change"> Kembalian: </h5>
+                                <button type="submit" class="btn btn-primary mt-2">Finish</button>
+                            </form>
                             {{-- <a id="printInvoiceBtn" class="btn btn-success" href="{{route('admin.cashier.invoice2', $reservation->id)}}">Print Invoice</a> --}}
                         </div>
                     </div>
@@ -111,7 +124,7 @@
                 <div class="col-lg-8 col-md-12 col-12 col-sm-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Menu</h4>
+                            <h4>Produk</h4>
                             <div>
                                 <form>
                                     <div class="input-group">

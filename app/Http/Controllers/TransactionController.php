@@ -107,28 +107,49 @@ class TransactionController extends Controller
         return redirect(route('admin.transaction.show', ['transaction' => $transaction->id]));
     }
 
-    public function finish(Transaction $transaction)
+    public function finish(Transaction $transaction, Request $request)
     {
-        DB::transaction(function () use ($transaction) {
-            $productOut = new ProductOut();
-            $productOut->type = ProductOutTypeEnum::TRANSACTION;
-            $productOut->transaction_id = $transaction->id;
-            $productOut->date = now();
-            $productOut->saveOrFail();
+        DB::transaction(function () use ($transaction, $request) {
+
     
             foreach ($transaction->transactionItems as $transactionItem) {
+                $productOut = new ProductOut();
+                $productOut->type = ProductOutTypeEnum::TRANSACTION;
+                $productOut->transaction_id = $transaction->id;
+                $productOut->product_list_id = $transactionItem->productStock->productList->id;
+                $productOut->product_stock_id = $transactionItem->productStock->id;
+                $productOut->quantity = $transactionItem->quantity;
+                $productOut->date = now();
+                $productOut->saveOrFail();
+
                 $productStock = $transactionItem->productStock;
                 $quantity = $transactionItem->quantity;
             
                 $productStock->decrement('stock', $quantity);
             
             }
-            
+
+            $transaction->paid_amount = $request->paid_amount;
+            if($request->paid_amount > $transaction->total_amount)
+            {
+                $transaction->change_amount = $request->paid_amount - $transaction->total_amount;
+            } else {
+                $transaction->change_amount = 0;
+            }
             $transaction->status = TransactionStatusEnum::FINISHED;
             $transaction->saveOrFail();
         });
     
-        return redirect(route('admin.supplier.index'))->with('success', 'Transaction finished and product stock updated.');
+        return redirect(route('admin.transaction.finish.show', $transaction->id))->with('success', 'Transaction finished and product stock updated.');
+    }
+
+    public function finishShow(Transaction $transaction)
+    {
+        $items = $transaction->transactionItems;
+        return view('admin.pages.transaction.finish', [
+            'transaction' => $transaction,
+            'items' => $items,
+        ]);
     }
 
     public function destroy(Transaction $transaction)

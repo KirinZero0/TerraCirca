@@ -61,8 +61,12 @@
                             <tr>
                                 <td>{{ $transaction->id }}</td>
                                 <td>
-                                    <a href="{{ route('admin.transaction.show', $transaction->id) }}" 
-                                        class="d-inline-block text-decoration-none badge badge-primary">
+                                    <a 
+                                    href="{{ $transaction->status == 'Finished' 
+                                        ? route('admin.transaction.finish.show', $transaction->id) 
+                                        : route('admin.transaction.show', $transaction->id) }}" 
+                                    class="d-inline-block text-decoration-none badge badge-primary"
+                                    >
                                         {{ $transaction->reference_id }}
                                     </a>
                                 </td>
