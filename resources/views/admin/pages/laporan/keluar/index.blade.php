@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Laporan Barang Keluar')
+@section('title', 'Laporan Produk Keluar')
 
 @section('css')
 
@@ -13,7 +13,7 @@
 
     <x-content>
         <x-slot name="modul">
-            <h1>Laporan Barang Keluar</h1>
+            <h1>Laporan Produk Keluar</h1>
         </x-slot>
 
         <x-section>
@@ -21,7 +21,7 @@
             </x-slot>
 
             <x-slot name="header">
-                <h4>Laporan Barang Keluar</h4>
+                <h4>Laporan Produk Keluar</h4>
                 <div class="card-header-form row">
                     {{-- <div>
                         <form>

@@ -7,32 +7,42 @@
 @endsection
 
 @section('js')
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        const ctx = document.getElementById('myChart');
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: [@foreach ($dates as $date) "{{ $date }}", @endforeach],
-                datasets: [{
-                    label: 'Barang Masuk',
-                    data: [@foreach ($productInCount as $productIn) "{{ $productIn }}", @endforeach],
-                    borderWidth: 1
-                }, {
-                    label: 'Barang Keluar',
-                    data: [@foreach ($productOutCount as $productOut) "{{ $productOut }}", @endforeach],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                    }
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('myChart');
+
+    // Pass PHP arrays to JavaScript
+    const labels = @json($dates);
+    const productInData = @json($productInCount);
+    const productOutData = @json($productOutCount);
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Pemasukan',
+                data: productInData,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }, {
+                label: 'Pengeluaran',
+                data: productOutData,
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
                 }
             }
-        });
-    </script>
+        }
+    });
+</script>
 @endsection
 
 @section('content')
@@ -50,10 +60,10 @@
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
-                                <h4>Total Pegawai</h4>
+                                <h4>Total Pasien</h4>
                             </div>
                             <div class="card-body">
-                                10
+                                {{$patients}}
                             </div>
                         </div>
                     </div>
@@ -61,14 +71,14 @@
                 <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                     <div class="card card-statistic-1">
                         <div class="card-icon bg-danger">
-                            <i class="fas fa-box"></i>
+                            <i class="fas fa-money-bill"></i>
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
-                                <h4>Barang Keluar</h4>
+                                <h4>Pengeluaran</h4>
                             </div>
                             <div class="card-body">
-                                {{ $outProducts }}
+                                {{ formatRupiah($costs) }}
                             </div>
                         </div>
                     </div>
@@ -76,14 +86,14 @@
                 <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                     <div class="card card-statistic-1">
                         <div class="card-icon bg-warning">
-                            <i class="fas fa-calendar-day"></i>
+                            <i class="fas fa-money-bill"></i>
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
-                                <h4>Barang Masuk</h4>
+                                <h4>Pemasukan</h4>
                             </div>
                             <div class="card-body">
-                                {{ $inProducts }}
+                                {{ formatRupiah($revenues) }}
                             </div>
                         </div>
                     </div>
@@ -95,7 +105,7 @@
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
-                                <h4>Total Barang</h4>
+                                <h4>Total Produk Tersedia</h4>
                             </div>
                             <div class="card-body">
                                 {{ $totalProducts }}

@@ -67,7 +67,7 @@
                         <tbody>
                             @forelse($productStocks as $productStock)
                             <tr>
-                                <td>{{ $productStock->id }}</td>
+                                <td>{{ $loop->index + $productStocks->firstItem() }}</td>
                                 <td>
                                     <a href="{{ route('admin.product.product_stock.show', $productStock->id) }}" 
                                         class="d-inline-block text-decoration-none badge badge-primary">

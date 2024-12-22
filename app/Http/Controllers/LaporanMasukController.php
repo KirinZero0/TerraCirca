@@ -32,7 +32,7 @@ class LaporanMasukController extends Controller
         session()->put('status', \request()->get('status'));
 
         return view('admin.pages.laporan.masuk.index', [
-            'products' => $products->orderby('id', 'DESC')->paginate(10),
+            'products' => $products->orderby('date', 'DESC')->paginate(10),
             'months' => $months
         ]);
     }

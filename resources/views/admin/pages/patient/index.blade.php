@@ -57,7 +57,7 @@
                         <tbody>
                         @forelse($patients as $patient)
                             <tr>
-                                <td>{{ $patient->id }}</td>
+                                <td>{{ $loop->index + $patients->firstItem() }}</td>
                                 <td>
                                     <a href="{{ route('admin.patient.show', $patient->id) }}" 
                                         class="d-inline-block text-decoration-none badge badge-primary">

@@ -59,7 +59,7 @@
                         <tbody>
                         @forelse($productOuts as $productOut)
                             <tr>
-                                <td>{{ $productOut->id }}</td>
+                                <td>{{ $loop->index + $productOuts->firstItem() }}</td>
                                 <td>{{ $productOut->productStock->barcode }}</td>
                                 <td>{{ $productOut->productStock->name }}</td>
                                 <td>{{ $productOut->quantity }}</td>

@@ -35,7 +35,7 @@ class LaporanKeluarController extends Controller
         session()->put('type', \request()->get('type'));
 
         return view('admin.pages.laporan.keluar.index', [
-            'products' => $products->orderby('id', 'DESC')->paginate(10),
+            'products' => $products->orderby('date', 'DESC')->paginate(10),
             'months' => $months
         ]);
     }

@@ -36,7 +36,7 @@
                     </div>
                     <div class="ml-2">
                         <a href="{{ route('admin.product.product_in.create') }}" style="background-color: rgb(26, 85, 36)" class="btn btn-sm btn-primary">
-                            Tambah Barang <i class="fas fa-plus"></i>
+                            Tambah Produk <i class="fas fa-plus"></i>
                         </a>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                         <tbody>
                         @forelse($productIns as $productIn)
                             <tr>
-                                <td>{{ $productIn->id }}</td>
+                                <td>{{ $loop->index + $productIns->firstItem() }}</td>
                                 <td>{{ $productIn->productList->name }}</td>
                                 <td>{{ formatRupiah($productIn->price) }}</td>
                                 <td>{{ $productIn->quantity }}</td>

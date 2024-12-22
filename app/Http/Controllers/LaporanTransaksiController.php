@@ -31,7 +31,7 @@ class LaporanTransaksiController extends Controller
         session()->put('status', \request()->get('status'));
 
         return view('admin.pages.laporan.transaksi.index', [
-            'transactions' => $transactions->orderby('id', 'DESC')->paginate(10),
+            'transactions' => $transactions->orderby('date', 'DESC')->paginate(10),
             'months' => $months
         ]);
     }

@@ -57,7 +57,7 @@
                         <tbody>
                         @forelse($suppliers as $supplier)
                             <tr>
-                                <td>{{ $supplier->id }}</td>
+                                <td>{{ $loop->index + $suppliers->firstItem() }}</td>
                                 <td>
                                     <a href="{{ route('admin.supplier.show', $supplier->id) }}" 
                                         class="d-inline-block text-decoration-none badge badge-primary">

@@ -69,12 +69,12 @@
             <ul class="dropdown-menu">
                 <li {{ is_nav_active('masuk') }}>
                     <a class="nav-link" href="{{ route('admin.laporan.masuk.index') }}">
-                        <i class="far fa-circle"></i> Barang Masuk
+                        <i class="far fa-circle"></i> Produk Masuk
                     </a>
                 </li>
                 <li {{ is_nav_active('keluar') }}>
                     <a class="nav-link" href="{{ route('admin.laporan.keluar.index') }}">
-                        <i class="far fa-circle"></i> Barang Keluar
+                        <i class="far fa-circle"></i> Produk Keluar
                     </a>
                 </li>
                 <li {{ is_nav_active('transaksi') }}>

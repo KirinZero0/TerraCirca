@@ -5,11 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Enums\ProductStockStatusEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use App\Models\Patient;
 use App\Models\Product;
 use App\Models\ProductIn;
 use App\Models\ProductList;
 use App\Models\ProductOut;
 use App\Models\ProductStock;
+use App\Models\Transaction;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,21 +20,25 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $user = Auth::user();
-        if ($user->role === Admin::CHEF) {
-            return redirect(route('admin.chef.index'));
-        } else if ($user->role === Admin::CASHIER) {
-            return redirect(route('admin.reservation.index'));
-        }
+        $currentMonth = Carbon::now()->month;
+        $currentYear = Carbon::now()->year;
 
-        $totalProducts = ProductStock::all()->sum('stock');
+        $patients = Patient::count();
+        $totalProducts = ProductStock::where('status', ProductStockStatusEnum::AVAILABLE)->sum('stock');
         
-        $outProducts = ProductOut::all()->sum('quantity');
-        $inProducts = ProductIn::all()->sum('quantity');
-        // $employees = Admin::where('role', Admin::PEGAWAI)->count();
+        $costs = ProductIn::whereMonth('date', $currentMonth)
+            ->whereYear('date', $currentYear)
+            ->get()
+            ->sum(function ($productIn) {
+                return $productIn->price * $productIn->quantity;
+            });
+
+        $revenues = Transaction::whereMonth('date', $currentMonth)
+            ->whereYear('date', $currentYear)
+            ->sum('total_amount');
 
         $products = ProductStock::whereIn('status', [ProductStockStatusEnum::EXPIRED, ProductStockStatusEnum::NEAR_EXPIRED])
-                    ->limit(4)
+                    ->limit(10)
                     ->get();
 
         $expireds = ProductStock::whereIn('status', [ProductStockStatusEnum::EXPIRED, ProductStockStatusEnum::NEAR_EXPIRED])
@@ -46,15 +53,17 @@ class DashboardController extends Controller
             $date = now()->subDays($datesCount);
             $dates[] = $date->format('F j, Y');
 
-            $productInCount[] = ProductIn::whereDate('created_at', $date)->sum('quantity');
-            $productOutCount[] = ProductOut::whereDate('created_at', $date)->sum('quantity');
+            $productInCount[] = Transaction::whereDate('date', $date)->sum('total_amount');
+            $productOutCount[] = ProductIn::whereDate('date', $date)
+                ->selectRaw('SUM(price * quantity) as total')
+                ->value('total') ?? 0; // Default to 0 if null
 
             $datesCount++;
         } while($datesCount < 7);
 
         return view('admin.pages.dashboard.index',
-            compact('totalProducts', 
-                'inProducts', 'products', 'dates',
-                'productOutCount', 'productInCount', 'expireds', 'outProducts'));
+            compact('patients','totalProducts', 
+                'products', 'dates',
+                'productOutCount', 'productInCount', 'expireds', 'costs', 'revenues'));
     }
 }

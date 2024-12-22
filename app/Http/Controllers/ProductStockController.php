@@ -29,18 +29,22 @@ class ProductStockController extends Controller
     public function index()
     {
         $this->updateProductStockStatuses();
-        
-        $productStocks = ProductStock::where(function ($query) {
-            $search = \request()->get('search');
-            $query->where('barcode', 'like', '%' . $search . '%')
-                ->orWhere('name', 'like', '%' . $search . '%');
+    
+        $search = \request()->get('search');
+    
+        $productStocks = ProductStock::where(function ($query) use ($search) {
+            if ($search) {
+                $query->where('barcode', 'like', '%' . $search . '%')
+                      ->orWhere('name', 'like', '%' . $search . '%');
+            }
         })
-            ->orderBy('id', 'DESC')
+            ->orderByRaw("FIELD(status, 'Available', 'Near Expired', 'Expired', 'Unavailable')")
+            ->orderBy('id', 'DESC') // Secondary sorting by ID
             ->paginate(10);
-
-         return view('admin.pages.productStock.index', [
+    
+        return view('admin.pages.productStock.index', [
             'productStocks' => $productStocks
-     ]);
+        ]);
     }
 
     public function show(ProductStock $productStock)

@@ -59,7 +59,7 @@
                         <tbody>
                         @forelse($transactions as $transaction)
                             <tr>
-                                <td>{{ $transaction->id }}</td>
+                                <td>{{ $loop->index + $transactions->firstItem() }}</td>
                                 <td>
                                     <a 
                                     href="{{ $transaction->status == 'Finished' 
