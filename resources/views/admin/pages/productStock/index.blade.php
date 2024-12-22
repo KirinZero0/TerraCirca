@@ -66,7 +66,7 @@
                         </thead>
                         <tbody>
                             @forelse($productStocks as $productStock)
-                            <tr>
+                            <tr @if($productStock->status == 'Unavailable') style="text-decoration: line-through;" @endif>
                                 <td>{{ $loop->index + $productStocks->firstItem() }}</td>
                                 <td>
                                     <a href="{{ route('admin.product.product_stock.show', $productStock->id) }}" 
@@ -79,11 +79,12 @@
                                 <td>{{ $productStock->stock }}</td>
                                 <td>
                                     {{ $productStock->expiration_date->format('F j, Y') }}
-                                    
                                     @if($productStock->status == 'Expired')
                                         <i class="fa fa-exclamation text-danger" title="Expired"></i>
                                     @elseif($productStock->status == 'Near Expired')
                                         <i class="fa fa-exclamation text-warning" title="Near Expired"></i>
+                                    @elseif($productStock->status == 'Unavailable')
+                                        <i class="fa fa-skull text-danger" title="Unavailable"></i>
                                     @endif
                                 </td>
                             </tr>

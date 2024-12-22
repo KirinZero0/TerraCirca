@@ -37,9 +37,10 @@ class DashboardController extends Controller
             ->whereYear('date', $currentYear)
             ->sum('total_amount');
 
-        $products = ProductStock::whereIn('status', [ProductStockStatusEnum::EXPIRED, ProductStockStatusEnum::NEAR_EXPIRED])
-                    ->limit(10)
-                    ->get();
+            $products = ProductStock::whereIn('status', [ProductStockStatusEnum::EXPIRED, ProductStockStatusEnum::NEAR_EXPIRED])
+            ->orderBy('updated_at', 'DESC') // Sort by the 'updated_at' column in descending order
+            ->limit(10)
+            ->get();
 
         $expireds = ProductStock::whereIn('status', [ProductStockStatusEnum::EXPIRED, ProductStockStatusEnum::NEAR_EXPIRED])
         ->count();

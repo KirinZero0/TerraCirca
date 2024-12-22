@@ -190,6 +190,7 @@ Route::group([], function () {
                 Route::get('{productStock}/show', [ProductStockController::class, 'show'])->name('show');
                 Route::get('{productStock}/edit', [ProductStockController::class, 'edit'])->name('edit');
                 Route::patch('{productStock}/update', [ProductStockController::class, 'update'])->name('update');
+                Route::patch('{productStock}/unavailable', [ProductStockController::class, 'markAsUnavailable'])->name('unavailable');
                 Route::get('{productStock}/destroy', [ProductStockController::class, 'destroy'])->name('destroy');
             });
         });

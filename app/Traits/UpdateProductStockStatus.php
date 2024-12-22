@@ -17,20 +17,21 @@ trait UpdateProductStockStatus
      */
     public function updateProductStockStatuses()
     {
-        // Wrap in a transaction for safety
         DB::transaction(function () {
-            // Set status to UNAVAILABLE if quantity is 0
+            // Set status to EXPIRED if expiration date is today or earlier, excluding UNAVAILABLE
+            ProductStock::where('status', '!=', ProductStockStatusEnum::UNAVAILABLE)
+                ->whereDate('expiration_date', '<=', now())
+                ->update(['status' => ProductStockStatusEnum::EXPIRED]);
+        
+            // Set status to NEAR_EXPIRED if expiration date is within 3 months, excluding UNAVAILABLE and EXPIRED
+            ProductStock::where('status', '!=', ProductStockStatusEnum::UNAVAILABLE)
+                ->where('status', '!=', ProductStockStatusEnum::EXPIRED)
+                ->whereDate('expiration_date', '<=', now()->addMonths(3))
+                ->update(['status' => ProductStockStatusEnum::NEAR_EXPIRED]);
+        
+            // Set status to UNAVAILABLE if stock is 0
             ProductStock::where('stock', 0)
                 ->update(['status' => ProductStockStatusEnum::UNAVAILABLE]);
-
-            // Set status to EXPIRED if expiration date is today or earlier
-            ProductStock::whereDate('expiration_date', '<=', now())
-                ->update(['status' => ProductStockStatusEnum::EXPIRED]);
-
-            // Set status to NEAR_EXPIRED if expiration date is within 3 months
-            ProductStock::whereDate('expiration_date', '<=', now()->addMonths(3))
-                ->where('status', '!=', ProductStockStatusEnum::EXPIRED) // Avoid overwriting already expired status
-                ->update(['status' => ProductStockStatusEnum::NEAR_EXPIRED]);
         });
     }
 }

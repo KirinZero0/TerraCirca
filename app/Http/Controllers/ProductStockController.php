@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ProductStockStatusEnum;
 use App\Enums\TransactionStatusEnum;
 use App\Exports\LaporanBarangExport;
 use App\Models\Patient;
@@ -35,7 +36,7 @@ class ProductStockController extends Controller
         $productStocks = ProductStock::where(function ($query) use ($search) {
             if ($search) {
                 $query->where('barcode', 'like', '%' . $search . '%')
-                      ->orWhere('name', 'like', '%' . $search . '%');
+                        ->orWhere('name', 'like', '%' . $search . '%');
             }
         })
             ->orderByRaw("FIELD(status, 'Available', 'Near Expired', 'Expired', 'Unavailable')")
@@ -45,6 +46,14 @@ class ProductStockController extends Controller
         return view('admin.pages.productStock.index', [
             'productStocks' => $productStocks
         ]);
+    }
+
+    public function markAsUnavailable(ProductStock $productStock)
+    {
+        $productStock->status = ProductStockStatusEnum::UNAVAILABLE; // Assuming you have an enum or constant for 'Unavailable'
+        $productStock->save();
+
+        return redirect(route('admin.product.product_stock.show', $productStock->id));
     }
 
     public function show(ProductStock $productStock)
