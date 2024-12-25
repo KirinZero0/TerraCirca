@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ProductOutTypeEnum;
 use App\Exports\LaporanBarangKeluar;
 use App\Models\ProductOut;
 use Illuminate\Http\Request;
@@ -21,8 +22,12 @@ class LaporanKeluarController extends Controller
             $products->whereMonth('date', \request()->get('month'));
         }
 
-        if($type = request()->get('type')) {
-            $products->where('type', $type);
+        if (\request()->get('year')) {
+            $products->whereYear('date', \request()->get('year'));
+        }
+
+        if(\request()->get('type')) {
+            $products->where('type', \request()->get('type'));
         }
 
         $month = 1;
@@ -31,12 +36,22 @@ class LaporanKeluarController extends Controller
             $month++;
         } while($month <= 12);
 
+        $years = ProductOut::selectRaw('YEAR(date) as year')
+        ->distinct()
+        ->orderBy('year', 'DESC')
+        ->pluck('year');
+
+        $productOutTypes = ProductOutTypeEnum::all();
+
         session()->put('month', \request()->get('month'));
         session()->put('type', \request()->get('type'));
+        session()->put('year', \request()->get('year'));
 
         return view('admin.pages.laporan.keluar.index', [
             'products' => $products->orderby('date', 'DESC')->paginate(10),
-            'months' => $months
+            'months' => $months,
+            'years' => $years,
+            'productOutTypes'=> $productOutTypes
         ]);
     }
 

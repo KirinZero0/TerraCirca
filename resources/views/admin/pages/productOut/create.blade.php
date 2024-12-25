@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Tambah Produk Masuk')
+@section('title', 'Tambah Produk Keluar')
 
 @section('css')
 
@@ -46,7 +46,7 @@
 @section('content')
     <x-content>
         <x-slot name="modul">
-            @include('admin.partials.back-with-title', ['title' => 'Tambah Procuk Masuk'])
+            @include('admin.partials.back-with-title', ['title' => 'Tambah Produk Keluar'])
         </x-slot>
         <div>
             <form action="{{ route('admin.product.product_out.store') }}" enctype="multipart/form-data" method="post"
@@ -83,7 +83,7 @@
                                     <div class="invalid-feedback"></div>
                                 </div>
                                <div class="form-group">
-                                    <label>Tipe</label>
+                                    <label>Type</label>
                                     <select class="form-control" name="type" id="product_type_select" required>
                                         <option value="{{\App\Enums\ProductOutTypeEnum::RETUR}}">Retur</option>
                                         <option value="{{\App\Enums\ProductOutTypeEnum::DEFECT}}">Defect</option>

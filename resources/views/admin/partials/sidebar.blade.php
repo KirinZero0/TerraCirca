@@ -32,17 +32,17 @@
         </li>
         <li class="dropdown {{ is_drop_active('product') }}">
             <a href="#" class="nav-link has-dropdown">
-                <i class="fas fa-box"></i> <span>Produk</span>
+                <i class="fas fa-box"></i> <span>Product</span>
             </a>
             <ul class="dropdown-menu">
                         <li {{ is_nav_active('product_list') }}>
                             <a class="nav-link" href="{{ route('admin.product.product_list.index') }}">
-                                <i class="far fa-circle"></i> List Produk
+                                <i class="far fa-circle"></i> Product List
                             </a>
                         </li>
                         <li {{ is_nav_active('product_stock') }}>
                             <a class="nav-link" href="{{ route('admin.product.product_stock.index') }}">
-                                <i class="far fa-circle"></i> Stok Produk
+                                <i class="far fa-circle"></i> Product Stock
                             </a>
                         </li>
                         {{-- <li {{ is_nav_active('masuk') }}>
@@ -52,34 +52,34 @@
                         </li> --}}
                         <li {{ is_nav_active('product_in') }}>
                             <a class="nav-link" href="{{ route('admin.product.product_in.index') }}">
-                                <i class="far fa-circle"></i> Produk Masuk
+                                <i class="far fa-circle"></i> Product In
                             </a>
                         </li>
                         <li {{ is_nav_active('product_out') }}>
                             <a class="nav-link" href="{{ route('admin.product.product_out.index') }}">
-                                <i class="far fa-circle"></i> Produk Keluar
+                                <i class="far fa-circle"></i> Product Out
                             </a>
                         </li>
             </ul>
         </li>
         <li class="dropdown {{ is_drop_active('laporan') }}" >
             <a class="nav-link has-dropdown" href="#">
-                <i class="fas fa-folder-open"></i> <span>Laporan</span>
+                <i class="fas fa-folder-open"></i> <span>Report</span>
             </a>
             <ul class="dropdown-menu">
                 <li {{ is_nav_active('masuk') }}>
                     <a class="nav-link" href="{{ route('admin.laporan.masuk.index') }}">
-                        <i class="far fa-circle"></i> Produk Masuk
+                        <i class="far fa-circle"></i> Product In
                     </a>
                 </li>
                 <li {{ is_nav_active('keluar') }}>
                     <a class="nav-link" href="{{ route('admin.laporan.keluar.index') }}">
-                        <i class="far fa-circle"></i> Produk Keluar
+                        <i class="far fa-circle"></i> Product Out
                     </a>
                 </li>
                 <li {{ is_nav_active('transaksi') }}>
                     <a class="nav-link" href="{{ route('admin.laporan.transaksi.index') }}">
-                        <i class="far fa-circle"></i> Transaksi
+                        <i class="far fa-circle"></i> Transaction
                     </a>
                 </li>
             </ul>

@@ -49,10 +49,10 @@
                         <thead>
                         <tr>
                             <th>No</th>
-                            <th>Kode</th>
-                            <th>Nama</th>
-                            <th>Kategori</th>
-                            <th>Tipe</th>
+                            <th>Code</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Type</th>
                             <th>Supplier</th>
                         </tr>
                         </thead>

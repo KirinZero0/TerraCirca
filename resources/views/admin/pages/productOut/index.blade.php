@@ -49,10 +49,10 @@
                         <tr>
                             <th>No</th>
                             <th>Barcode</th>
-                            <th>Nama Produk</th>
-                            <th>Jumlah</th>   
-                            <th>Tipe</th>   
-                            <th>Tanggal Keluar</th>
+                            <th>Name</th>
+                            <th>Quantity</th>   
+                            <th>Type</th>   
+                            <th>Date</th>
                             <th style="width:150px">Action</th>
                         </tr>
                         </thead>

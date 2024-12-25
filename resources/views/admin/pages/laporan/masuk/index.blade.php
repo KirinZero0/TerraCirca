@@ -31,32 +31,32 @@
             <x-slot name="header">
                 <h4>Laporan Produk Masuk</h4>
                 <div class="card-header-form row">
-                    {{-- <div>
-                        <form>
-                            <div class="input-group">
-                                <select type="text" class="form-control" name="status" id="product_type_select" required
-                                        onchange="this.form.submit()">
-                                    <option value="">Pilih Status</option>
-                                    <option @if(request()->get('status') == \App\Models\Product::REJECTED) selected @endif value="{{ \App\Models\Product::REJECTED }}">Barang Ditolak</option>
-                                    <option @if(request()->get('status') == \App\Models\Product::APPROVED) selected @endif value="{{ \App\Models\Product::APPROVED }}">Barang Diterima</option>
-                                </select>
-                            </div>
-                        </form>
-                    </div> --}}
-                    <div>
-                        <form>
-                            <div class="input-group">
-                                <select type="text" name="month" id="month" class="form-control"
-                                        onchange="this.form.submit()">
-                                    <option value="">Pilih Bulan</option>
-                                    @foreach($months as $key => $month)
-                                        <option @if($key + 1 == request()->get('month')) selected
-                                                @endif value="{{ $key + 1 }}">{{ $month }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </form>
-                    </div>
+                    <!-- Filter Form -->
+                    <form method="GET" action="" class="d-flex align-items-center">
+                        <!-- Year Selector -->
+                        <div class="input-group mr-2">
+                            <select name="year" id="year" class="form-control" onchange="this.form.submit()">
+                                <option value="">Pilih Tahun</option>
+                                @foreach($years as $year)
+                                    <option value="{{ $year }}" {{ request()->get('year') == $year ? 'selected' : '' }}>
+                                        {{ $year }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    
+                        <!-- Month Selector -->
+                        <div class="input-group">
+                            <select name="month" id="month" class="form-control" onchange="this.form.submit()">
+                                <option value="">Pilih Bulan</option>
+                                @foreach($months as $key => $month)
+                                    <option value="{{ $key + 1 }}" {{ request()->get('month') == $key + 1 ? 'selected' : '' }}>
+                                        {{ $month }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </form>
                     <div class="ml-2">
                         <a href="{{ route('admin.laporan.masuk.export') }}" style="background-color: rgb(26, 85, 36)" class="btn btn-primary">
                             Export Data <i class="fas fa-download"></i>
@@ -71,10 +71,10 @@
                         <thead>
                         <tr>
                             <th>No</th>
-                            <th>Nama Produk</th>
-                            <th>Harga</th>
-                            <th>Jumlah</th>
-                            <th>Tanggal Masuk</th>
+                            <th>Name</th>
+                            <th>Price per piece</th>
+                            <th>Quantity</th>
+                            <th>Date</th>
                         </tr>
                         </thead>
                         <tbody>

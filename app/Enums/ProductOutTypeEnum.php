@@ -14,4 +14,14 @@ class ProductOutTypeEnum
     const DEFECT = 'Defect';
     const TRANSACTION = 'Transaction';
     const EXPIRED = 'Expired';
+
+    public static function all(): array
+    {
+        return [
+            self::RETUR,
+            self::DEFECT,
+            self::TRANSACTION,
+            self::EXPIRED,
+        ];
+    }
 }

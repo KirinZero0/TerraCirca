@@ -48,10 +48,10 @@
                         <thead>
                         <tr>
                             <th>No</th>
-                            <th>Nama Produk</th>
-                            <th>Harga Satuan</th>
-                            <th>Jumlah</th>
-                            <th>Tanggal Masuk</th>
+                            <th>Name</th>
+                            <th>Price per piece</th>
+                            <th>Quantity</th>
+                            <th>Date</th>
                             {{-- <th style="width:150px">Action</th> --}}
                         </tr>
                         </thead>

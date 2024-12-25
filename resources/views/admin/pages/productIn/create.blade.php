@@ -46,7 +46,7 @@
 @section('content')
     <x-content>
         <x-slot name="modul">
-            @include('admin.partials.back-with-title', ['title' => 'Tambah Procuk Masuk'])
+            @include('admin.partials.back-with-title', ['title' => 'Tambah Produk Masuk'])
         </x-slot>
         <div>
             <form action="{{ route('admin.product.product_in.store') }}" enctype="multipart/form-data" method="post"
@@ -77,13 +77,13 @@
                                     <div class="invalid-feedback">Please select a product from the list.</div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Price/piece</label>
+                                    <label>Price per piece</label>
                                     <input type="text" class="form-control" name="price"
                                            value="{{ old('price') }}" required>
                                     <div class="invalid-feedback"></div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Selling Price/piece</label>
+                                    <label>Selling Price per piece</label>
                                     <input type="text" class="form-control" name="selling_price"
                                            value="{{ old('selling_price') }}" required>
                                     <div class="invalid-feedback"></div>

@@ -20,6 +20,10 @@ class LaporanTransaksi implements FromView, ShouldAutoSize
             $transactions->whereMonth('date', session()->get('month'));
         }
 
+        if (session()->get('year')) {
+            $transactions->whereYear('date', session()->get('year'));
+        }
+
         return view('admin.pages.laporan.transaksi.excel', [
             'transactions' =>  $transactions->orderby('id', 'DESC')->get()
         ]);

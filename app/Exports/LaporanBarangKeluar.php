@@ -20,8 +20,12 @@ class LaporanBarangKeluar implements FromView, ShouldAutoSize
             $products->whereMonth('date', session()->get('month'));
         }
 
-        if($type = session()->get('type')) {
-            $products->where('type', $type);
+        if(session()->get('type')) {
+            $products->where('type', session()->get('type'));
+        }
+
+        if (session()->get('year')) {
+            $products->whereYear('date', session()->get('year'));
         }
 
         return view('admin.pages.laporan.keluar.excel', [

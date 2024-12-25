@@ -22,18 +22,28 @@ class LaporanMasukController extends Controller
             $products->whereMonth('date', \request()->get('month'));
         }
 
+        if (\request()->get('year')) {
+            $products->whereYear('date', \request()->get('year'));
+        }
+
         $month = 1;
         do {
             $months[] = date('F', mktime(0,0,0, $month, 1, date('Y')));
             $month++;
         } while($month <= 12);
 
+        $years = ProductIn::selectRaw('YEAR(date) as year')
+        ->distinct()
+        ->orderBy('year', 'DESC')
+        ->pluck('year');
+
         session()->put('month', \request()->get('month'));
-        session()->put('status', \request()->get('status'));
+        session()->put('year', \request()->get('year'));
 
         return view('admin.pages.laporan.masuk.index', [
             'products' => $products->orderby('date', 'DESC')->paginate(10),
-            'months' => $months
+            'months' => $months,
+            'years' => $years,
         ]);
     }
 

@@ -21,6 +21,10 @@ class LaporanBarangMasuk implements FromView, ShouldAutoSize
             $products->whereMonth('date', session()->get('month'));
         }
 
+        if (session()->get('year')) {
+            $products->whereYear('date', session()->get('year'));
+        }
+
         return view('admin.pages.laporan.masuk.excel', [
             'products' => $products->orderby('id', 'DESC')->get()
         ]);

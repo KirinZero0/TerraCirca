@@ -59,8 +59,8 @@
                             <th>No</th>
                             <th>Barcode</th>
                             <th>Code</th>
-                            <th>Nama Barang</th>
-                            <th>Stok</th>
+                            <th>Name</th>
+                            <th>Stock</th>
                             <th>Exp Date</th>
                         </tr>
                         </thead>

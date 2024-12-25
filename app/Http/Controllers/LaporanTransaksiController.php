@@ -21,18 +21,29 @@ class LaporanTransaksiController extends Controller
             $transactions->whereMonth('date', \request()->get('month'));
         }
 
+           // Apply year filter if provided
+        if (\request()->get('year')) {
+            $transactions->whereYear('date', \request()->get('year'));
+        }
+
         $month = 1;
         do {
             $months[] = date('F', mktime(0,0,0, $month, 1, date('Y')));
             $month++;
         } while($month <= 12);
 
+        $years = Transaction::selectRaw('YEAR(date) as year')
+        ->distinct()
+        ->orderBy('year', 'DESC')
+        ->pluck('year');
+
         session()->put('month', \request()->get('month'));
-        session()->put('status', \request()->get('status'));
+        session()->put('year', \request()->get('year'));
 
         return view('admin.pages.laporan.transaksi.index', [
             'transactions' => $transactions->orderby('date', 'DESC')->paginate(10),
-            'months' => $months
+            'months' => $months,
+            'years' => $years,
         ]);
     }
 

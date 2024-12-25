@@ -23,20 +23,34 @@
             <x-slot name="header">
                 <h4>Laporan Transaksi</h4>
                 <div class="card-header-form row">
-                    <div>
-                        <form>
-                            <div class="input-group">
-                                <select type="text" name="month" id="month" class="form-control"
-                                        onchange="this.form.submit()">
-                                    <option value="">Pilih Bulan</option>
-                                    @foreach($months as $key => $month)
-                                        <option @if($key + 1 == request()->get('month')) selected
-                                                @endif value="{{ $key + 1 }}">{{ $month }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </form>
-                    </div>
+                    <!-- Filter Form -->
+                    <form method="GET" action="" class="d-flex align-items-center">
+                        <!-- Year Selector -->
+                        <div class="input-group mr-2">
+                            <select name="year" id="year" class="form-control" onchange="this.form.submit()">
+                                <option value="">Pilih Tahun</option>
+                                @foreach($years as $year)
+                                    <option value="{{ $year }}" {{ request()->get('year') == $year ? 'selected' : '' }}>
+                                        {{ $year }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    
+                        <!-- Month Selector -->
+                        <div class="input-group">
+                            <select name="month" id="month" class="form-control" onchange="this.form.submit()">
+                                <option value="">Pilih Bulan</option>
+                                @foreach($months as $key => $month)
+                                    <option value="{{ $key + 1 }}" {{ request()->get('month') == $key + 1 ? 'selected' : '' }}>
+                                        {{ $month }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </form>
+            
+                    <!-- Export Button -->
                     <div class="ml-2">
                         <a href="{{ route('admin.laporan.transaksi.export') }}" style="background-color: rgb(26, 85, 36)" class="btn btn-primary">
                             Export Data <i class="fas fa-download"></i>
