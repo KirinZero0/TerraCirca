@@ -52,6 +52,7 @@
                             <th>Code</th>
                             <th>Name</th>
                             <th>Category</th>
+                            <th>Indication</th>
                             <th>Type</th>
                             <th>Supplier</th>
                         </tr>
@@ -68,6 +69,7 @@
                                 </td>
                                 <td>{{ $productList->name }}</td>
                                 <td>{{ $productList->category }}</td>
+                                <td>{{ $productList->indication }}</td>
                                 <td>{{ $productList->type }}</td>
                                 <td>{{ $productList->supplier->name }}</td>
                             </tr>

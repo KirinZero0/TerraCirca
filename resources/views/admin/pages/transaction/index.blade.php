@@ -42,6 +42,11 @@
                             </button>
                         </form>
                     </div>
+                    <div class="ml-2">
+                        <a href="{{ route('admin.transaction.export') }}" style="background-color: rgb(26, 85, 36)" class="btn btn-primary">
+                            Export Transaksi <i class="fas fa-download"></i>
+                        </a>
+                    </div>
                 </div>
             </x-slot>
 

@@ -70,7 +70,7 @@
                                         <option value="" disabled selected hidden>Select a Product</option>
                                         @foreach($lists as $list)
                                             <option value="{{ $list->id }}" data-name="{{ strtolower($list->name) }}">
-                                                {{ $list->name }}
+                                                {{ $list->name }} / {{ $list->type }}
                                             </option>
                                         @endforeach
                                     </select>

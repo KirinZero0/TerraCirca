@@ -67,6 +67,7 @@ class ProductListController extends Controller
             'code' => 'required|string|unique:product_lists,code',
             'name' => 'required|string|max:255',
             'category' => 'required|string|max:255',
+            'indication' => 'required|string|max:255',
             'type' => 'sometimes|string|max:255',
             'supplier_id' => 'required|integer|exists:suppliers,id',
         ]);

@@ -83,6 +83,12 @@
                                     <div class="invalid-feedback"></div>
                                 </div>
                                 <div class="form-group">
+                                    <label>Indication</label>
+                                    <input type="text" class="form-control" name="indication"
+                                           value="{{ old('indication') }}" required>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                                <div class="form-group">
                                     <label>Type</label>
                                     <select class="form-control" name="type" id="product_type_select" required>
                                         <option value="{{\App\Enums\ProductListTypeEnum::STRIP}}">Strip</option>

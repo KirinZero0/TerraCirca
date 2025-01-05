@@ -69,6 +69,12 @@
                                     </select>
                                     <div class="invalid-feedback"></div>
                                 </div>
+
+                                <div class="form-group">
+                                    <label>Indication</label>
+                                    <input type="text" class="form-control" name="indication" value="{{ old('indication', $productList->indication) }}" required>
+                                    <div class="invalid-feedback"></div>
+                                </div>
                                 
                                 <!-- Type -->
                                 <div class="form-group">

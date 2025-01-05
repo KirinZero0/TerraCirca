@@ -18,6 +18,7 @@ class CreateProductListsTable extends Migration
             $table->string('code')->unique();
             $table->string('name');
             $table->string('category');
+            $table->string('indication')->nullable();
             $table->string('type')->nullable();
             $table->unsignedBigInteger('supplier_id')->nullable();
             $table->timestamps();

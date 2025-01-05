@@ -198,6 +198,7 @@ Route::group([], function () {
         Route::prefix('transaction')->as('transaction.')->group(function () {
             Route::get('index', [TransactionController::class, 'index'])->name('index');
             Route::get('{transaction}/show', [TransactionController::class, 'show'])->name('show');
+            Route::get('export', [TransactionController::class, 'export'])->name('export');
             Route::post('store', [TransactionController::class, 'store'])->name('store');
             Route::patch('{transaction}/update', [TransactionController::class, 'update'])->name('update');
             Route::patch('{transaction}/finish', [TransactionController::class, 'finish'])->name('finish');

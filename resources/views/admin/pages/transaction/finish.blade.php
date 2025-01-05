@@ -89,12 +89,13 @@
                                                     <td>
                                                         <a href="{{ route('admin.product.product_stock.show', $item->productStock->id) }}" 
                                                             class="d-inline-block text-decoration-none badge badge-primary">
-                                                            {{ $item->productStock->name }}
+                                                            {{ $item->productStock->name }} / {{$item->productSTock->productList->type}}
                                                         </a>
                                                     </td>
-                                                    <td style="width: 30%">{{ formatRupiah($item->productStock->selling_price) }}</td>
-                                                    <td style="width: 30%">{{ $item->quantity }}</td>
-                                                    <td style="width: 30%">{{ formatRupiah($item->total_amount) }}</td>
+                                                    <td style="width: 30%">{{ $item->productStock->productList->indication }}</td>
+                                                    <td style="width: 20%">{{ formatRupiah($item->productStock->selling_price) }}</td>
+                                                    <td style="width: 10%">{{ $item->quantity }}</td>
+                                                    <td style="width: 20%">{{ formatRupiah($item->total_amount) }}</td>
                                             </tr>
                                         @empty
                                             <tr>

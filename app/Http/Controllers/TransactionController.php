@@ -13,6 +13,8 @@ use App\Enums\ProductOutTypeEnum;
 use App\Enums\ProductStockStatusEnum;
 use App\Enums\TransactionStatusEnum;
 use App\Exports\LaporanBarangExport;
+use App\Exports\LaporanTransaksi;
+use App\Exports\LaporanTransaksiToday;
 use App\Models\Patient;
 use App\Models\PatientCheckup;
 use App\Models\Product;
@@ -38,9 +40,12 @@ class TransactionController extends Controller
         $transactions = Transaction::where(function ($query) {
             $search = \request()->get('search');
             $query->where('reference_id', 'like', '%' . $search . '%');
-    })
+        })
+        ->whereDate('date', today())
         ->orderBy('id', 'DESC')
         ->paginate(10);
+
+        session()->put('today', today());
 
         return view('admin.pages.transaction.index', [
             'transactions' => $transactions
@@ -157,5 +162,10 @@ class TransactionController extends Controller
         $transaction->delete();
 
         return redirect(route('admin.supplier.index'));
+    }
+
+    public function export()
+    {
+        return Excel::download(new LaporanTransaksiToday(), now()->format('Y-m-d').'-laporan-transaksi.xlsx');
     }
 }

@@ -149,16 +149,17 @@
                                                 class="needs-validation" novalidate onkeydown="return event.key !== 'Enter';">
                                                 @csrf
                                                     <input type="hidden" name="product_stock_id" value="{{ $productStock->id }}">
-                                                    <td style="width: 20%">
+                                                    <td style="width: 10%">
                                                         @if($productStock->status == 'Expired')
                                                         <i class="fa fa-exclamation text-danger" title="Expired"></i>
                                                     @elseif($productStock->status == 'Near Expired')
                                                         <i class="fa fa-exclamation text-warning" title="Near Expired"></i>
                                                     @endif
                                                         {{ $productStock->barcode }}</td>
-                                                    <td style="width: 30%">{{ $productStock->name }}</td>
-                                                    <td style="width: 30%">{{ formatRupiah($productStock->selling_price) }}</td>
-                                                    <td style="width: 10%">
+                                                    <td style="width: 30%"> {{ $productStock->name }} / {{$productStock->productList->type}}</td>
+                                                    <td style="width: 30%"> {{$productStock->productList->indication}} </td>
+                                                    <td style="width: 20%">{{ formatRupiah($productStock->selling_price) }}</td>
+                                                    <td style="width: 30%">
                                                         <input type="input" class="form-control" name="quantity" min="0" required>
                                                     </td>
                                                     <td style="width: 10%">
