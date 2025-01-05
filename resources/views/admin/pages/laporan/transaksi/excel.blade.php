@@ -25,7 +25,10 @@
         </tr>
     @endforelse
     <tr>
-        <td colspan="5"></td>
+        <td colspan="4" style="height: 20px;"></td> <!-- Empty row with a fixed height -->
+    </tr>
+    <tr>
+        <td colspan="3"></td>
         <td>{{ 
             formatRupiah($transactions->sum(function ($transaction) 
             {

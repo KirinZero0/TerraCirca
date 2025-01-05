@@ -76,7 +76,7 @@
                             <tr>
                                 <td>{{ $loop->index + $transactions->firstItem() }}</td>
                                 <td>{{ $transaction->reference_id }}</td>
-                                <td>{{ $transaction->date->format('H:i - F j, Y ') }}</td>
+                                <td>{{ $transaction->date->format('F j, Y') }}</td>
                                 <td>
                                     {{ formatRupiah($transaction->total_amount) }}
                                 </td>

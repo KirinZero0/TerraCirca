@@ -30,21 +30,31 @@
         }
         .invoice-table th,
         .invoice-table td {
+            text-align: left;
             padding: 5px;
             border-bottom: 1px solid #ddd;
         }
+
         .invoice-total {
-            text-align: center;
-            margin-top: 50px;
-        }
-        .invoice-total table {
-        width: 100%;
+        padding-top: 100px; /* Adjust the value as needed */
         }
 
-        .invoice-total table th,
-        .invoice-total table td {
-            width: 33.33%; /* Divide the width evenly for 3 columns */
-            text-align: center; /* Center-align the content */
+
+        .invoice-total ul {
+            list-style: none; /* Remove bullet points */
+            padding: 0;
+            margin: 0;
+        }
+
+        .invoice-total ul li {
+            margin-bottom: 10px; /* Add spacing between list items */
+            font-size: 16px; /* Adjust font size as needed */
+        }
+
+        .invoice-total ul li strong {
+            display: inline-block;
+            width: 100px; /* Adjust width for the label */
+            font-weight: bold;
         }
         .invoice-footer {
             text-align: center;
@@ -53,6 +63,10 @@
             width: 100%;
             height: 60px; /* Adjust the height of the footer here */
             line-height: 50px; /* Adjust the line height of the footer here */
+        }
+        .invoice-footer p {
+        margin: 0;
+        font-style: italic; /* Adds a warm, friendly tone */
         }
     </style>
 </head>
@@ -89,22 +103,21 @@
             </tbody>
         </table>
         <div class="invoice-total">
-            <table>
-                <tr>
-                    <th>Subtotal</th>
-                    <th>Diterima</th>
-                    <th>Kembalian</th>
-                </tr>
-                <tr>
-                    <td>{{ formatRupiah($transaction->total_amount) }}</td>
-                    <td>{{ formatRupiah($transaction->paid_amount) }}</td>
-                    <td>{{ formatRupiah($transaction->change_amount) }}</td>
-                </tr>
-            </table>
+            <ul>
+                <li>
+                    <strong>Subtotal:</strong> {{ formatRupiah($transaction->total_amount) }}
+                </li>
+                <li>
+                    <strong>Diterima:</strong> {{ formatRupiah($transaction->paid_amount) }}
+                </li>
+                <li>
+                    <strong>Kembalian:</strong> {{ formatRupiah($transaction->change_amount) }}
+                </li>
+            </ul>
         </div>
     </div>
     <div class="invoice-footer">
-        <p>Thank you for your visit!</p>
+        <p>Terima kasih atas kunjungan Anda! Semoga lekas sembuh dan sehat selalu.</p>
     </div>
 </body>
 </html>

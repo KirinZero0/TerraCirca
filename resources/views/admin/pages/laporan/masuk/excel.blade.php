@@ -3,9 +3,9 @@
     <tr>
         <th>No</th>
         <th>Nama Barang</th>
-        <th>Harga</th>
-        <th>Jumlah</th>
         <th>Tanggal</th>
+        <th>Jumlah</th>
+        <th>Harga</th>
     </tr>
     </thead>
     <tbody>
@@ -13,9 +13,9 @@
         <tr>
             <td>{{ $loop->index }}</td>
             <td>{{ $product->productList->name }}</td>
-            <td>{{ formatRupiah($product->price) }}</td>
-            <td>{{ $product->quantity }}</td>
             <td>{{ $product->date->format('F j, Y') }}</td>
+            <td>{{ $product->quantity }}</td>
+            <td>{{ formatRupiah($product->price) }}</td>
         </tr>
     @empty
         <tr>
@@ -25,9 +25,12 @@
         </tr>
     @endforelse
     <tr>
-        <td colspan="2"></td>
-        <td>{{ formatRupiah($products->map(fn($product) => $product->price * $product->quantity)->sum()) }}</td>
+        <td colspan="5" style="height: 20px;"></td> <!-- Empty row with a fixed height -->
+    </tr>
+    <tr>
+        <td colspan="3"></td>
         <td>{{ $products->sum('quantity') }}</td>
+        <td>{{ formatRupiah($products->map(fn($product) => $product->price * $product->quantity)->sum()) }}</td>
     </tr>
     </tbody>
 </table>
