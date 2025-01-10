@@ -222,5 +222,14 @@ Route::group([], function () {
             Route::patch('{patient}/update', [PatientController::class, 'update'])->name('update');
             Route::get('{patient}/destroy', [PatientController::class, 'destroy'])->name('destroy');
         });
+
+        Route::prefix('admin')->as('admin.')->group(function () {
+            Route::get('index', [UserController::class, 'index'])->name('index');
+            Route::get('create', [UserController::class, 'create'])->name('create');
+            Route::get('{admin}/edit', [UserController::class, 'edit'])->name('edit');
+            Route::post('store', [UserController::class, 'store'])->name('store');
+            Route::patch('{admin}/update', [UserController::class, 'update'])->name('update');
+            Route::get('{admin}/destroy', [UserController::class, 'destroy'])->name('destroy');
+        });
     });
 });

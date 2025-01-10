@@ -22,7 +22,8 @@ class ProductListController extends Controller
         $productLists = ProductList::where(function ($query) {
             $search = \request()->get('search');
             $query->where('code', 'like', '%' . $search . '%')
-                ->orWhere('name', 'like', '%' . $search . '%');
+                ->orWhere('name', 'like', '%' . $search . '%')
+                ->orWhere('indication', 'like', '%' . $search . '%');
         })
             ->orderBy('id', 'DESC')
             ->paginate(10);

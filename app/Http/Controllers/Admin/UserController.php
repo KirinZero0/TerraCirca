@@ -34,7 +34,7 @@ class UserController extends Controller
 
         Admin::create($request->all());
 
-        return redirect(route('admin.user.index'));
+        return redirect(route('admin.admin.index'));
     }
 
     public function show($id)
@@ -61,7 +61,7 @@ class UserController extends Controller
 
         $admin->update($request->all());
 
-        return redirect(route('admin.user.index'));
+        return redirect(route('admin.admin.index'));
     }
 
     public function destroy(Admin $admin)

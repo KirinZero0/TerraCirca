@@ -78,6 +78,8 @@
                                         <option value="{{\App\Enums\ProductListCategoryEnum::OBAT_BEBAS}}">Obat Bebas</option>
                                         <option value="{{\App\Enums\ProductListCategoryEnum::OBAT_BEBAS_TERBATAS}}">Obat Bebas terbatas</option>
                                         <option value="{{\App\Enums\ProductListCategoryEnum::OBAT_KERAS}}">Obat Keras</option>
+                                        <option value="{{\App\Enums\ProductListCategoryEnum::OBAT_GENERIC}}">Obat Generic</option>
+                                        <option value="{{\App\Enums\ProductListCategoryEnum::OBAT_PATENT}}">Obat Patent</option>
                                         <option value="{{\App\Enums\ProductListCategoryEnum::LAINNYA}}">Lainnya</option>
                                     </select>
                                     <div class="invalid-feedback"></div>

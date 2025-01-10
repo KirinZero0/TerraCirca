@@ -68,6 +68,10 @@ class TransactionController extends Controller
                         $query->where('barcode', 'like', '%' . $search . '%')
                             ->orWhere('name', 'like', '%' . $search . '%');
                     })
+                    ->whereHas('productList', function ($query) {
+                        $search = \request()->get('search');
+                        $query->where('indication', 'like', '%' . $search . '%');
+                    })
                     ->get();
 
         return view('admin.pages.transaction.view', [

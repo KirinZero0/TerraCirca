@@ -48,10 +48,9 @@
                                 <div class="form-group">
                                     <label>Role</label>
                                     <select class="form-control" name="role" required>
-                                        <option value="{{ \App\Models\Admin::PEGAWAI }}">Pegawai</option>
-                                        <option value="{{ \App\Models\Admin::OWNER }}">Owner</option>
-                                        <option value="{{ \App\Models\Admin::CHEF }}">Chef</option>
-                                        <option value="{{ \App\Models\Admin::CASHIER }}">Kasir</option>
+                                        <option value="{{\App\Enums\AdminRoleEnum::ADMIN}}">Admin</option>
+                                        <option value="{{\App\Enums\AdminRoleEnum::CASHIER}}">Kasir</option>
+                                        <option value="{{\App\Enums\AdminRoleEnum::STAFF}}">Staff</option>
                                     </select>
                                     <div class="invalid-feedback"></div>
                                 </div>

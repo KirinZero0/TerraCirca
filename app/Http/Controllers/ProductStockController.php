@@ -40,7 +40,7 @@ class ProductStockController extends Controller
             }
         })
             ->orderByRaw("FIELD(status, 'Available', 'Near Expired', 'Expired', 'Unavailable')")
-            ->orderBy('id', 'DESC') // Secondary sorting by ID
+            ->orderBy('id', 'DESC')
             ->paginate(10);
     
         return view('admin.pages.productStock.index', [

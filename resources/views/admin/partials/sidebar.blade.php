@@ -15,6 +15,13 @@
                     <i class="fas fa-home"></i> <span>Dashboard</span>
                 </a>
             </li>
+            @can('admin')
+            <li {{ is_nav_active('admin/admin') }}>
+                <a class="nav-link" href="{{ route('admin.admin.index') }}">
+                    <i class="fas fa-user"></i> <span>User</span>
+                </a>
+            </li>
+            @endcan
             <li {{ is_nav_active('patient') }}>
                 <a class="nav-link" href="{{ route('admin.patient.index') }}">
                     <i class="fas fa-users"></i> <span>Patient</span>
@@ -25,6 +32,7 @@
                 <i class="fas fa-scroll"></i> <span>Transaction</span>
             </a>
         </li>
+        @can('admin')
         <li {{ is_nav_active('supplier') }}>
             <a class="nav-link" href="{{ route('admin.supplier.index') }}">
                 <i class="fas fa-users"></i> <span>Supplier</span>
@@ -62,6 +70,7 @@
                         </li>
             </ul>
         </li>
+        @endcan
         <li class="dropdown {{ is_drop_active('laporan') }}" >
             <a class="nav-link has-dropdown" href="#">
                 <i class="fas fa-folder-open"></i> <span>Report</span>

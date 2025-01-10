@@ -62,6 +62,14 @@
                                             {{ $productList->category == \App\Enums\ProductListCategoryEnum::OBAT_KERAS ? 'selected' : '' }}>
                                             Obat Keras
                                         </option>
+                                        <option value="{{ \App\Enums\ProductListCategoryEnum::OBAT_GENERIC }}" 
+                                            {{ $productList->category == \App\Enums\ProductListCategoryEnum::OBAT_GENERIC ? 'selected' : '' }}>
+                                            Obat Keras
+                                        </option>
+                                        <option value="{{ \App\Enums\ProductListCategoryEnum::OBAT_PATENT }}" 
+                                            {{ $productList->category == \App\Enums\ProductListCategoryEnum::OBAT_PATENT ? 'selected' : '' }}>
+                                            Obat Keras
+                                        </option>
                                         <option value="{{ \App\Enums\ProductListCategoryEnum::LAINNYA }}" 
                                             {{ $productList->category == \App\Enums\ProductListCategoryEnum::LAINNYA ? 'selected' : '' }}>
                                             Lainnya

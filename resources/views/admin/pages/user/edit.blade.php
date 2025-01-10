@@ -16,7 +16,7 @@
             @include('admin.partials.back-with-title', ['title' => 'Edit User'])
         </x-slot>
         <div>
-            <form action="{{ route('admin.user.update', $user->id) }}" enctype="multipart/form-data" method="post"
+            <form action="{{ route('admin.admin.update', $user->id) }}" enctype="multipart/form-data" method="post"
                   class="needs-validation" novalidate onkeydown="return event.key !== 'Enter';">
                 @csrf
                 @method('PATCH')
@@ -49,8 +49,18 @@
                                 <div class="form-group">
                                     <label>Role</label>
                                     <select class="form-control" name="role" id="role" required>
-                                        <option @if($user->role == \App\Models\Admin::PEGAWAI) selected @endif value="{{ \App\Models\Admin::PEGAWAI }}">Pegawai</option>
-                                        <option @if($user->role == \App\Models\Admin::OWNER) selected @endif value="{{ \App\Models\Admin::OWNER }}">Owner</option>
+                                        <option value="{{ \App\Enums\AdminRoleEnum::ADMIN }}" 
+                                        {{ $user->role == \App\Enums\AdminRoleEnum::ADMIN ? 'selected' : '' }}>
+                                        Admin
+                                    </option>
+                                    <option value="{{ \App\Enums\AdminRoleEnum::CASHIER }}" 
+                                        {{ $user->role == \App\Enums\AdminRoleEnum::CASHIER ? 'selected' : '' }}>
+                                        Kasir
+                                    </option>
+                                    <option value="{{ \App\Enums\AdminRoleEnum::STAFF }}" 
+                                        {{ $user->role == \App\Enums\AdminRoleEnum::STAFF ? 'selected' : '' }}>
+                                        Staff
+                                    </option>
                                     </select>
                                     <div class="invalid-feedback"></div>
                                 </div>
