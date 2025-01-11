@@ -203,7 +203,7 @@ Route::group([], function () {
             Route::patch('{transaction}/update', [TransactionController::class, 'update'])->name('update');
             Route::patch('{transaction}/finish', [TransactionController::class, 'finish'])->name('finish');
             Route::get('{transaction}/finish/show', [TransactionController::class, 'finishShow'])->name('finish.show');
-            Route::get('{transaction}/invoice', [InvoiceController::class, 'generate2'])->name('invoice');
+            Route::get('{transaction}/invoice', [InvoiceController::class, 'generate'])->name('invoice');
             Route::get('{transaction}/destroy', [TransactionController::class, 'destroy'])->name('destroy');
                 Route::prefix('transaction-item')->as('transaction-item.')->group(function () {
                     Route::post('{transaction}/store', [TransactionItemController::class, 'store'])->name('store');
