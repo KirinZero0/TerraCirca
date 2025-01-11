@@ -156,11 +156,11 @@
                                                         <i class="fa fa-exclamation text-warning" title="Near Expired"></i>
                                                     @endif
                                                         {{ $productStock->barcode }}</td>
-                                                    <td style="width: 30%"> {{ $productStock->name }} / {{$productStock->productList->type}}</td>
+                                                    <td style="width: 20%"> {{ $productStock->name }} / {{$productStock->productList->type}}</td>
                                                     <td style="width: 30%"> {{$productStock->productList->indication}} </td>
                                                     <td style="width: 20%">{{ formatRupiah($productStock->selling_price) }}</td>
                                                     <td style="width: 30%">
-                                                        <input type="input" class="form-control" name="quantity" min="0" required>
+                                                        <input type="number" class="form-control" name="quantity" min="1" required>
                                                     </td>
                                                     <td style="width: 10%">
                                                         <button type="submit" class="btn btn-success">Tambah</button>

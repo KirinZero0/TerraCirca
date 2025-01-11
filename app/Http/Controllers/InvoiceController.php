@@ -29,18 +29,7 @@ class InvoiceController extends Controller
     public function generate(Transaction $transaction, Request $request)
     {
         try {
-            $defaultPrinter = shell_exec('wmic printer get name, default | find "TRUE"');
-
-            // Clean the result to just get the printer name
-            $defaultPrinter = trim(preg_replace('/\s+/', ' ', $defaultPrinter));
-            
-            // Check if a default printer is found
-            if (!$defaultPrinter) {
-                // Handle the case where no default printer is set
-                echo "No default printer found!";
-                exit;
-            }
-            $connector = new WindowsPrintConnector($defaultPrinter);
+            $connector = new WindowsPrintConnector('POS 58');
             $printer = new Printer($connector);
     
             // Transaction Details
