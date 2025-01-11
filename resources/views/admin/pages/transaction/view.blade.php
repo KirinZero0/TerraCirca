@@ -25,6 +25,24 @@
         });
     });
 </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    const moneyInput = document.getElementById('moneyInput');
+    const finishButton = document.getElementById('finishButton');
+
+    // Enable/Disable submit button based on input value
+    moneyInput.addEventListener('input', function() {
+        const inputValue = moneyInput.value.trim();
+        
+        // Check if the input is not empty and is a valid number greater than zero
+        if (inputValue && !isNaN(inputValue) && parseFloat(inputValue) > 0) {
+            finishButton.disabled = false;
+        } else {
+            finishButton.disabled = true;
+        }
+    });
+});
+</script>
 @endsection
 
 @section('content')
@@ -92,12 +110,12 @@
                             @empty
                             <p class="card-text">Item Kosong</p>
                             @endforelse
-                            <form action="{{ route('admin.transaction.finish', $transaction->id) }}" method="POST">
+                            <form action="{{ route('admin.transaction.finish', $transaction->id) }}" method="POST" id="transactionForm">
                                 @csrf
                                 @method('PATCH')
                                 <h5 class="card-title">Subtotal: 
                                     <strong>
-                                    {{formatRupiah($transaction->total_amount)}}
+                                        {{ formatRupiah($transaction->total_amount) }}
                                     </strong>  
                                 </h5>
                                 <div class="input-group mb-3">
@@ -111,11 +129,12 @@
                                             placeholder="Input Amount" 
                                             aria-label="Input Amount" 
                                             aria-describedby="basic-addon1"
+                                            required
                                         >
                                     </div>
                                 </div>
                                 <h5 class="card-title" id="change"> Kembalian: </h5>
-                                <button type="submit" class="btn btn-primary mt-2">Finish</button>
+                                <button type="submit" class="btn btn-primary mt-2" id="finishButton" disabled>Finish</button>
                             </form>
                             {{-- <a id="printInvoiceBtn" class="btn btn-success" href="{{route('admin.cashier.invoice2', $reservation->id)}}">Print Invoice</a> --}}
                         </div>
