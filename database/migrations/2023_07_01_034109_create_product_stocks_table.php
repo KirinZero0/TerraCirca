@@ -18,6 +18,7 @@ class CreateProductStocksTable extends Migration
             $table->unsignedBigInteger('product_list_id');
             $table->string('name');
             $table->string('barcode')->nullable();
+            $table->string('batch')->nullable();
             $table->integer('stock')->default(0);
             $table->double('price')->default(0);
             $table->double('selling_price')->default(0);

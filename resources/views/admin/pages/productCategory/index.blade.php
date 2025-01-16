@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Kelola List Produk')
+@section('title', 'Kategori Produk')
 
 @section('css')
 
@@ -13,7 +13,7 @@
 
     <x-content>
         <x-slot name="modul">
-            <h1>Kelola List Produk</h1>
+            <h1>Kategori Produk</h1>
         </x-slot>
 
         <x-section>
@@ -21,7 +21,7 @@
             </x-slot>
 
             <x-slot name="header">
-                <h4>Data List Produk</h4>
+                <h4>Data Kategori Produk</h4>
                 <div class="card-header-form row">
                     <div>
                         <form>
@@ -35,8 +35,8 @@
                         </form>
                     </div>
                     <div class="ml-2">
-                        <a href="{{ route('admin.product.product_list.create') }}" style="background-color: rgb(26, 85, 36)" class="btn btn-sm btn-primary">
-                            Tambah Produk <i class="fas fa-plus"></i>
+                        <a href="{{ route('admin.product.product_category.create') }}" style="background-color: rgb(26, 85, 36)" class="btn btn-sm btn-primary">
+                            Tambah Kategori <i class="fas fa-plus"></i>
                         </a>
                     </div>
 
@@ -49,29 +49,23 @@
                         <thead>
                         <tr>
                             <th>No</th>
-                            <th>Code</th>
                             <th>Name</th>
-                            <th>Category</th>
-                            <th>Indication</th>
-                            <th>Type</th>
-                            <th>Supplier</th>
+                            <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @forelse($productLists as $productList)
+                        @forelse($productCategories as $productCategory)
                             <tr>
-                                <td>{{ $loop->index + $productLists->firstItem() }}</td>
+                                <td>{{ $loop->index + $productCategories->firstItem() }}</td>
+                                <td>{{ $productCategory->name }}</td>
                                 <td>
-                                    <a href="{{ route('admin.product.product_list.show', $productList->id) }}" 
-                                        class="d-inline-block text-decoration-none badge badge-primary">
-                                        {{ $productList->code }}
+                                    <a href="{{ route('admin.product.product_category.edit', $productCategory->id) }}" class="btn btn-success btn-sm">
+                                        <i class="fas fa-edit text-lg text-white"></i>
+                                    </a>
+                                    <a href="{{ route('admin.product.product_category.destroy', $productCategory->id) }}" class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash text-lg text-white"></i>
                                     </a>
                                 </td>
-                                <td>{{ $productList->name }}</td>
-                                <td>{{ $productList->productCategory->name }}</td>
-                                <td>{{ $productList->indication }}</td>
-                                <td>{{ $productList->type }}</td>
-                                <td>{{ $productList->supplier->name }}</td>
                             </tr>
                         @empty
                             <tr>
@@ -86,7 +80,7 @@
             </x-slot>
 
             <x-slot name="footer">
-                {{ $productLists->onEachSide(2)->appends($_GET)->links('admin.partials.pagination') }}
+                {{ $productCategories->onEachSide(2)->appends($_GET)->links('admin.partials.pagination') }}
             </x-slot>
         </x-section>
 

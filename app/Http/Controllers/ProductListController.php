@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\ProductCategory;
 use App\Models\ProductIn;
 use App\Models\ProductList;
 use App\Models\ProductOut;
@@ -36,8 +37,10 @@ class ProductListController extends Controller
     public function create()
     {
         $suppliers = Supplier::all();
+        $categories = ProductCategory::all();
         return view('admin.pages.productList.create', [
-            'suppliers' => $suppliers
+            'suppliers' => $suppliers,
+            'categories' => $categories
         ]);
     }
 
@@ -56,9 +59,11 @@ class ProductListController extends Controller
     public function edit(ProductList $productList)
     {        
         $suppliers = Supplier::all();
+        $categories = ProductCategory::all();
         return view('admin.pages.productList.edit', [
             'productList' => $productList,
-            'suppliers' => $suppliers
+            'suppliers' => $suppliers,
+            'categories' => $categories
         ]);
     }
 
@@ -67,7 +72,7 @@ class ProductListController extends Controller
         $validated = $request->validate([
             'code' => 'required|string|unique:product_lists,code',
             'name' => 'required|string|max:255',
-            'category' => 'required|string|max:255',
+            'product_category_id' => 'required|integer|exists:product_categories,id',
             'indication' => 'required|string|max:255',
             'type' => 'sometimes|string|max:255',
             'supplier_id' => 'required|integer|exists:suppliers,id',

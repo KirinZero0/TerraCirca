@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductInController;
 use App\Http\Controllers\ProductListController;
 use App\Http\Controllers\ProductOutController;
@@ -192,6 +193,16 @@ Route::group([], function () {
                 Route::patch('{productStock}/update', [ProductStockController::class, 'update'])->name('update');
                 Route::patch('{productStock}/unavailable', [ProductStockController::class, 'markAsUnavailable'])->name('unavailable');
                 Route::get('{productStock}/destroy', [ProductStockController::class, 'destroy'])->name('destroy');
+                
+            });
+
+            Route::prefix('product_category')->as('product_category.')->group(function () {
+                Route::get('index', [ProductCategoryController::class, 'index'])->name('index');
+                Route::get('create', [ProductCategoryController::class, 'create'])->name('create');
+                Route::get('{productCategory}/edit', [ProductCategoryController::class, 'edit'])->name('edit');
+                Route::post('store', [ProductCategoryController::class, 'store'])->name('store');
+                Route::patch('{productCategory}/update', [ProductCategoryController::class, 'update'])->name('update');
+                Route::get('{productCategory}/destroy', [ProductCategoryController::class, 'destroy'])->name('destroy');
             });
         });
 
@@ -199,6 +210,7 @@ Route::group([], function () {
             Route::get('index', [TransactionController::class, 'index'])->name('index');
             Route::get('{transaction}/show', [TransactionController::class, 'show'])->name('show');
             Route::get('export', [TransactionController::class, 'export'])->name('export');
+            Route::get('export-pos', [InvoiceController::class, 'generateDaily'])->name('export-pos');
             Route::post('store', [TransactionController::class, 'store'])->name('store');
             Route::patch('{transaction}/update', [TransactionController::class, 'update'])->name('update');
             Route::patch('{transaction}/finish', [TransactionController::class, 'finish'])->name('finish');

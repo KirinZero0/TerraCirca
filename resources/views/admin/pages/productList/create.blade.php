@@ -41,6 +41,25 @@
                 });
             });
         </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const searchInput = document.getElementById('category_search');
+                const categoryDropdown = document.getElementById('category_name');
+        
+                searchInput.addEventListener('input', function () {
+                    const searchValue = this.value.toLowerCase();
+        
+                    // Loop through all options
+                    Array.from(categoryDropdown.options).forEach(option => {
+                        if (option.value === '') return; // Ignore placeholder option
+        
+                        // Use the "data-name" attribute for a consistent lowercase comparison
+                        const optionText = option.getAttribute('data-name');
+                        option.hidden = !optionText.includes(searchValue);
+                    });
+                });
+            });
+        </script>
 @endsection
 
 @section('content')
@@ -74,15 +93,19 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Category</label>
-                                    <select class="form-control" name="category" id="product_category_select" required>
-                                        <option value="{{\App\Enums\ProductListCategoryEnum::OBAT_BEBAS}}">Obat Bebas</option>
-                                        <option value="{{\App\Enums\ProductListCategoryEnum::OBAT_BEBAS_TERBATAS}}">Obat Bebas terbatas</option>
-                                        <option value="{{\App\Enums\ProductListCategoryEnum::OBAT_KERAS}}">Obat Keras</option>
-                                        <option value="{{\App\Enums\ProductListCategoryEnum::OBAT_GENERIC}}">Obat Generic</option>
-                                        <option value="{{\App\Enums\ProductListCategoryEnum::OBAT_PATENT}}">Obat Patent</option>
-                                        <option value="{{\App\Enums\ProductListCategoryEnum::LAINNYA}}">Lainnya</option>
+                                    <!-- Search input -->
+                                    <input type="text" id="category_search" class="form-control mb-2" placeholder="Search supplier...." />
+                                
+                                    <!-- Product dropdown -->
+                                    <select class="custom-select" id="category_name" name="product_category_id" required size="5">
+                                        <option value="" disabled selected hidden>Select a Category</option>
+                                        @foreach($categories as $category)
+                                            <option value="{{ $category->id }}" data-name="{{ strtolower($category->name) }}">
+                                                {{ $category->name }}
+                                            </option>
+                                        @endforeach
                                     </select>
-                                    <div class="invalid-feedback"></div>
+                                    <div class="invalid-feedback">Please select a category from the list.</div>
                                 </div>
                                 <div class="form-group">
                                     <label>Indication</label>

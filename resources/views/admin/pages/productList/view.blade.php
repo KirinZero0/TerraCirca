@@ -36,7 +36,7 @@
                         <div class="card-body">
                             <h5 class="card-title">{{$product->name}} <span class="badge badge-secondary">{{$product->code}}</span></h5>
                             <p class="card-text">Supplier: {{$product->supplier->name}}</p>
-                            <p class="card-text">Kategori: {{$product->category}}</p>
+                            <p class="card-text">Kategori: {{$product->productCategory->name}}</p>
                             <p class="card-text">Tipe: {{$product->type}}</p>
                             </p>  
                         </div>

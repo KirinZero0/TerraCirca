@@ -26,7 +26,7 @@ trait UpdateProductStockStatus
             // Set status to NEAR_EXPIRED if expiration date is within 3 months, excluding UNAVAILABLE and EXPIRED
             ProductStock::where('status', '!=', ProductStockStatusEnum::UNAVAILABLE)
                 ->where('status', '!=', ProductStockStatusEnum::EXPIRED)
-                ->whereDate('expiration_date', '<=', now()->addMonths(3))
+                ->whereDate('expiration_date', '<=', now()->addMonths(6))
                 ->update(['status' => ProductStockStatusEnum::NEAR_EXPIRED]);
         
             // Set status to UNAVAILABLE if stock is 0

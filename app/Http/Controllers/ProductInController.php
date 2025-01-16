@@ -79,6 +79,7 @@ class ProductInController extends Controller
                     'product_list_id' => $productList->id,
                     'name'            => $productList->name,
                     'barcode'         => $request->barcode,
+                    'batch'           => $request->batch,
                     'stock'           => $request->quantity,
                     'price'           => $request->price,
                     'selling_price'   => $request->selling_price,

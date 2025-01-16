@@ -68,6 +68,11 @@
                                 <i class="far fa-circle"></i> Product Out
                             </a>
                         </li>
+                        <li {{ is_nav_active('product_category') }}>
+                            <a class="nav-link" href="{{ route('admin.product.product_category.index') }}">
+                                <i class="far fa-circle"></i> Product Category
+                            </a>
+                        </li>
             </ul>
         </li>
         @endcan

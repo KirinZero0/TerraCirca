@@ -8,6 +8,44 @@
 
 @section('js')
     <script src="{{  asset('stisla/js/upload-image.js') }}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const searchInput = document.getElementById('product_search');
+            const productDropdown = document.getElementById('product_name');
+    
+            searchInput.addEventListener('input', function () {
+                const searchValue = this.value.toLowerCase();
+    
+                // Loop through all options
+                Array.from(productDropdown.options).forEach(option => {
+                    if (option.value === '') return; // Ignore placeholder option
+    
+                    // Use the "data-name" attribute for a consistent lowercase comparison
+                    const optionText = option.getAttribute('data-name');
+                    option.hidden = !optionText.includes(searchValue);
+                });
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const searchInput = document.getElementById('category_search');
+            const categoryDropdown = document.getElementById('category_name');
+    
+            searchInput.addEventListener('input', function () {
+                const searchValue = this.value.toLowerCase();
+    
+                // Loop through all options
+                Array.from(categoryDropdown.options).forEach(option => {
+                    if (option.value === '') return; // Ignore placeholder option
+    
+                    // Use the "data-name" attribute for a consistent lowercase comparison
+                    const optionText = option.getAttribute('data-name');
+                    option.hidden = !optionText.includes(searchValue);
+                });
+            });
+        });
+    </script>
 @endsection
 
 @section('content')
@@ -49,33 +87,21 @@
                                 <!-- Category -->
                                 <div class="form-group">
                                     <label>Category</label>
-                                    <select class="form-control" name="category" id="product_category_select" required>
-                                        <option value="{{ \App\Enums\ProductListCategoryEnum::OBAT_BEBAS }}" 
-                                            {{ $productList->category == \App\Enums\ProductListCategoryEnum::OBAT_BEBAS ? 'selected' : '' }}>
-                                            Obat Bebas
-                                        </option>
-                                        <option value="{{ \App\Enums\ProductListCategoryEnum::OBAT_BEBAS_TERBATAS }}" 
-                                            {{ $productList->category == \App\Enums\ProductListCategoryEnum::OBAT_BEBAS_TERBATAS ? 'selected' : '' }}>
-                                            Obat Bebas Terbatas
-                                        </option>
-                                        <option value="{{ \App\Enums\ProductListCategoryEnum::OBAT_KERAS }}" 
-                                            {{ $productList->category == \App\Enums\ProductListCategoryEnum::OBAT_KERAS ? 'selected' : '' }}>
-                                            Obat Keras
-                                        </option>
-                                        <option value="{{ \App\Enums\ProductListCategoryEnum::OBAT_GENERIC }}" 
-                                            {{ $productList->category == \App\Enums\ProductListCategoryEnum::OBAT_GENERIC ? 'selected' : '' }}>
-                                            Obat Keras
-                                        </option>
-                                        <option value="{{ \App\Enums\ProductListCategoryEnum::OBAT_PATENT }}" 
-                                            {{ $productList->category == \App\Enums\ProductListCategoryEnum::OBAT_PATENT ? 'selected' : '' }}>
-                                            Obat Keras
-                                        </option>
-                                        <option value="{{ \App\Enums\ProductListCategoryEnum::LAINNYA }}" 
-                                            {{ $productList->category == \App\Enums\ProductListCategoryEnum::LAINNYA ? 'selected' : '' }}>
-                                            Lainnya
-                                        </option>
+                                    <!-- Search input -->
+                                    <input type="text" id="category_search" class="form-control mb-2" placeholder="Search category...." />
+                                    
+                                    <!-- Supplier dropdown -->
+                                    <select class="custom-select" id="category_name" name="product_category_id" required size="5">
+                                        <option value="" disabled hidden>Select a Category</option>
+                                        @foreach($categories as $category)
+                                            <option value="{{ $category->id }}" 
+                                                {{ $productList->product_category_id == $category->id ? 'selected' : '' }}
+                                                data-name="{{ strtolower($category->name) }}">
+                                                {{ $category->name }}
+                                            </option>
+                                        @endforeach
                                     </select>
-                                    <div class="invalid-feedback"></div>
+                                    <div class="invalid-feedback">Please select a supplier from the list.</div>
                                 </div>
 
                                 <div class="form-group">

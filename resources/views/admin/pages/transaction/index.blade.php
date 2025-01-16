@@ -7,6 +7,13 @@
 @endsection
 
 @section('js')
+<script>
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'p' || event.key === 'P') {  // Detect 'p' key press
+            document.getElementById('printInvoiceLink').click(); // Trigger the click
+        }
+    });
+</script>
 @endsection
 
 @section('content')
@@ -44,8 +51,15 @@
                     </div>
                     <div class="ml-2">
                         <a href="{{ route('admin.transaction.export') }}" style="background-color: rgb(26, 85, 36)" class="btn btn-primary">
-                            Export Transaksi <i class="fas fa-download"></i>
+                            Export Transaksi
                         </a>
+                    </div>
+                    <div class="ml-2">
+                        <a id="printInvoiceLink" href="{{ route('admin.transaction.export-pos') }}" data-toggle="tooltip"
+                            data-placement="top" title="" data-original-title="Invoice"
+                            class="btn btn-sm btn-primary delete">
+                             <i class="fas fa-scroll"></i>
+                         </a>
                     </div>
                 </div>
             </x-slot>
