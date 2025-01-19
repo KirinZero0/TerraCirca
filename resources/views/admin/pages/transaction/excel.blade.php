@@ -30,11 +30,21 @@
         <td colspan="5" style="height: 20px;"></td> <!-- Empty row with a fixed height -->
     </tr>
     <tr>
-        <td colspan="4"></td>
+        <td colspan="4">Total</td>
         <td>{{ 
             formatRupiah($transactions->sum(function ($transaction) 
             {
             return $transaction->total_amount;
+            })) 
+            }}
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4">Profit</td>
+        <td>{{ 
+            formatRupiah($transactions->sum(function ($transaction) 
+            {
+            return $transaction->profit_amount;
             })) 
             }}
         </td>

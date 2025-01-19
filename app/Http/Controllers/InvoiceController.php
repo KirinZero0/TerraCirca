@@ -99,6 +99,7 @@ class InvoiceController extends Controller
             $printer = new Printer($connector);
             $day = Carbon::today()->toDateString();
             $totalAmount = $transactions->sum('total_amount');
+            $totalProfitAmount = $transactions->sum('profit_amount');
             // Print Header
             $printer->setJustification(Printer::JUSTIFY_LEFT);
             $printer->text("APOTEK TERRA CIRCA\n");
@@ -127,6 +128,7 @@ class InvoiceController extends Controller
             // Print Transaction Summary
             $printer->setEmphasis(true);
             $printer->text(sprintf("%-20s %15s\n", "TOTAL TRANSAKSI", formatRupiah($totalAmount)));
+            $printer->text(sprintf("%-20s %15s\n", "TOTAL KEUNTUNGAN", formatRupiah($totalProfitAmount)));
             $printer->setEmphasis(false);
 
             // Footer

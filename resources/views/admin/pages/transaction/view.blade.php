@@ -173,6 +173,8 @@
                                                         <i class="fa fa-exclamation text-danger" title="Expired"></i>
                                                     @elseif($productStock->status == 'Near Expired')
                                                         <i class="fa fa-exclamation text-warning" title="Near Expired"></i>
+                                                    @elseif($productStock->status == 'Unavailable')
+                                                        <i class="fa fa-skull text-danger" title="Unavailable"></i>
                                                     @endif
                                                         {{ $productStock->barcode }}</td>
                                                     <td style="width: 20%"> {{ $productStock->name }} / {{$productStock->productList->type}}</td>

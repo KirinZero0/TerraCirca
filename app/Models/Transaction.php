@@ -42,8 +42,13 @@ class Transaction extends Model
     }
 
     public function calculateTotalAmount()
-{
-    $this->total_amount = $this->transactionItems()->sum('total_amount');
-    $this->save();
-}
+    {
+        $this->total_amount = $this->transactionItems()->sum('total_amount');
+        $this->save();
+    }
+    public function calculateProfitAmount()
+    {
+        $this->profit_amount = $this->transactionItems()->sum('profit_amount');
+        $this->save();
+    }
 }

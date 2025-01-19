@@ -59,18 +59,20 @@ class TransactionController extends Controller
                     ->orWhere('phone', 'like', '%'.\request()->get('search').'%')
                     ->get();
 
-        $productStocks = ProductStock::whereNotIn('status', [
-                        ProductStockStatusEnum::UNAVAILABLE, 
-                        ProductStockStatusEnum::EXPIRED
-                    ])
-                    ->where(function ($query) {
-                        $search = \request()->get('search');
-                        $query->where('barcode', 'like', '%' . $search . '%')
-                            ->orWhere('name', 'like', '%' . $search . '%');
+                    $productStocks = ProductStock::where(function ($query) {
+                        $query->where('status', 'Available')
+                              ->where(function ($subQuery) {
+                                  $search = \request()->get('search');
+                                  $subQuery->where('barcode', 'like', '%' . $search . '%')
+                                           ->orWhere('name', 'like', '%' . $search . '%');
+                              });
                     })
-                    ->orWhereHas('productList', function ($query) {
+                    ->orWhere(function ($query) {
                         $search = \request()->get('search');
-                        $query->where('indication', 'like', '%' . $search . '%');
+                        $query->where('status', 'Available')
+                              ->whereHas('productList', function ($subQuery) use ($search) {
+                                  $subQuery->where('indication', 'like', '%' . $search . '%');
+                              });
                     })
                     ->get();
 

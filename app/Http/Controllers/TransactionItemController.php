@@ -44,19 +44,23 @@ class TransactionItemController extends Controller
 
                 $newQuantity = $existingItem->quantity;
                 $newTotalAmount = $newQuantity * $productStock->selling_price;
+                $newProfitAmount = $newQuantity * $productStock->profit;
 
                 $existingItem->update([
                     'total_amount' => $newTotalAmount,
+                    'profit_amount' => $newProfitAmount
                 ]);
             } else {
                 $transaction->transactionItems()->create([
                     'product_stock_id' => $productStock->id,
                     'quantity' => $request->quantity,
-                    'total_amount' => $productStock->selling_price * $request->quantity
+                    'total_amount' => $productStock->selling_price * $request->quantity,
+                    'profit_amount' => $productStock->profit * $request->quantity
                 ]);
             }
     
             $transaction->calculateTotalAmount();
+            $transaction->calculateProfitAmount();
 
             if ($warningMessage) {
                 return redirect()->back()

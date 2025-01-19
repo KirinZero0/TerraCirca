@@ -21,6 +21,7 @@ class CreateTransactionsTable extends Migration
             $table->double('total_amount')->default(0);
             $table->double('paid_amount')->default(0);
             $table->double('change_amount')->default(0);
+            $table->double('profit_amount')->default(0);
             $table->date('date');
             $table->string('status');
             $table->timestamps();

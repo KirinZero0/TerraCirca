@@ -18,6 +18,7 @@ class CreateTransactionItemsTable extends Migration
             $table->unsignedBigInteger('transaction_id');
             $table->unsignedBigInteger('product_stock_id');
             $table->double('total_amount');
+            $table->double('profit_amount');
             $table->integer('quantity');
             $table->timestamps();
         });
