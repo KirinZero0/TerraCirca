@@ -27,6 +27,11 @@ class ProductStock extends Model
     {
         return $this->hasMany(ProductIn::class, 'product_stock_id');
     }
+
+    public function audits(): HasMany
+    {
+        return $this->hasMany(ProductStockAudit::class, 'product_stock_id');
+    }
     
     public function productOuts(): HasMany
     {

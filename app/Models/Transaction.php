@@ -31,6 +31,11 @@ class Transaction extends Model
         return $this->belongsTo(Patient::class, 'patient_id');
     }
 
+    public function admin(): BelongsTo
+    {
+        return $this->belongsTo(Admin::class, 'admin_id');
+    }
+
     public function transactionItems(): HasMany
     {
         return $this->hasMany(TransactionItem::class, 'transaction_id');

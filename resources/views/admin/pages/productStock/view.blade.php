@@ -93,13 +93,61 @@
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered table-md">
+                                <thead>
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Quantity</th>
+                                        <th>Date</th>
+                                    </tr>
+                                    </thead>
                                 <tbody>
                                     @forelse($productOuts as $productOut)
                                         <tr>
                                                 <td style="width: 20%" class="{{ $stock->status == 'Unavailable' ? 'striked' : '' }}">{{ $productOut->type }}</td>
                                                 <td style="width: 30%" class="{{ $stock->status == 'Unavailable' ? 'striked' : '' }}">{{ $productOut->quantity }}</td>
-                                                <td style="width: 30%" class="{{ $stock->status == 'Unavailable' ? 'striked' : '' }}">{{ $productOut->stock }}</td>
-                                                <td style="width: 30%" class="{{ $stock->status == 'Unavailable' ? 'striked' : '' }}">{{ $productOut->date->format('F j, Y') }}</td>
+                                                <td style="width: 30%" class="{{ $stock->status == 'Unavailable' ? 'striked' : '' }}">{{ $productOut->created_at->format('F j, Y H:i') }}</td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="8">
+                                                <p class="text-center"><em>There is no record.</em></p>
+                                            </td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Audits</h4>
+                        <div class="ml-2">
+                            <a href="{{ route('admin.product.product_stock.audit.create', $stock->id) }}" style="background-color: rgb(26, 85, 36)" class="btn btn-sm btn-primary">
+                                <i class="fas fa-plus"></i>
+                            </a>
+                        </div>
+                    </div>      
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-md">
+                                <thead>
+                                    <tr>
+                                        <th>Previous Stock</th>
+                                        <th>Audited Stock</th>
+                                        <th>Note</th>
+                                        <th>Date</th>
+                                        <th>Auditor</th>
+                                    </tr>
+                                    </thead>
+                                <tbody>
+                                    @forelse($audits as $audit)
+                                        <tr>
+                                                <td style="width: 20%">{{ $audit->previous_stock }}</td>
+                                                <td style="width: 20%">{{ $audit->audited_stock }}</td>
+                                                <td style="width: 30%">{{ $audit->note }}</td>
+                                                <td style="width: 30%">{{ $audit->audit_date->format('F j, Y H:i') }}</td>
+                                                <td style="width: 30%">{{ $audit->admin->name }}</td>
                                         </tr>
                                     @empty
                                         <tr>

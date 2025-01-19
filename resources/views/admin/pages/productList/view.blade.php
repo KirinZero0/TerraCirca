@@ -67,6 +67,14 @@
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered table-md">
+                                    <thead>
+                                        <tr>
+                                            <th>Barcode</th>
+                                            <th>Batch</th>
+                                            <th>Stock</th>
+                                            <th>Status</th>
+                                        </tr>
+                                        </thead>
                                     <tbody>
                                         @forelse($stocks as $stock)
                                             <tr>
@@ -76,7 +84,7 @@
                                                             {{ $stock->barcode }}
                                                         </a>
                                                     </td>
-                                                    <td style="width: 30%">{{ $stock->name }}</td>
+                                                    <td style="width: 30%">{{ $stock->batch }}</td>
                                                     <td style="width: 30%">{{ $stock->stock }}</td>
                                                     <td style="width: 30%">{{ $stock->status }}
                                                         @if($stock->status == 'Expired')

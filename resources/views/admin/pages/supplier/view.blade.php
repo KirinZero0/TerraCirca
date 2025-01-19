@@ -68,6 +68,14 @@
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered table-md">
+                                    <thead>
+                                        <tr>
+                                            <th>Code</th>
+                                            <th>Name</th>
+                                            <th>Category</th>
+                                            <th>Type</th>
+                                        </tr>
+                                        </thead>
                                     <tbody>
                                         @forelse($lists as $list)
                                             <tr>
@@ -78,7 +86,7 @@
                                                         </a>
                                                     </td>
                                                     <td style="width: 30%">{{ $list->name }}</td>
-                                                    <td style="width: 30%">{{ $list->category }}</td>
+                                                    <td style="width: 30%">{{ $list->productCategory->name }}</td>
                                                     <td style="width: 30%">{{ $list->type }}</td>
                                             </tr>
                                         @empty

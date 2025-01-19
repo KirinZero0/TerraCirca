@@ -17,6 +17,7 @@ class CreateTransactionsTable extends Migration
             $table->id();
             $table->string('reference_id');
             $table->unsignedBigInteger('patient_id')->nullable();
+            $table->unsignedBigInteger('admin_id')->nullable();
             $table->double('total_amount')->default(0);
             $table->double('paid_amount')->default(0);
             $table->double('change_amount')->default(0);

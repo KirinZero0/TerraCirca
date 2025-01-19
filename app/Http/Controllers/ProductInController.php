@@ -60,7 +60,7 @@ class ProductInController extends Controller
                 'product_list_id' => $productList->id,
                 'price' => $request->price,
                 'quantity' => $request->quantity,
-                'date' => $request->date
+                'date' => now()
             ]);
             $productIn->saveOrFail();
         
@@ -83,6 +83,7 @@ class ProductInController extends Controller
                     'stock'           => $request->quantity,
                     'price'           => $request->price,
                     'selling_price'   => $request->selling_price,
+                    'profit'          => $request->selling_price - $request->price,
                     'expiration_date' => $request->expiration_date,
                     'status'          => ProductStockStatusEnum::AVAILABLE
                 ]);

@@ -60,9 +60,13 @@ class ProductStockController extends Controller
     {
         $productOuts = $productStock->productOuts()->where('type', 'like', '%' . request()->get('search') . '%')
         ->get();
+
+        $audits      = $productStock->audits;
+
         return view('admin.pages.productStock.view', [
             'stock'  => $productStock,
-            'productOuts'   => $productOuts
+            'productOuts'   => $productOuts,
+            'audits'        => $audits
         ]);
     }
 

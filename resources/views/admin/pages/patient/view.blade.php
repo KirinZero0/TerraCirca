@@ -74,6 +74,14 @@
                             <div class="table-responsive">
                                 <h5 class="mb-3">Transaksi dan Checkup</h5>
                                 <table class="table table-bordered table-md">
+                                    <thead>
+                                        <tr>
+                                            <th>Transaction</th>
+                                            <th>Amount</th>
+                                            <th>Cashier</th>
+                                            <th>Date</th>
+                                        </tr>
+                                        </thead>
                                     <tbody>
                                         @forelse($transactions as $transaction)
                                             <tr>
@@ -84,7 +92,8 @@
                                                         </a>
                                                     </td>
                                                     <td style="width: 30%">{{ formatRupiah($transaction->total_amount) }}</td>
-                                                    <td style="width: 30%">{{ $transaction->date->format('F j, Y') }}</td>
+                                                    <td style="width: 30%">{{ $transaction->admin->name }}</td>
+                                                    <td style="width: 30%">{{ $transaction->created_at->format('F j, Y H:i') }}</td>
                                             </tr>
                                         @empty
                                             <tr>

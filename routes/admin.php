@@ -8,6 +8,7 @@ use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductInController;
 use App\Http\Controllers\ProductListController;
 use App\Http\Controllers\ProductOutController;
+use App\Http\Controllers\ProductStockAuditController;
 use App\Http\Controllers\ProductStockController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TransactionController;
@@ -193,6 +194,11 @@ Route::group([], function () {
                 Route::patch('{productStock}/update', [ProductStockController::class, 'update'])->name('update');
                 Route::patch('{productStock}/unavailable', [ProductStockController::class, 'markAsUnavailable'])->name('unavailable');
                 Route::get('{productStock}/destroy', [ProductStockController::class, 'destroy'])->name('destroy');
+                Route::prefix('audit')->as('audit.')->group(function () {
+                    Route::get('{productStock}/create', [ProductStockAuditController::class, 'create'])->name('create');
+                    Route::post('{productStock}/store', [ProductStockAuditController::class, 'store'])->name('store');
+                    Route::delete('{productStockAudit}/undo', [ProductStockAuditController::class, 'undo'])->name('undo');
+                });
                 
             });
 

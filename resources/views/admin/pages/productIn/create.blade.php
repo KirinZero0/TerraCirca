@@ -41,6 +41,48 @@
             });
         });
     </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const priceInput = document.querySelector('input[name="price"]');
+            const sellingPriceInput = document.querySelector('input[name="selling_price"]');
+            
+            // Create a profit and profit percentage display element
+            const profitDisplay = document.createElement('div');
+            const profitPercentageDisplay = document.createElement('div');
+            
+            profitDisplay.classList.add('text-info', 'mt-2'); // Add styling for profit
+            profitPercentageDisplay.classList.add('text-info', 'mt-2'); // Add styling for profit percentage
+            
+            profitDisplay.innerHTML = "Profit: 0"; // Initial profit display
+            profitPercentageDisplay.innerHTML = "Profit Percentage: 0%"; // Initial profit percentage display
+            
+            // Append both profit and percentage display below the selling price input field
+            sellingPriceInput.parentElement.appendChild(profitDisplay);
+            sellingPriceInput.parentElement.appendChild(profitPercentageDisplay);
+            
+            function calculateProfit() {
+                // Parse the input values as floating-point numbers
+                const price = parseFloat(priceInput.value) || 0;
+                const sellingPrice = parseFloat(sellingPriceInput.value) || 0;
+                
+                const profit = sellingPrice - price; // Calculate the profit
+                const profitPercentage = price > 0 ? ((profit / price) * 100).toFixed(2) : 0; // Calculate percentage
+                
+                // Update the profit display
+                profitDisplay.innerHTML = `Profit: ${profit.toLocaleString('id-ID', {
+                    style: 'currency',
+                    currency: 'IDR',
+                })}`;
+                
+                // Update the profit percentage display
+                profitPercentageDisplay.innerHTML = `Profit Percentage: ${profitPercentage}%`;
+            }
+
+            // Attach event listeners to the price and selling price fields
+            priceInput.addEventListener('input', calculateProfit);
+            sellingPriceInput.addEventListener('input', calculateProfit);
+        });
+    </script>
 @endsection
 
 @section('content')
@@ -78,15 +120,12 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Price per piece</label>
-                                    <input type="text" class="form-control" name="price"
-                                           value="{{ old('price') }}" required>
-                                    <div class="invalid-feedback"></div>
+                                    <input type="text" class="form-control" name="price" value="{{ old('price') }}" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Selling Price per piece</label>
-                                    <input type="text" class="form-control" name="selling_price"
-                                           value="{{ old('selling_price') }}" required>
-                                    <div class="invalid-feedback"></div>
+                                    <input type="text" class="form-control" name="selling_price" value="{{ old('selling_price') }}" required>
+                                    <!-- The profit will be dynamically displayed below this field -->
                                 </div>
                                 <div class="form-group">
                                     <label>Quantity</label>
@@ -110,21 +149,6 @@
                                     <label id="product_type_view">Expiration Date</label>
                                     <input type="date" class="form-control" name="expiration_date"
                                            value="{{ old('expiration_date') }}" required>
-                                    <div class="invalid-feedback"></div>
-                                </div>
-    {{--                            <div class="form-group">
-                                    <label>Tipe</label>
-                                    <select class="form-control" name="type" id="product_type_select" required>
-                                        <option value="{{ \App\Models\Product::MASUK }}">Barang Masuk</option>
-                                        <option value="{{ \App\Models\Product::KELUAR }}">Barang Keluar</option>
-                                        <option value="{{ \App\Models\Product::RETURN }}">Barang Retur</option>
-                                    </select>
-                                    <div class="invalid-feedback"></div>
-                                </div>--}}
-                                <div class="form-group">
-                                    <label id="product_type_view">Date</label>
-                                    <input type="date" class="form-control" name="date"
-                                           value="{{ old('date') }}" required>
                                     <div class="invalid-feedback"></div>
                                 </div>
                             </div>

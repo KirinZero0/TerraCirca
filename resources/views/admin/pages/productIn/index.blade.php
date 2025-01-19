@@ -62,7 +62,7 @@
                                 <td>{{ $productIn->productList->name }}</td>
                                 <td>{{ formatRupiah($productIn->price) }}</td>
                                 <td>{{ $productIn->quantity }}</td>
-                                <td>{{ $productIn->date->format('F j, Y') }}</td>
+                                <td>{{ $productIn->created_at->format('F j, Y H:i') }}</td>
                                 {{-- <td>
                                         <a href="{{ route('admin.barang.editStatus', $product->id) }}"
                                            class="btn btn-icon btn-sm btn-success" data-toggle="tooltip"

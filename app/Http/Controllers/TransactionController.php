@@ -94,6 +94,7 @@ class TransactionController extends Controller
             'reference_id' => $ref,
             'date' => now(),
             'status' => TransactionStatusEnum::ONGOING,
+            'admin_id' => $request->user()->id,
         ]);
         $transaction->saveOrFail();
 

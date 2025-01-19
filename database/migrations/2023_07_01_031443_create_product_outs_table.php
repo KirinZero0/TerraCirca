@@ -25,9 +25,9 @@ class CreateProductOutsTable extends Migration
             $table->unsignedBigInteger('transaction_id')->nullable();
             $table->unsignedBigInteger('product_list_id');
             $table->unsignedBigInteger('product_stock_id');
-            $table->double('quantity')->default(0);
+            $table->integer('quantity')->default(0);
             $table->string('type');
-            $table->date('date');
+            $table->dateTime('date');
             $table->timestamps();
         });
     }
