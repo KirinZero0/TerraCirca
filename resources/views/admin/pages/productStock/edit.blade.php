@@ -104,12 +104,6 @@
                             <div class="card-body">
                                 <div class="section-title mt-0">Informasi Dasar</div>
                                 <div class="form-group">
-                                    <label>Barcode</label>
-                                    <input type="text" class="form-control" name="barcode"
-                                           value="{{ $stock->barcode }}" required>
-                                    <div class="invalid-feedback"></div>
-                                </div>
-                                <div class="form-group">
                                     <label>Batch</label>
                                     <input type="text" class="form-control" name="batch"
                                            value="{{ $stock->batch }}" required>

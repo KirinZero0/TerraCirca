@@ -25,6 +25,11 @@ class ProductList extends Model
         return $this->hasMany(ProductStock::class, 'product_list_id');
     }
 
+    public function currentProductStock(): BelongsTo
+    {
+        return $this->belongsTo(ProductStock::class, 'current_product_stock_id');
+    }
+
     public function productIns(): HasMany
     {
         return $this->hasMany(ProductIn::class, 'product_list_id');

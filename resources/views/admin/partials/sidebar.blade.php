@@ -45,7 +45,7 @@
             <ul class="dropdown-menu">
                         <li {{ is_nav_active('product_list') }}>
                             <a class="nav-link" href="{{ route('admin.product.product_list.index') }}">
-                                <i class="far fa-circle"></i> Product List
+                                <i class="far fa-circle"></i> Master Product
                             </a>
                         </li>
                         <li {{ is_nav_active('product_stock') }}>
@@ -70,7 +70,7 @@
                         </li>
                         <li {{ is_nav_active('product_category') }}>
                             <a class="nav-link" href="{{ route('admin.product.product_category.index') }}">
-                                <i class="far fa-circle"></i> Product Category
+                                <i class="far fa-circle"></i> Categories
                             </a>
                         </li>
             </ul>

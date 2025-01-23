@@ -17,10 +17,12 @@ class CreateProductListsTable extends Migration
             $table->id();
             $table->string('code')->unique();
             $table->string('name');
+            $table->string('barcode')->nullable();
             $table->unsignedBigInteger('product_category_id')->nullable();
             $table->string('indication')->nullable();
             $table->string('type')->nullable();
             $table->unsignedBigInteger('supplier_id')->nullable();
+            $table->unsignedBigInteger('current_product_stock_id')->nullable();
             $table->timestamps();
         });
     }

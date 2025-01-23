@@ -27,7 +27,7 @@ trait UpdateProductStockStatus
             ProductStock::where('status', '!=', ProductStockStatusEnum::UNAVAILABLE)
                 ->where('status', '!=', ProductStockStatusEnum::EXPIRED)
                 ->whereDate('expiration_date', '<=', now()->addMonths(6))
-                ->update(['status' => ProductStockStatusEnum::NEAR_EXPIRED]);
+                ->update(['status' => ProductStockStatusEnum::EXPIRED]);
         
             // Set status to UNAVAILABLE if stock is 0
             ProductStock::where('stock', 0)

@@ -101,9 +101,14 @@
                                             </option>
                                         @endforeach
                                     </select>
-                                    <div class="invalid-feedback">Please select a supplier from the list.</div>
+                                    <div class="invalid-feedback">Please select a category from the list.</div>
                                 </div>
 
+                                <div class="form-group">
+                                    <label>Barcode</label>
+                                    <input type="text" class="form-control" name="indication" value="{{ old('barcode', $productList->barcode) }}" required>
+                                    <div class="invalid-feedback"></div>
+                                </div>
                                 <div class="form-group">
                                     <label>Indication</label>
                                     <input type="text" class="form-control" name="indication" value="{{ old('indication', $productList->indication) }}" required>

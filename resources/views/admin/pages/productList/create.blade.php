@@ -94,7 +94,7 @@
                                 <div class="form-group">
                                     <label>Category</label>
                                     <!-- Search input -->
-                                    <input type="text" id="category_search" class="form-control mb-2" placeholder="Search supplier...." />
+                                    <input type="text" id="category_search" class="form-control mb-2" placeholder="Search category...." />
                                 
                                     <!-- Product dropdown -->
                                     <select class="custom-select" id="category_name" name="product_category_id" required size="5">
@@ -106,6 +106,12 @@
                                         @endforeach
                                     </select>
                                     <div class="invalid-feedback">Please select a category from the list.</div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Barcode</label>
+                                    <input type="text" class="form-control" name="barcode"
+                                           value="{{ old('barcode') }}" required>
+                                    <div class="invalid-feedback"></div>
                                 </div>
                                 <div class="form-group">
                                     <label>Indication</label>

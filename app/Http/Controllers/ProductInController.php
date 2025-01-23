@@ -64,7 +64,7 @@ class ProductInController extends Controller
             ]);
             $productIn->saveOrFail();
         
-            $productStock = ProductStock::where('barcode', $request->barcode)
+            $productStock = ProductStock::where('batch', $request->batch)
                 ->where('product_list_id', $productList->id)
                 ->first();
         
@@ -78,7 +78,7 @@ class ProductInController extends Controller
                 $productStock->fill([
                     'product_list_id' => $productList->id,
                     'name'            => $productList->name,
-                    'barcode'         => $request->barcode,
+                    'barcode'         => $productList->barcode,
                     'batch'           => $request->batch,
                     'stock'           => $request->quantity,
                     'price'           => $request->price,
@@ -91,6 +91,9 @@ class ProductInController extends Controller
 
                 $productIn->update([
                     'product_stock_id' => $productStock->id
+                ]);
+                $productList->update([
+                    'current_product_stock_id' => $productStock->id
                 ]);
             }
         });

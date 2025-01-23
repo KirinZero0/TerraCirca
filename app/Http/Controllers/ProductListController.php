@@ -24,7 +24,8 @@ class ProductListController extends Controller
             $search = \request()->get('search');
             $query->where('code', 'like', '%' . $search . '%')
                 ->orWhere('name', 'like', '%' . $search . '%')
-                ->orWhere('indication', 'like', '%' . $search . '%');
+                ->orWhere('indication', 'like', '%' . $search . '%')
+                ->orWhere('barcode', 'like', '%' . $search . '%');
         })
             ->orderBy('id', 'DESC')
             ->paginate(10);
@@ -72,6 +73,7 @@ class ProductListController extends Controller
         $validated = $request->validate([
             'code' => 'required|string|unique:product_lists,code',
             'name' => 'required|string|max:255',
+            'barcode' => 'required|string|max:255',
             'product_category_id' => 'required|integer|exists:product_categories,id',
             'indication' => 'required|string|max:255',
             'type' => 'sometimes|string|max:255',

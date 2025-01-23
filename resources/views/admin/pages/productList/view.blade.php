@@ -35,6 +35,7 @@
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">{{$product->name}} <span class="badge badge-secondary">{{$product->code}}</span></h5>
+                            <p class="card-text">Barcode: {{$product->barcode}}</p>
                             <p class="card-text">Supplier: {{$product->supplier->name}}</p>
                             <p class="card-text">Kategori: {{$product->productCategory->name}}</p>
                             <p class="card-text">Tipe: {{$product->type}}</p>
@@ -69,10 +70,10 @@
                                 <table class="table table-bordered table-md">
                                     <thead>
                                         <tr>
-                                            <th>Barcode</th>
                                             <th>Batch</th>
                                             <th>Stock</th>
                                             <th>Status</th>
+                                            <th>Expiration Date</th>
                                         </tr>
                                         </thead>
                                     <tbody>
@@ -81,10 +82,9 @@
                                                     <td>
                                                         <a href="{{ route('admin.product.product_stock.show', $stock->id) }}" 
                                                             class="d-inline-block text-decoration-none badge badge-primary">
-                                                            {{ $stock->barcode }}
+                                                            {{ $stock->batch }}
                                                         </a>
                                                     </td>
-                                                    <td style="width: 30%">{{ $stock->batch }}</td>
                                                     <td style="width: 30%">{{ $stock->stock }}</td>
                                                     <td style="width: 30%">{{ $stock->status }}
                                                         @if($stock->status == 'Expired')
@@ -93,6 +93,7 @@
                                                         <i class="fa fa-exclamation text-warning" title="Near Expired"></i>
                                                     @endif
                                                     </td>
+                                                    <td style="width: 30%">{{ $stock->expiration_date->format('F j, Y') }}</td>
                                             </tr>
                                         @empty
                                             <tr>
